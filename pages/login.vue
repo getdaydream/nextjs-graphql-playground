@@ -86,6 +86,7 @@
 
 <script>
 // 用户登录、注册页面
+import {mapMutations} from 'vuex';
 import {http} from '../common/http';
 
 export default {
@@ -98,6 +99,9 @@ export default {
 
       page: 'login'
     };
+  },
+  computed: {
+    ...mapMutations(['setToken'])
   },
   watch: {
     // 切换登陆注册时，重置账号密码
@@ -180,7 +184,7 @@ export default {
     async login() {
       const data = await http.post('/auth/login', {email:this.email,password:this.password})
       if (data.token) {
-        localStorage.setItem('token', data.token);
+        this.setToken(data.token)
       }
     },
     // 注册
@@ -317,7 +321,7 @@ h6 {
 
 h6::before {
   left: 30px;
-  content: '';
+  content: "";
   border-top: 1px solid #b5b5b5;
   display: block;
   position: absolute;
@@ -327,7 +331,7 @@ h6::before {
 
 h6::after {
   right: 30px;
-  content: '';
+  content: "";
   border-top: 1px solid #b5b5b5;
   display: block;
   position: absolute;
