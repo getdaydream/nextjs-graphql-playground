@@ -8,7 +8,7 @@ const http = axios.create({
       // `transformRequest` allows changes to the request data before it is sent to the server
       // This is only applicable for request methods 'PUT', 'POST', and 'PATCH'
       // console.log(data);
-      data
+      return JSON.stringify(data)
     }
   ],
   // `transformResponse` allows changes to the response data to be made before
