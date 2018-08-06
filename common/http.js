@@ -1,7 +1,8 @@
 import axios from 'axios';
+import store from '../store/index'
 
 const http = axios.create({
-  baseURL: 'http://localhost:3001/api',
+  baseURL: 'http://127.0.0.1:3001/api',
   headers: { 'Content-Type': 'application/json' },
   transformRequest: [
     data => {
@@ -25,13 +26,12 @@ const http = axios.create({
 });
 
 // before request hook
-// before request hook
 http.interceptors.request.use(
   (config) => {
-    if (localStorage.getItem('token')) {
+    if (store.state.token) {
       Object.assign(config, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${store.state.token}`
         }
       });
     }
