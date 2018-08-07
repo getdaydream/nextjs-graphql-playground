@@ -1,24 +1,41 @@
 <template>
   <div>
     <div>id</div>
-    <div>{{ movie.title }}</div>
+    <div>{{ movie }}</div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import cookie from 'cookie';
+import {http} from '../../common/http'
 import store from '../../store';
+import axios from 'axios'
 
 export default {
  async asyncData ({params, req}) {
-   console.error(req.headers)
-    const {data:movie} = await axios.get(`http://127.0.0.1:3001/api/movies/${params.id}`);
-    return {movie}
+   const cookies = cookie.parse(req.headers.cookie)
+   if (cookies.token) {
+     const {data} = await axios({
+       method: 'GET',
+       url: 'http://127.0.0.1:3001/api/movies/' + params.id,
+       headers: {
+         Authorization: 'Bearer ' + cookies.token
+       }
+     })
+     return {movie:data}
+   }
   },
   data() {
     return {
-      movie: {}
     }
+  },
+  async mounted() {
+    const {data} = await axios({
+       method: 'GET',
+       url: 'http://127.0.0.1:3001/api/movies/' + this.$route.params.id,
+       withCredentials: true
+     })
+     console.log(data)
   }
 }
 </script>
