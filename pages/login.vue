@@ -121,11 +121,6 @@ export default {
       this.password = this.password.trim();
     }
   },
-  activated() {
-    if (localStorage.getItem('token')) {
-      this.$router.replace({ path: '/' });
-    }
-  },
   methods: {
     // 验证邮箱字段
     isEmailValid() {
@@ -182,10 +177,7 @@ export default {
     },
     // 登陆
     async login() {
-      const data = await http.post('/auth/login', {email:this.email,password:this.password})
-      if (data.token) {
-        this.setToken(data.token)
-      }
+      const res = await http.post('/auth/login', {password:this.password, email:this.email})
     },
     // 注册
     signup() {
@@ -321,7 +313,7 @@ h6 {
 
 h6::before {
   left: 30px;
-  content: "";
+  content: '';
   border-top: 1px solid #b5b5b5;
   display: block;
   position: absolute;
@@ -331,7 +323,7 @@ h6::before {
 
 h6::after {
   right: 30px;
-  content: "";
+  content: '';
   border-top: 1px solid #b5b5b5;
   display: block;
   position: absolute;
