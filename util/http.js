@@ -18,9 +18,9 @@ const http = axios.create({
   transformResponse: [
     data => {
       // Do whatever you want to transform the data
-      const res = JSON.parse(data);
-      console.log(res);
-      return res;
+      data = JSON.parse(data);
+      console.log(data);
+      return data;
     },
   ],
   timeout: 5000,
