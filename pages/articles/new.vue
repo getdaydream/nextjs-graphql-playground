@@ -19,6 +19,8 @@ export default {
       previewStyle: 'vertical',
       height: '300px',
     });
+    const ele = document.querySelector('.te-switch-button.wysiwyg');
+    ele.textContent = 'Preview'
   },
 };
 </script>
