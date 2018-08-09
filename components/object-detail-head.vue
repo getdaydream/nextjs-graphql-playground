@@ -1,11 +1,9 @@
 <template>
-  <div class="wrapper card">
+  <div class="object-detail-head card">
     <!-- 资源图片 -->
-    <div class="poster-wrapper">
-      <img
-        :src="cover"
-        class="poster">
-    </div>
+    <img
+      :src="cover"
+      class="poster">
     <!-- 资源信息 -->
     <div class="info-box">
       <div class="resource-title fs-20">
@@ -43,34 +41,31 @@ import AppButton from './app-button';
 
 export default {
   components: {
-    AppButton
+    AppButton,
   },
   data() {
     return {
-      resourceMarkDialogVisible: false
+      resourceMarkDialogVisible: false,
     };
   },
-  props: ['cover', 'title', 'id', 'ratingValue', 'ratingCount', 'year'],  //eslint-disable-line
-  methods: {
-  }
+  props: ['cover', 'title', 'id', 'ratingValue', 'ratingCount', 'year'], //eslint-disable-line
+  methods: {},
 };
 </script>
 
 <style scoped>
-.wrapper {
+.object-detail-head {
   position: relative;
   width: 700px;
-  margin: 40px auto;
+  margin: 0 auto;
   padding: 20px;
   min-height: 150px;
   display: flex;
 }
 
 .poster-wrapper {
-  width: 120px;
-  height: 160px;
   position: absolute;
-  top: -24px;
+  bottom: 0;
   left: 20px;
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
   border-radius: 1px;
@@ -78,12 +73,11 @@ export default {
 
 .poster {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 100%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-  height: 100%;
+  left: 20px;
+  bottom: 15px;
+  width: 120px;
+  height: auto;
+  box-shadow: 0 4px 20px 0 rgba(0,0,0,.3);
 }
 
 .info-box {

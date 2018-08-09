@@ -18,12 +18,28 @@ const http = axios.create({
   transformResponse: [
     data => {
       // Do whatever you want to transform the data
-      data = JSON.parse(data);
-      console.log(data);
+      let parsedData;
+      try {
+        parsedData = JSON.parse(data);
+      } catch (e) {
+        parsedData = undefined;
+      }
+      if (parsedData) data = parsedData;
       return data;
     },
   ],
   timeout: 5000,
 });
+
+// receive response hook
+http.interceptors.response.use(
+  response => response,
+  error => {
+    if (error) {
+      console.log(error.response.status);
+    }
+    return Promise.reject(error.response);
+  },
+);
 
 export { http };

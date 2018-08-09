@@ -3,8 +3,7 @@
     :class="[
       type ? 'app-button-' + type : ''
     ]"
-    class="app-button"
-  >
+    class="app-button">
 
     <i
       v-if="icon"
@@ -37,6 +36,7 @@ export default {
   text-align: center;
   line-height: 30px;
   min-width: 60px;
+  padding: 0 8px;
   margin-right: 10px;
 }
 
