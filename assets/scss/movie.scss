@@ -1,0 +1,11 @@
+.movie {
+  width: 100%;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &-operation {
+    width: 700px;
+  }
+}
