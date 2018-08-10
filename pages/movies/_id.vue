@@ -6,7 +6,8 @@
       :rating-count="movie.ratingCount"
       :rating-value="movie.ratingValue"
       :title="movie.title + ' ' + movie.originalTitle"
-      :year="movie.year"/>
+      :year="movie.year"
+      class="shadow"/>
     <div class="movie-operation card">
       <nuxt-link :to="`/articles/new?category=movie&id=${$route.params.id}`">
         <app-button>发表评价</app-button>

@@ -5,6 +5,8 @@
 </template>
 
 <style lang="scss">
+@import "~bootstrap/scss/bootstrap";
+
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -27,9 +29,12 @@ html {
 }
 
 .card {
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.3);
   padding: 20px;
   background-color: #2c2c41;
   border-radius: 1px;
+}
+
+.shadow {
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
 }
 </style>
