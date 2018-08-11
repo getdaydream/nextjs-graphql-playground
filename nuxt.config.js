@@ -1,6 +1,13 @@
 module.exports = {
   router: {
     middleware: 'auth',
+    extendRoutes(routes) {
+      routes.push({
+        name: 'article-edit',
+        path: '/article/:id/edit',
+        component: './pages/article/new.vue'
+      })
+    }
   },
   /*
   ** Headers of the page

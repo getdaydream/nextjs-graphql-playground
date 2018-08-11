@@ -8,8 +8,8 @@
       :title="movie.title + ' ' + movie.originalTitle"
       :year="movie.year"
       class="shadow"/>
-    <div class="movie-operation card">
-      <nuxt-link :to="`/articles/new?category=movie&id=${$route.params.id}`">
+    <div class="movie-operation">
+      <nuxt-link :to="`/article/new?category=movie&id=${$route.params.id}`">
         <app-button>发表评价</app-button>
       </nuxt-link>
       <app-button>上传图片</app-button>
@@ -20,7 +20,7 @@
 <script>
 import { http } from '../../util/http';
 import ObjectDetailHead from '../../components/object-detail-head.vue';
-import AppButton from '../../components/app-button.vue'
+import AppButton from '../../components/app-button.vue';
 
 export default {
   async asyncData({ params, req, redirect }) {
@@ -43,7 +43,7 @@ export default {
   },
   components: {
     ObjectDetailHead,
-    AppButton
+    AppButton,
   },
   data() {
     return {};

@@ -1,7 +1,9 @@
 <template>
   <section class="container">
     <div>
-      主页
+      <nuxt-link to="/articles/new">
+        <button class="btn btn-light">发表文章</button>
+      </nuxt-link>
     </div>
   </section>
 </template>
