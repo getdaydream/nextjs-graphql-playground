@@ -1,12 +1,12 @@
 <template>
-  <div class="object-detail-head card">
+  <div class="object-detail-head">
     <!-- 资源图片 -->
     <img
       :src="cover"
       class="poster">
     <!-- 资源信息 -->
     <div class="info-box">
-      <div class="resource-title fs-20">
+      <div class="resource-title">
         {{ title + (year ? ` (${year})` : '' ) }}
       </div>
       <!-- 资源标记 -->
@@ -57,7 +57,6 @@ export default {
 .object-detail-head {
   position: relative;
   width: 700px;
-  margin: 0 auto;
   padding: 20px;
   min-height: 150px;
   display: flex;
