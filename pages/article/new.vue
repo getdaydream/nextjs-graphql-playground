@@ -39,6 +39,9 @@ export default {
 
     if (this.$route.name === 'article-edit') {
       const articleId = this.$route.params.id;
+      if (!articleId) {
+        return;
+      }
       const { data } = await http.get(`/articles/${articleId}`);
       this.title = data.title;
       this.simplemde.value(data.content);
@@ -86,7 +89,7 @@ export default {
         '/articles/' + this.$route.params.id + '/publish',
         { id: this.$route.params.id },
       );
-      this.$router.push('/article/' + this.$route.params.id)
+      this.$router.push('/article/' + this.$route.params.id);
     },
   },
 };
