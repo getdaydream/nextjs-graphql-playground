@@ -1,13 +1,15 @@
 <template>
-  <div class="object-detail-head">
+  <div
+    class="object-detail-head"
+    @click="enterDetail">
     <!-- 资源图片 -->
     <img
-      :src="cover"
+      :src="item.cover"
       class="poster">
     <!-- 资源信息 -->
     <div class="info-box">
       <div class="resource-title">
-        {{ title + (year ? ` (${year})` : '' ) }}
+        {{ item.title + (item.year ? ` (${item.year})` : '' ) }}
       </div>
       <!-- 资源标记 -->
       <div class="resource-mark-info">
@@ -20,17 +22,17 @@
     <div class="score-box">
       <div class="score-title">豆瓣评分</div>
       <div
-        v-if="ratingValue"
+        v-if="item.ratingValue"
         class="rating-value">
-        {{ Number(ratingValue).toFixed(1) }}
+        {{ Number(item.ratingValue).toFixed(1) }}
         <span class="rating-value-slash">/</span>
         <span class="rating-value-total">10</span>
       </div>
       <div v-else>
         尚无评分
       </div>
-      <div v-if="ratingCount">
-        {{ ratingCount }} 人评价
+      <div v-if="item.ratingCount">
+        {{ item.ratingCount }} 人评价
       </div>
     </div>
   </div>
@@ -48,8 +50,30 @@ export default {
       resourceMarkDialogVisible: false,
     };
   },
-  props: ['cover', 'title', 'id', 'ratingValue', 'ratingCount', 'year'], //eslint-disable-line
-  methods: {},
+  props: {
+    category: {
+      type: String,
+      required: true,
+    },
+    item: {
+      type: Object,
+      default() {
+        return {
+          id: '',
+          title: '',
+          year: '',
+          cover: '',
+          ratingValue: '',
+          ratingCount: '',
+        };
+      },
+    },
+  },
+  methods: {
+    enterDetail() {
+      this.$router.push(`/${this.category}/${this.item.id}`)
+    },
+  },
 };
 </script>
 
@@ -60,6 +84,7 @@ export default {
   padding: 20px;
   min-height: 150px;
   display: flex;
+  cursor: pointer;
 }
 
 .poster-wrapper {
@@ -76,7 +101,7 @@ export default {
   bottom: 15px;
   width: 120px;
   height: auto;
-  box-shadow: 0 4px 20px 0 rgba(0,0,0,.3);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
 }
 
 .info-box {

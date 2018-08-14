@@ -1,13 +1,23 @@
 module.exports = {
+  /*
+  ** Global CSS
+  */
+  css: ['element-ui/lib/theme-chalk/index.css'],
+
+  /*
+  ** Add element-ui in our app, see plugins/element-ui.js file
+  */
+  plugins: ['@/plugins/element-ui'],
+
   router: {
     middleware: 'auth',
     extendRoutes(routes) {
       routes.push({
         name: 'article-edit',
         path: '/article/:id/edit',
-        component: './pages/article/new.vue'
-      })
-    }
+        component: './pages/article/new.vue',
+      });
+    },
   },
   /*
   ** Headers of the page

@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="article-title"> {{ article.title }} </h1>
     <div
-      v-html="article.html"
+      v-html="articleHtml"
       class="article-content"/>
   </div>
 </template>
@@ -19,6 +19,11 @@ export default {
     } catch (e) {
       return redirect('/login');
     }
+  },
+  computed: {
+    articleHtml() {
+      return marked(this.article.content);
+    },
   },
 };
 </script>
