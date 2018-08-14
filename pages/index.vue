@@ -1,10 +1,11 @@
 <template>
   <section class="container">
-    <div>
-      <nuxt-link to="/article/new">
-        <button class="btn btn-light">发表文章</button>
-      </nuxt-link>
-    </div>
+    <nuxt-link to="/article/new">
+      <button class="btn btn-dark">写文章</button>
+    </nuxt-link>
+    <button class="btn btn-dark">收藏夹</button>
+    <button class="btn btn-dark">分享图片</button>
+    <button class="btn btn-dark">分享链接</button>
   </section>
 </template>
 
@@ -15,12 +16,6 @@ export default {
 </script>
 
 <style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+
 </style>
 
