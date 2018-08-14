@@ -46,7 +46,8 @@
 import { http } from '../../util/http';
 
 export default {
-  validate({ query }) {
+  validate({ query, route }) {
+    // 新建文章参数验证
     if (!query.category) {
       return true;
     }
@@ -57,6 +58,7 @@ export default {
     if (categories.indexOf(query.category) === 1) {
       return false;
     }
+    // TODO 编辑文章id必须为数字
     return true;
   },
   async asyncData({ route, params }) {
