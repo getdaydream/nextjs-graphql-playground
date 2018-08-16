@@ -13,9 +13,9 @@
       </div>
       <!-- 资源标记 -->
       <div class="resource-mark-info">
-        <app-button @click.native="resourceMarkDialogVisible = true">想看</app-button>
-        <app-button @click.native="resourceMarkDialogVisible = true">在看</app-button>
-        <app-button @click.native="resourceMarkDialogVisible = true">看过</app-button>
+        <app-button @click="collect('todo')">想看</app-button>
+        <app-button @click="collect('doing')">在看</app-button>
+        <app-button @click="collect('done')">看过</app-button>
       </div>
     </div>
     <!-- 评分信息 -->
@@ -40,6 +40,7 @@
 
 <script>
 import AppButton from './app-button';
+import { http } from '../util/http';
 
 export default {
   components: {
@@ -71,7 +72,16 @@ export default {
   },
   methods: {
     enterDetail() {
-      this.$router.push(`/${this.category}/${this.item.id}`)
+      this.$router.push(`/${this.category}/${this.item.id}`);
+    },
+    collect(status) {
+      const params = {
+        category: this.category,
+        targetId: this.item.id,
+        status,
+        comment: '',
+      };
+      http.post('/collection', params);
     },
   },
 };
