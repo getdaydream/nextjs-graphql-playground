@@ -3,7 +3,8 @@
     :class="[
       type ? 'app-button-' + type : ''
     ]"
-    class="app-button">
+    class="app-button"
+    @click="handleClick">
 
     <i
       v-if="icon"
@@ -18,13 +19,18 @@ export default {
     // 'default' | 'switch'
     type: {
       type: String,
-      default: 'default'
+      default: 'default',
     },
     icon: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
+  methods: {
+    handleClick() {
+      this.$emit('click');
+    },
+  },
 };
 </script>
 

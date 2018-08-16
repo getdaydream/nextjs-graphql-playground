@@ -48,6 +48,7 @@ import { http } from '../../util/http';
 export default {
   validate({ query, route }) {
     // 新建文章参数验证
+    console.log(query)
     if (!query.category) {
       return true;
     }
@@ -55,7 +56,7 @@ export default {
       return false;
     }
     const categories = ['book', 'movie'];
-    if (categories.indexOf(query.category) === 1) {
+    if (categories.indexOf(query.category) === -1) {
       return false;
     }
     // TODO 编辑文章id必须为数字
