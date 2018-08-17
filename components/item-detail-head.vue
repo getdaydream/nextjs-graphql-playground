@@ -81,7 +81,7 @@ export default {
         status,
         comment: '',
       };
-      http.post('/collection', params);
+      http.post('/collections', params);
     },
   },
 };

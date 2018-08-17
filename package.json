@@ -22,6 +22,7 @@
     "mavon-editor": "^2.6.15",
     "nuxt": "^1.0.0",
     "popper.js": "^1.14.4",
+    "qiniu-js": "^2.4.0",
     "simplemde": "^1.11.2"
   },
   "devDependencies": {
