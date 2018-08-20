@@ -23,7 +23,8 @@
     "nuxt": "^1.0.0",
     "popper.js": "^1.14.4",
     "qiniu-js": "^2.4.0",
-    "simplemde": "^1.11.2"
+    "simplemde": "^1.11.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
