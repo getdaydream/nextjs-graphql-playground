@@ -1,3 +1,18 @@
 img {
   object-fit: contain;
 }
+
+.upload {
+  display: flex;
+  &-left {
+    flex: 1;
+  }
+  &-right {
+    flex: 1;
+  }
+}
+
+.preview-image {
+  width: 120px;
+  height: auto;
+}
