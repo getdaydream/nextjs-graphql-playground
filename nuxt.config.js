@@ -17,6 +17,14 @@ module.exports = {
         path: '/article/:id/edit',
         component: './pages/article/new.vue',
       });
+      const categories = ['movie', 'book'];
+      categories.forEach(category => {
+        routes.push({
+          name: `${category}-image-upload`,
+          path: `/${category}/:id/upload`,
+          component: './pages/upload/index.vue',
+        })
+      })
     },
   },
   /*
