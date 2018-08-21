@@ -8,7 +8,9 @@
       <nuxt-link :to="`/article/new?category=${$route.params.category}&id=${$route.params.id}`">
         <app-button>发表评价</app-button>
       </nuxt-link>
-      <app-button>上传图片</app-button>
+      <nuxt-link :to="`/${$route.params.category}/${$route.params.id}/upload`">
+        <app-button>上传图片</app-button>
+      </nuxt-link>
     </div>
   </div>
 </template>

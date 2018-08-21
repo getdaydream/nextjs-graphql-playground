@@ -125,7 +125,7 @@ export default {
     // 发布图片
     publish() {
       const files = this.fileList.map(f => {
-        const file = this.fileDataMap[f.uid] || {
+        const fileData = this.fileDataMap[f.uid] || {
           title: f.name.split('.')[0],
           size: f.size,
           description: '',
@@ -137,8 +137,8 @@ export default {
           size: f.response.size,
           height: f.response.height,
           width: f.response.width,
-          title: file.title,
-          description: file.description,
+          title: fileData.title,
+          description: fileData.description,
         };
       });
       const params = { files };
