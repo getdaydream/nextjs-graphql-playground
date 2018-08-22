@@ -5,6 +5,9 @@
       :category="$route.params.category"
       class="shadow"/>
     <div class="movie-operation">
+      <nuxt-link :to="`/annotation/new?sid=${$route.params.id}`">
+        <app-button>写笔记</app-button>
+      </nuxt-link>
       <nuxt-link :to="`/article/new?category=${$route.params.category}&id=${$route.params.id}`">
         <app-button>发表评价</app-button>
       </nuxt-link>

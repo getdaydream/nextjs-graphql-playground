@@ -12,10 +12,17 @@ module.exports = {
   router: {
     middleware: 'auth',
     extendRoutes(routes) {
+      // 文章编辑页面
       routes.push({
         name: 'article-edit',
         path: '/article/:id/edit',
         component: './pages/article/new.vue',
+      });
+      // 读书笔记编辑页面
+      routes.push({
+        name: 'annotation',
+        path: '/annotation/:id/edit',
+        component: './pages/annotation/new.vue',
       });
       const categories = ['movie', 'book'];
       categories.forEach(category => {
@@ -23,8 +30,8 @@ module.exports = {
           name: `${category}-image-upload`,
           path: `/${category}/:id/upload`,
           component: './pages/upload/index.vue',
-        })
-      })
+        });
+      });
     },
   },
   /*
