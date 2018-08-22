@@ -88,11 +88,11 @@ export default {
       if (!this.fileDataMap[uid]) {
         this.fileDataMap[uid] = {
           title: file.name.split('.')[0],
-          size: file.size,
           description: '',
         };
       }
     },
+    // 上传图片至七牛云
     async upload(file) {
       const { data } = await http.get('/files/uploadToken');
       const { token } = data;
@@ -124,13 +124,16 @@ export default {
     },
     // 发布图片
     publish() {
+      if (this.fileList.length === 0) {
+        return;
+      }
+
       const files = this.fileList.map(f => {
         const fileData = this.fileDataMap[f.uid] || {
           title: f.name.split('.')[0],
-          size: f.size,
           description: '',
         };
-        return {
+        const result = {
           key: f.response.key,
           mimeType: f.raw.type,
           hash: f.response.hash,
@@ -140,6 +143,16 @@ export default {
           title: fileData.title,
           description: fileData.description,
         };
+        if (this.$route.params.id) {
+          const reg = /\/([a-z]+)\/.+\/upload/;
+          //  path e.g. "/movie/26754896/upload"
+          const category = this.$route.path.match(reg)[1];
+          Object.assign(result, {
+            resourceId: this.$route.params.id,
+            category,
+          });
+        }
+        return result;
       });
       const params = { files };
       http.post('/files', params);
