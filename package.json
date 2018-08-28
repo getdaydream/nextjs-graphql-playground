@@ -13,14 +13,16 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@mdi/font": "^2.6.95",
     "axios": "^0.18.0",
-    "bootstrap": "^4.1.3",
+    "bulma": "^0.7.1",
     "cookie": "^0.3.1",
     "element-ui": "^2.4.6",
     "jquery": "^3.3.1",
     "marked": "^0.4.0",
     "mavon-editor": "^2.6.15",
     "nuxt": "^1.0.0",
+    "nuxt-buefy": "^0.1.0",
     "popper.js": "^1.14.4",
     "qiniu-js": "^2.4.0",
     "simplemde": "^1.11.2",

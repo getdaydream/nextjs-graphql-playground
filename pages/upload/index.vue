@@ -162,7 +162,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/scss/upload.scss';
+@import '~/assets/scss/pages/upload.scss';
 </style>
 
 

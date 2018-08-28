@@ -51,5 +51,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/scss/annotation-new.scss';
+@import '../../assets/scss/pages/annotation-new.scss';
 </style>

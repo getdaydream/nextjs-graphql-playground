@@ -87,5 +87,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/scss/search.scss';
+@import '~/assets/scss/pages/search.scss';
 </style>

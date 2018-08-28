@@ -51,6 +51,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/scss/resource-item.scss';
+@import '~/assets/scss/pages/resource-item.scss';
 </style>
 

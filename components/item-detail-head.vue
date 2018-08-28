@@ -1,6 +1,6 @@
 <template>
   <div
-    class="object-detail-head"
+    class="object-detail-head box"
     @click="enterDetail">
     <!-- 资源图片 -->
     <img
@@ -121,7 +121,6 @@ export default {
 .resource-title {
   padding-right: 20px;
   font-weight: bolder;
-  color: white;
 }
 
 .score-box {
@@ -131,10 +130,6 @@ export default {
   padding-left: 30px;
 }
 
-.score-title {
-  color: rgba(255, 255, 255, 0.3);
-}
-
 .rating-value {
   color: #fff280;
   font-size: 42px;
@@ -142,12 +137,10 @@ export default {
 
 .rating-value-slash {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.3);
 }
 
 .rating-value-total {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.3);
 }
 
 .resource-mark-info {

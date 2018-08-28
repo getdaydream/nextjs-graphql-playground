@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+  <div
+    class="container"
+    style="padding-bottom:2000px;">
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
@@ -19,24 +21,24 @@
         :value="tag.id"/>
     </el-select>
 
-    <button
-      type="button"
-      class="btn btn-light"
-      @click="save">保存</button>
-    <button
+    <span
+      class="button"
+      @click="save">保存</span>
+    <span
       v-if="article && !article.published"
       type="button"
-      class="btn btn-danger"
-      @click="publish">发布</button>
+      class="button is-danger"
+      @click="publish">发布</span>
+
 
 
     <div class="input-group mb-3">
-      <input
+      <el-input
         v-model="title"
         type="text"
         class="form-control"
         placeholder="点此输入标题"
-        @blur="handleTitleInputBlur">
+        @blur="handleTitleInputBlur"/>
     </div>
     <textarea id="markdown-editor"/>
   </div>
@@ -48,7 +50,6 @@ import { http } from '../../util/http';
 export default {
   validate({ query, route }) {
     // 新建文章参数验证
-    console.log(query)
     if (!query.category) {
       return true;
     }
@@ -83,7 +84,6 @@ export default {
       this.title = this.article.title;
       initialValue = this.article.content;
     }
-    import('bootstrap');
     const SimpleMDE = require('simplemde');
     this.simplemde = new SimpleMDE({
       element: document.getElementById('markdown-editor'),
