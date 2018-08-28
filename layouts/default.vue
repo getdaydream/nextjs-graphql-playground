@@ -35,7 +35,7 @@
               </span>
               <span>文章</span>
             </nuxt-link>
-            <!-- <nuxt-link
+            <nuxt-link
               to="article"
               class="navbar-item">
               <span class="icon has-text-warning">
@@ -50,14 +50,25 @@
                 <i class="mdi mdi-heart mdi-24px"/>
               </span>
               <span>收藏</span>
-            </nuxt-link> -->
+            </nuxt-link>
           </div>
           <div class="navbar-end"/>
         </div>
       </div>
     </nav>
 
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <div
+            class="box"
+            style="height:248px;"/>
+        </div>
+      </div>
+    </section>
+
     <main>
+
       <nuxt/>
     </main>
   </div>

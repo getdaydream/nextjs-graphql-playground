@@ -2,6 +2,7 @@ nav {
   transition: all 0.3s ease 0s;
 }
 
-main {
-  padding-top: 84px;
+a.navbar-item > .icon:not(:last-child) {
+  margin-left: -0.5em;
+  margin-right: 0.5em;
 }
