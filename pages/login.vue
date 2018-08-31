@@ -88,7 +88,7 @@
 // 用户登录、注册页面
 import axios from 'axios';
 import {mapMutations} from 'vuex';
-import { http } from '../util/http';
+import { request } from '../util/request';
 
 export default {
   name: 'Login',
@@ -178,13 +178,13 @@ export default {
     },
     // 登陆
     async login() {
-      const {data} = await http.post('/auth/login', {password:this.password, email:this.email})
+      const {data} = await request.post('/auth/login', {password:this.password, email:this.email})
       if (data.message) {
         this.$router.push('/')
       }
       // await axios({
       //   method: 'POST',
-      //   url: 'http://127.0.0.1:3001/api/auth/login',
+      //   url: 'request://127.0.0.1:3001/api/auth/login',
       //   data: {password:this.password, email:this.email},
       //   withCredentials: true
       // })

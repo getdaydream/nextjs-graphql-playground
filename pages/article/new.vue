@@ -1,51 +1,45 @@
 <template>
-  <div
-    class="container"
-    style="padding-bottom:2000px;">
+  <section class="section">
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 
-    <el-select
-      v-model="tags"
-      multiple
-      filterable
-      allow-create
-      default-first-option
-      placeholder="请选择文章标签"
-      @change="tagsChange">
-      <el-option
-        v-for="tag in tagOptions"
-        :key="tag.id"
-        :label="tag.name"
-        :value="tag.id"/>
-    </el-select>
+    <div class="container">
+      <button
+        class="button"
+        @click="save">保存</button>
+      <button
+        v-if="article && !article.published"
+        type="button"
+        class="button is-danger"
+        @click="publish">发布</button>
 
-    <span
-      class="button"
-      @click="save">保存</span>
-    <span
-      v-if="article && !article.published"
-      type="button"
-      class="button is-danger"
-      @click="publish">发布</span>
-
-
-
-    <div class="input-group mb-3">
-      <el-input
+      <b-input
         v-model="title"
         type="text"
-        class="form-control"
         placeholder="点此输入标题"
+        maxlength="30"
+        size="is-medium"
         @blur="handleTitleInputBlur"/>
+
+      <textarea id="markdown-editor"/>
+
+      <b-taginput
+        v-model="tags"
+        :data="filteredTags"
+        :allow-new="true"
+        autocomplete
+        field="name"
+        icon="label"
+        placeholder="添加标签"
+        class="tag-input"
+        @typing="getFilteredTags"/>
     </div>
-    <textarea id="markdown-editor"/>
-  </div>
+  </section>
 </template>
 
 <script>
-import { http } from '../../util/http';
+import { request } from '../../util/request';
 
 export default {
   validate({ query, route }) {
@@ -64,7 +58,7 @@ export default {
     return true;
   },
   async asyncData({ route, params }) {
-    const { data } = await http.get('/tags');
+    const { data } = await request.get('/tags');
     const tagOptions = data;
 
     if (route.name === 'article-edit') {
@@ -72,11 +66,25 @@ export default {
       if (!articleId) {
         return;
       }
-      const { data } = await http.get(`/articles/${articleId}`);
+      const { data } = await request.get(`/articles/${articleId}`);
       const tags = data.tags.map(v => v.id);
       return { article: data, tagOptions, tags };
     }
     return { article: null, tagOptions };
+  },
+  data() {
+    this.simplemde = null;
+    return {
+      title: '',
+      requesting: false,
+      tags: [],
+      filteredTags: [],
+    };
+  },
+  computed: {
+    content() {
+      return this.simplemde.value();
+    },
   },
   async mounted() {
     let initialValue = '';
@@ -89,19 +97,8 @@ export default {
       element: document.getElementById('markdown-editor'),
       initialValue,
     });
-  },
-  data() {
-    this.simplemde = null;
-    return {
-      title: '',
-      requesting: false,
-      tags: [],
-    };
-  },
-  computed: {
-    content() {
-      return this.simplemde.value();
-    },
+
+    this.filteredTags = this.tagOptions;
   },
   methods: {
     async handleTitleInputBlur() {
@@ -109,7 +106,7 @@ export default {
         if (this.title) {
           if (this.requesting) return;
           this.requesting = true;
-          const { data } = await http.post('/articles', {
+          const { data } = await request.post('/articles', {
             title: this.title,
             content: this.content,
             tags: this.tags,
@@ -127,17 +124,22 @@ export default {
         content: this.content,
         tags: this.tags,
       };
-      const { data } = await http.put(
+      const { data } = await request.put(
         '/articles/' + this.$route.params.id + '/update',
         params,
       );
     },
     async publish() {
-      const { data } = await http.put(
+      const { data } = await request.put(
         '/articles/' + this.$route.params.id + '/publish',
         { id: this.$route.params.id },
       );
       this.$router.push('/article/' + this.$route.params.id);
+    },
+    getFilteredTags(text) {
+      this.filteredTags = this.tagOptions.filter(v => {
+        return v.name.toLowerCase().indexOf(text.toLowerCase()) > -1;
+      });
     },
     async tagsChange(value) {
       console.log(value);
@@ -145,6 +147,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '~/assets/scss/pages/article-new.scss';
+</style>
+
 
 <style lang="scss">
 .editor-toolbar {

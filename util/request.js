@@ -2,7 +2,7 @@ import axios from 'axios';
 
 axios.defaults.withCredentials = true;
 
-const http = axios.create({
+const request = axios.create({
   baseURL: 'http://127.0.0.1:3001/api',
   headers: { 'Content-Type': 'application/json' },
   transformRequest: [
@@ -32,7 +32,7 @@ const http = axios.create({
 });
 
 // receive response hook
-http.interceptors.response.use(
+request.interceptors.response.use(
   response => response,
   error => {
     if (error) {
@@ -42,4 +42,4 @@ http.interceptors.response.use(
   },
 );
 
-export { http };
+export { request };
