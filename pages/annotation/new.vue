@@ -1,23 +1,32 @@
 <template>
-  <div class="container">
-    <button
-      class="btn btn-dark"
-      @click="commit">提交</button>
-    <el-input
-      v-model="position"
-      placeholder="position"/>
-    <el-input
-      v-model="content"
-      placeholder="content"
-      type="textarea"/>
-    <el-input
-      placeholder="comment"
-      v-model="comment"/>
-  </div>
+  <section class="section">
+    <div class="container">
+      <button
+        class="button"
+        @click="commit">提交</button>
+
+      <b-input
+        v-model="position"
+        placeholder="position"
+      />
+
+      <b-input
+        v-model="content"
+        placeholder="content"
+        type="textarea"
+      />
+
+      <b-input
+        v-model="comment"
+        placeholder="comment"
+        type="textarea"
+      />
+    </div>
+  </section>
 </template>
 
 <script>
-import { http } from '../../util/http';
+import { request } from '../../util/request';
 
 export default {
   validate({ query }) {
@@ -42,7 +51,7 @@ export default {
         content: this.content,
         comment: this.comment,
       };
-      const { data } = await http.post('/annotation', params);
+      const { data } = await request.post('/annotation', params);
       console.log(data);
       this.$router.push(`/annotation/${data.id}`);
     },

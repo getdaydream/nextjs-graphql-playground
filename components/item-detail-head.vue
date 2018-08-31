@@ -13,9 +13,17 @@
       </div>
       <!-- 资源标记 -->
       <div class="resource-mark-info">
-        <app-button @click="collect('todo')">想看</app-button>
-        <app-button @click="collect('doing')">在看</app-button>
-        <app-button @click="collect('done')">看过</app-button>
+        <div class="buttons has-addons">
+          <button
+            class="button"
+            @click="collect('todo')">想看</button>
+          <button
+            class="button"
+            @click="collect('doing')">在看</button>
+          <button
+            class="button"
+            @click="collect('done')">看过</button>
+        </div>
       </div>
     </div>
     <!-- 评分信息 -->
@@ -39,18 +47,9 @@
 </template>
 
 <script>
-import AppButton from './app-button';
-import { http } from '../util/http';
+import { request } from '../util/request';
 
 export default {
-  components: {
-    AppButton,
-  },
-  data() {
-    return {
-      resourceMarkDialogVisible: false,
-    };
-  },
   props: {
     category: {
       type: String,
@@ -70,6 +69,11 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      resourceMarkDialogVisible: false,
+    };
+  },
   methods: {
     enterDetail() {
       this.$router.push(`/${this.category}/${this.item.id}`);
@@ -81,7 +85,7 @@ export default {
         status,
         comment: '',
       };
-      http.post('/collections', params);
+      request.post('/collections', params);
     },
   },
 };

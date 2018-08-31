@@ -1,52 +1,51 @@
 <template>
-  <div class="container">
-    <button
-      class="btn btn-dark"
-      @click="publish">
-      发布图片
-    </button>
-    <div class="upload">
-      <div class="upload-left">
-        <el-upload
-          action=""
-          accept="image/jpg, image/jpeg, image/png, image/gif"
-          list-type="picture"
-          :file-list="fileList"
-          :auto-upload="false"
-          :on-change="handleChange"
-          :on-remove="handleRemove"
-          :on-preview="handlePreview">
-          <app-button>点击上传</app-button>
-        </el-upload>
-      </div>
-      <div class="upload-right">
-        <template v-if="inspectedFile">
-          <img
-            :src="inspectedFile.url"
-            class="preview-image"
-            style="display:block;">
-          标题
-          <el-input v-model="fileDataMap[inspectedFile.uid].title"/>
-          描述
-          <el-input v-model="fileDataMap[inspectedFile.uid].description"/>
-
-        </template>
+  <section class="section">
+    <div class="container">
+      <button
+        :class="{'is-loading': requesting}"
+        class="button"
+        @click="publish">
+        发布图片
+      </button>
+      <div class="upload">
+        <div class="upload-left">
+          <el-upload
+            :file-list="fileList"
+            :auto-upload="false"
+            :on-change="handleChange"
+            :on-remove="handleRemove"
+            :on-preview="handlePreview"
+            action=""
+            accept="image/jpg, image/jpeg, image/png, image/gif"
+            list-type="picture">
+            <button class="button is-primary">点击上传</button>
+          </el-upload>
+        </div>
+        <div class="upload-right">
+          <template v-if="inspectedFile">
+            <img
+              :src="inspectedFile.url"
+              class="preview-image"
+              style="display:block;">
+            标题
+            <b-input v-model="fileDataMap[inspectedFile.uid].title"/>
+            描述
+            <b-input v-model="fileDataMap[inspectedFile.uid].description"/>
+          </template>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
 import * as qiniu from 'qiniu-js';
-import { http } from '../../util/http';
-import AppButton from '../../components/app-button.vue';
+import { request } from '../../util/request';
 
 export default {
-  components: {
-    AppButton,
-  },
   data() {
     return {
+      requesting: false,
       fileList: [],
       inspectedFile: null,
 
@@ -94,7 +93,7 @@ export default {
     },
     // 上传图片至七牛云
     async upload(file) {
-      const { data } = await http.get('/files/uploadToken');
+      const { data } = await request.get('/files/uploadToken');
       const { token } = data;
       const { uid } = file;
       const ext = file.name.split('.').pop();
@@ -124,10 +123,10 @@ export default {
     },
     // 发布图片
     publish() {
-      if (this.fileList.length === 0) {
+      if (this.fileList.length === 0 || this.requesting) {
         return;
       }
-
+      this.requesting = true;
       const files = this.fileList.map(f => {
         const fileData = this.fileDataMap[f.uid] || {
           title: f.name.split('.')[0],
@@ -155,7 +154,15 @@ export default {
         return result;
       });
       const params = { files };
-      http.post('/files', params);
+      request
+        .post('/files', params)
+        .then(() => {
+          this.requesting = false;
+          this.$router.push('/gallery');
+        })
+        .catch(() => {
+          this.requesting = true;
+        });
     },
   },
 };
