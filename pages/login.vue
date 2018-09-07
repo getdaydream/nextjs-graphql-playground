@@ -87,7 +87,8 @@
 <script>
 // 用户登录、注册页面
 import axios from 'axios';
-import {mapMutations} from 'vuex';
+import { mapMutations } from 'vuex';
+import isEmail from 'validator/lib/isEmail';
 import { request } from '../util/request';
 
 export default {
@@ -98,11 +99,11 @@ export default {
       email: '',
       password: '',
 
-      page: 'login'
+      page: 'login',
     };
   },
   computed: {
-    ...mapMutations(['setToken'])
+    ...mapMutations(['setToken']),
   },
   watch: {
     // 切换登陆注册时，重置账号密码
@@ -120,31 +121,28 @@ export default {
     },
     password() {
       this.password = this.password.trim();
-    }
+    },
   },
   methods: {
     // 验证邮箱字段
     isEmailValid() {
       if (!this.email.trim()) {
-        console.log('请输入邮箱')
+        console.log('请输入邮箱');
         return false;
       }
-      // if (!emailPattern.test(this.email)) {
-      //   this.$message({
-      //     type: 'warning',
-      //     message: '请输入正确格式的邮箱'
-      //   });
-      //   return false;
-      // }
+      if (isEmail(this.email)) {
+        this.$message.warning('请输入正确格式的邮箱');
+        return false;
+      }
       return true;
     },
     // 验证密码字段
     isPasswordValid() {
       if (!this.password.trim()) {
-        console.log('请输入密码')
+        console.log('请输入密码');
       }
       if (this.password.length < 8) {
-        console.log('密码长度不能小于8位')
+        console.log('密码长度不能小于8位');
         return false;
       }
       return true;
@@ -152,7 +150,7 @@ export default {
     // 验证昵称字段
     isUsernameValid() {
       if (!this.username.length) {
-        console.log('请输入昵称')
+        console.log('请输入昵称');
         return false;
       }
       // if (!usernamePattern.test(this.username)) {
@@ -178,21 +176,21 @@ export default {
     },
     // 登陆
     async login() {
-      const {data} = await request.post('/auth/login', {password:this.password, email:this.email})
-      if (data.message) {
-        this.$router.push('/')
+      try {
+        const resp = await request.post('/auth/login', {
+          password: this.password,
+          email: this.email,
+        });
+        if (resp.data.message) {
+          this.$router.push('/');
+        }
+      } catch (e) {
+        console.log(e);
       }
-      // await axios({
-      //   method: 'POST',
-      //   url: 'request://127.0.0.1:3001/api/auth/login',
-      //   data: {password:this.password, email:this.email},
-      //   withCredentials: true
-      // })
     },
     // 注册
-    signup() {
-    },
-  }
+    signup() {},
+  },
 };
 </script>
 

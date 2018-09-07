@@ -27,7 +27,8 @@
     "popper.js": "^1.14.4",
     "qiniu-js": "^2.4.0",
     "simplemde": "^1.11.2",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "validator": "^10.7.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
