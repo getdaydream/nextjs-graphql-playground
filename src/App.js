@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
-import { hot } from 'react-hot-loader';
-import Counter from './page/counter';
+import React from 'react';
 
-class App extends Component {
+class App extends React.Component {
+  state = {
+    count: 0,
+  };
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({
+        count: this.state.count + 1,
+      });
+    }, 1000);
+  }
+
   render() {
-    return (
-      <div>
-        <Counter />
-      </div>
-    );
+    const { count } = this.state;
+
+    return <div>{count}</div>;
   }
 }
-
-export default hot(module)(App);
