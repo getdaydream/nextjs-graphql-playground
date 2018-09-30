@@ -16,6 +16,8 @@ class App extends React.Component {
   render() {
     const { count } = this.state;
 
-    return <div>{count}</div>;
+    return <div> {`count is ${count}`}</div>;
   }
 }
+
+export default App;
