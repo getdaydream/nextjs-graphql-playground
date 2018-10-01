@@ -1,6 +1,10 @@
 import React from 'react';
 
-class App extends React.Component {
+interface State {
+  count: number;
+}
+
+class App extends React.Component<{}, State> {
   state = {
     count: 0,
   };
