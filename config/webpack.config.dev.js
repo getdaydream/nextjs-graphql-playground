@@ -9,18 +9,22 @@ module.exports = {
     path: paths.appBuild,
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.ts', '.tsx'],
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
-          plugins: ['@babel/plugin-proposal-class-properties'],
-        },
+        test: /\.(ts|tsx)$/,
+        include: paths.appSrc,
+        use: [
+          {
+            loader: require.resolve('ts-loader'),
+            options: {
+              // disable type checker - we will use it in fork plugin
+              transpileOnly: true,
+            },
+          },
+        ],
       },
     ],
   },
