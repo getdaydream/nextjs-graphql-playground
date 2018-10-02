@@ -1,12 +1,14 @@
 import React from 'react';
 
+import './App.css';
+
 interface State {
   count: number;
 }
 
 class App extends React.Component<{}, State> {
   public state = {
-    count: 0,
+    count: 1,
   };
 
   public componentDidMount() {
