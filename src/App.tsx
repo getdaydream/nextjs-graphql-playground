@@ -5,11 +5,11 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-  state = {
+  public state = {
     count: 0,
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     setInterval(() => {
       this.setState({
         count: this.state.count + 1,
@@ -17,7 +17,7 @@ class App extends React.Component<{}, State> {
     }, 1000);
   }
 
-  render() {
+  public render() {
     const { count } = this.state;
 
     return <div> {`count is ${count}`}</div>;
