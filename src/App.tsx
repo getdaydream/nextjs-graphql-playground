@@ -1,28 +1,11 @@
 import React from 'react';
+import BasicLayout from './pages/BasicLayout';
 
-import './App.css';
+import '../assets/scss/global.scss';
 
-interface State {
-  count: number;
-}
-
-class App extends React.Component<{}, State> {
-  public state = {
-    count: 1,
-  };
-
-  public componentDidMount() {
-    setInterval(() => {
-      this.setState({
-        count: this.state.count + 1,
-      });
-    }, 1000);
-  }
-
+class App extends React.Component {
   public render() {
-    const { count } = this.state;
-
-    return <div> {`count is ${count}`}</div>;
+    return <BasicLayout />;
   }
 }
 
