@@ -46,6 +46,19 @@ const webpackDevConfig = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              // transforms files into base64 URIs if file size is lower then the limit
+              // otherwise, use file-loader as fallback
+              limit: 10000,
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
