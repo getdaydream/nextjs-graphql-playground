@@ -4,9 +4,16 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const portfinder = require('portfinder');
+const { getStyleLoaders } = require('./utils');
 
 const HOST = process.env.HOST || '127.0.0.1';
 const PORT = (process.env.PORT && Number(process.env.PORT)) || 3000;
+
+// style files regexes
+const cssRegex = /\.css$/;
+const cssModuleRegex = /\.module\.css$/;
+const sassRegex = /\.(scss|sass)$/;
+const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 const webpackDevConfig = {
   mode: 'development',
@@ -43,28 +50,52 @@ const webpackDevConfig = {
           },
         ],
       },
+      // "postcss" loader applies autoprefixer to our CSS.
+      // "css" loader resolves paths in CSS and adds assets as dependencies.
+      // "style" loader turns CSS into JS modules that inject <style> tags.
+      // In production, we use a plugin to extract that CSS to a file, but
+      // in development "style" loader enables hot editing of CSS.
+      // By default we support CSS Modules with the extension .module.css
       {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          { loader: 'css-loader', options: { importLoaders: 1 } },
+        test: cssRegex,
+        exclude: cssModuleRegex,
+        use: getStyleLoaders({
+          importLoaders: 1,
+        }),
+      },
+      // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
+      // using the extension .module.css
+      {
+        test: cssModuleRegex,
+        use: getStyleLoaders({
+          importLoaders: 1,
+          modules: true,
+          // TODO: getCSSModuleLocalIdent ?
+          // getLocalIdent: getCSSModuleLocalIdent,
+        }),
+      },
+      // Opt-in support for SASS (using .scss or .sass extensions).
+      // Chains the sass-loader with the css-loader and the style-loader
+      // to immediately apply all styles to the DOM.
+      // By default we support SASS Modules with the
+      // extensions .module.scss or .module.sass
+      {
+        test: sassRegex,
+        exclude: sassModuleRegex,
+        use: getStyleLoaders({ importLoaders: 2 }, 'sass-loader'),
+      },
+      // Adds support for CSS Modules, but using SASS
+      // using the extension .module.scss or .module.sass
+      {
+        test: sassModuleRegex,
+        use: getStyleLoaders(
           {
-            loader: 'postcss-loader',
-            options: {
-              plugins: [
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9', // React doesn't support IE8 anyway
-                  ],
-                  flexbox: 'no-2009',
-                }),
-              ],
-            },
+            importLoaders: 2,
+            modules: true,
+            // getLocalIdent: getCSSModuleLocalIdent,
           },
-        ],
+          'sass-loader',
+        ),
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -83,6 +114,7 @@ const webpackDevConfig = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      inject: true,
       template: paths.appHtml,
     }),
     // Enable HMR, 当前只对css有效；ts会刷新页面

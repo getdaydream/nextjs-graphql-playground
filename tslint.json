@@ -4,6 +4,7 @@
     "exclude": ["config/**/*.js", "node_modules/**/*.ts"]
   },
   "rules": {
-    "interface-name": false
+    "interface-name": false,
+    "no-console": false
   }
 }
