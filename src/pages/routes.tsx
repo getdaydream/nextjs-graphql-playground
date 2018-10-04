@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 import BasicLayout from './BasicLayout';
 import Collection from './Collection';
+import Counter from './Counter';
 import Explore from './Explore';
 
 export const getRoutes = () => {
@@ -11,6 +12,7 @@ export const getRoutes = () => {
       <Switch>
         <Route path="/collection" component={Collection} />
         <Route path="/explore" component={Explore} />
+        <Route path="/counter" component={Counter} />
         <Redirect from="/" to="/explore" />
       </Switch>
     </BasicLayout>
