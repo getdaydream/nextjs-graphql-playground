@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { counterActions } from '../../store/counter';
+import { globalStore } from '../../store/store';
 
 interface Props {
   count: number;
@@ -15,12 +16,13 @@ class Counter extends React.Component<Props> {
   };
 
   public render() {
+    const { onClickAdd } = this;
     const { count, onIncrement } = this.props;
 
     return (
       <div>
         {count}
-        <button onClick={this.onClickAdd}>Add</button>
+        <button onClick={onClickAdd}>Add</button>
         <button onClick={onIncrement}>Increment</button>
       </div>
     );
@@ -28,7 +30,7 @@ class Counter extends React.Component<Props> {
 }
 
 export default connect(
-  (state: any) => ({
+  (state: globalStore.state) => ({
     count: state.counter.count,
   }),
   {
