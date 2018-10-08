@@ -1,11 +1,4 @@
 import * as counterActions from './actions';
-import * as counterConstants from './constants';
-import { CounterAction, counterReducer, CounterState } from './reducer';
+import { counterReducer } from './reducer';
 
-export {
-  counterConstants,
-  counterActions,
-  counterReducer,
-  CounterState,
-  CounterAction,
-};
+export { counterActions, counterReducer };

@@ -9,4 +9,6 @@ module.exports = {
   appBuild: resolveApp('build'),
   appHtml: resolveApp('public/index.html'),
   appSrc: resolveApp('src'),
+  appTsConfig: resolveApp('tsconfig.json'),
+  appTsLint: resolveApp('tslint.json'),
 };
