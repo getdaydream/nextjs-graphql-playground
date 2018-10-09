@@ -25,21 +25,21 @@ const webpackConfig = merge(baseWebpackConfig, {
         removeComments: true,
         // 去除多余的空格
         collapseWhitespace: true,
-        // removeRedundantAttributes: true,
-        // useShortDoctype: true,
-        // removeEmptyAttributes: true,
-        // removeStyleLinkTypeAttributes: true,
-        // keepClosingSlash: true,
-        // minifyJS: true,
-        // minifyCSS: true,
-        // minifyURLs: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
       },
     }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: cssFilename,
-      chunkFilename: '[id].css',
+      filename: 'static/css/[name].[contenthash:8].css',
+      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
     }),
   ],
   optimization: {
@@ -53,6 +53,18 @@ const webpackConfig = merge(baseWebpackConfig, {
       new OptimizeCSSAssetsPlugin({}),
     ],
   },
+  // Some libraries import Node modules but don't use them in the browser.
+  // Tell Webpack to provide empty mocks for them so importing them works.
+  node: {
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty',
+  },
+  // Turn off performance processing because we utilize
+  // our own hints via the FileSizeReporter
+  performance: false,
 });
 
 module.exports = webpackConfig;
