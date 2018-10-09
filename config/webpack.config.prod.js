@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const { baseWebpackConfig } = require('./webpack.config.base');
 const paths = require('./paths');
@@ -11,13 +13,10 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
+  // Don't attempt to continue if there are any errors.
+  bail: true,
   module: {},
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"',
-      },
-    }),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
@@ -43,6 +42,17 @@ const webpackConfig = merge(baseWebpackConfig, {
       chunkFilename: '[id].css',
     }),
   ],
+  optimization: {
+    minimizer: [
+      // 压缩js
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+      }),
+      // 压缩CSS
+      new OptimizeCSSAssetsPlugin({}),
+    ],
+  },
 });
 
 module.exports = webpackConfig;

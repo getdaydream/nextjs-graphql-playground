@@ -61,8 +61,7 @@ const baseWebpackConfig = {
         use: getStyleLoaders({
           importLoaders: 1,
           modules: true,
-          // TODO: getCSSModuleLocalIdent ?
-          // getLocalIdent: getCSSModuleLocalIdent,
+          localIdentName: '[path][name]__[local]--[hash:base64:5]',
         }),
       },
       // Opt-in support for SASS (using .scss or .sass extensions).
@@ -83,7 +82,7 @@ const baseWebpackConfig = {
           {
             importLoaders: 2,
             modules: true,
-            // getLocalIdent: getCSSModuleLocalIdent,
+            localIdentName: '[path][name]__[local]--[hash:base64:5]',
           },
           'sass-loader',
         ),
