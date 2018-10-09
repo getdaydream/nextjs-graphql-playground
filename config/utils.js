@@ -1,7 +1,13 @@
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production';
+
 // common function to get style loaders
 const getStyleLoaders = (cssLoaderOptions, preProcessor) => {
   const loaders = [
-    require.resolve('style-loader'),
+    isProduction
+      ? MiniCssExtractPlugin.loader
+      : require.resolve('style-loader'),
     {
       loader: require.resolve('css-loader'),
       options: cssLoaderOptions,
