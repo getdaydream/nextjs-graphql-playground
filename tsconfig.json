@@ -20,5 +20,5 @@
     "noUnusedLocals": true,
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["node_modules", "build", "scripts", "config"]
+  "exclude": ["node_modules", "build", "scripts", "config", "docs"]
 }

@@ -3,7 +3,7 @@
 ## 概念
 
 `Store`： 维持应用所有的 state 树 的一个对象。
-`reducer`： 一个函数，输入 action 和 prevState, 返回 nextState
+`reducer`： 一个纯函数，输入 prevState 和 action, 返回 nextState
 `enhancer`：使用`applyMiddleware`生成
 
 ## API
