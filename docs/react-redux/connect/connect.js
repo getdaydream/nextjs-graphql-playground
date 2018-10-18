@@ -76,9 +76,6 @@ export function createConnect({
     );
     const initMergeProps = match(mergeProps, mergePropsFactories, 'mergeProps');
 
-    /**
-     * 
-     */
     return connectHOC(selectorFactory, {
       // used in error messages
       methodName: 'connect',
@@ -86,7 +83,7 @@ export function createConnect({
       // used to compute Connect's displayName from the wrapped component's displayName.
       getDisplayName: name => `Connect(${name})`,
 
-      // if mapStateToProps is falsy, the Connect component doesn't subscribe to store state changes
+      // 如果没有传入 mapStateToProps， 那么 Connect component 不需要监听 store 的改变
       shouldHandleStateChanges: Boolean(mapStateToProps),
 
       // passed through to selectorFactory

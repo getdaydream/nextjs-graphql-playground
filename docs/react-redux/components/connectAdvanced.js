@@ -9,8 +9,12 @@ let hotReloadingVersion = 0;
 const dummyState = {};
 function noop() {}
 function makeSelectorStateful(sourceSelector, store) {
-  // wrap the selector in an object that tracks its results between runs.
+  /**
+   * 使用 object 包装 selector 用于记录上一次调用 run 的结果
+   * selector: { run: function, shouldComponentUpdate: boolean, props: any, error: any }
+   */
   const selector = {
+    // 计算 nextProps 以及 shouldComponentUpdate
     run: function runComponentSelector(props) {
       try {
         const nextProps = sourceSelector(store.getState(), props);
@@ -29,17 +33,22 @@ function makeSelectorStateful(sourceSelector, store) {
   return selector;
 }
 
+/**
+ * connectAdvanced = (selectorFactory, options) => (WrappedComponent) => containerComponent
+ * @param {*} selectorFactory
+ * @param {*} options
+ */
 export default function connectAdvanced(
   /**
    * `selectorFactory` 返回一个 `selector` 函数
    * 用于从 `state`， `props` 和 `dispatch` 中计算新的 `props` 
    * 例如：
-   * export default connectAdvanced((dispatch, options) => (state, props) =>    ({
+   * export default connectAdvanced((dispatch, options) => (nextState, nextOwnProps) =>    ({
         thing: state.things[props.thingId],
         saveThing: fields => dispatch(actionCreators.saveThing(props.thingId, fields)),
       }))(YourComponent)
    * 
-   * 
+   * `selectorFactory` 负责缓存 props，以提升性能
    */
 
   /*
@@ -115,9 +124,6 @@ export default function connectAdvanced(
       WrappedComponent,
     };
 
-    // TODO Actually fix our use of componentWillReceiveProps
-    /* eslint-disable react/no-deprecated */
-
     class Connect extends Component {
       constructor(props, context) {
         super(props, context);
@@ -125,10 +131,17 @@ export default function connectAdvanced(
         this.version = version;
         this.state = {};
         this.renderCount = 0;
+        // store 来源可能是 props 或是 context
         this.store = props[storeKey] || context[storeKey];
+        /**
+         * 标识 store 是否来自于 props 而不是 context
+         * 正常情况下，应该使用 <Provider> ，从 context 传入 store
+         * 只推荐在单元测试中对 store 进行伪造 (stub) 或者在非完全基于 React 的代码中才使用 props 传入 store
+         */
         this.propsMode = Boolean(props[storeKey]);
         this.setWrappedInstance = this.setWrappedInstance.bind(this);
 
+        // 检查： store 是否存在
         invariant(
           this.store,
           `Could not find "${storeKey}" in either the context or props of ` +
@@ -141,10 +154,9 @@ export default function connectAdvanced(
       }
 
       getChildContext() {
-        // If this component received store from props, its subscription should be transparent
-        // to any descendants receiving store+subscription from context; it passes along
-        // subscription passed to it. Otherwise, it shadows the parent subscription, which allows
-        // Connect to control ordering of notifications to flow top-down.
+        // 如果该组件的 store 来自 props, 那么对于任何通过 context 获取 store、 subscription 的后代来说，它的 subscription 是透明的，后代组件得到的不是该组件的 subscription，而是它从 context 中获取的 subscription
+        // 如果组件的 store 来自 context， 那么它会跟随 the parent subscription，从而保证 Connect 自顶向下通知订阅类
+
         const subscription = this.propsMode ? null : this.subscription;
         return {
           [subscriptionKey]: subscription || this.context[subscriptionKey],
@@ -154,12 +166,9 @@ export default function connectAdvanced(
       componentDidMount() {
         if (!shouldHandleStateChanges) return;
 
-        // componentWillMount fires during server side rendering, but componentDidMount and
-        // componentWillUnmount do not. Because of this, trySubscribe happens during ...didMount.
-        // Otherwise, unsubscription would never take place during SSR, causing a memory leak.
-        // To handle the case where a child component may have triggered a state change by
-        // dispatching an action in its componentWillMount, we have to re-run the select and maybe
-        // re-render.
+        // componentWillMount 会在ssr中调用，而 componentDidMount 和 componentWillUnmount 不会
+        // 因此 trySubscribe 发生在 componentDidMount 时，否则在ssr中 unsubscription 永远不会调用导致内存泄漏
+        // 由于子组件可能在 componentWillMount 时 dispatching an action 导致 state 变化， 必须重新 run selector 并可能重绘
         this.subscription.trySubscribe();
         this.selector.run(this.props);
         if (this.selector.shouldComponentUpdate) this.forceUpdate();
@@ -201,14 +210,20 @@ export default function connectAdvanced(
           selectorFactoryOptions,
         );
         this.selector = makeSelectorStateful(sourceSelector, this.store);
+        // 计算 nextProps 以及 组件是否需要更新
         this.selector.run(this.props);
       }
 
+      // 初始化订阅类
       initSubscription() {
         if (!shouldHandleStateChanges) return;
 
-        // parentSub's source should match where store came from: props vs. context. A component
-        // connected to the store via props shouldn't use subscription from context, or vice versa.
+        /**
+         * parentSub 的来源应该和 store 的来源相匹配。
+         * 一个通过 props 连接到 store 的组件不应该使用来自 context 的订阅类， 反之亦然
+         */
+
+        // 如果当前组件是通往根节点路径中第一个通过context连接到 redux store 的组件，那么 parentSub 为 null
         const parentSub = (this.propsMode ? this.props : this.context)[
           subscriptionKey
         ];
@@ -218,17 +233,16 @@ export default function connectAdvanced(
           this.onStateChange.bind(this),
         );
 
-        // `notifyNestedSubs` is duplicated to handle the case where the component is unmounted in
-        // the middle of the notification loop, where `this.subscription` will then be null. An
-        // extra null check every change can be avoided by copying the method onto `this` and then
-        // replacing it with a no-op on unmount. This can probably be avoided if Subscription's
-        // listeners logic is changed to not call listeners that have been unsubscribed in the
-        // middle of the notification loop.
+        /**
+         * `notifyNestedSubs` 用作备份
+         * 防止组件在通知订阅类的循环中 unmount 使 `this.subscript` 变为 null
+         */
         this.notifyNestedSubs = this.subscription.notifyNestedSubs.bind(
           this.subscription,
         );
       }
 
+      // 当 state 变化时的回调函数
       onStateChange() {
         this.selector.run(this.props);
 
@@ -325,6 +339,8 @@ export default function connectAdvanced(
       };
     }
 
+    // 复制子组件中非react原生的静态方法到父组件
+    // hoistNonReactStatics(targetComponent, sourceComponent) => targetComponent
     return hoistStatics(Connect, WrappedComponent);
   };
 }
