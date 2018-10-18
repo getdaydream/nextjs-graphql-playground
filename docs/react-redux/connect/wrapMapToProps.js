@@ -49,7 +49,6 @@ export function wrapMapToPropsFunc(mapToProps, methodName) {
         ? proxy.mapToProps(stateOrDispatch, ownProps)
         : proxy.mapToProps(stateOrDispatch);
     };
-
     // allow detectFactoryAndVerify to get ownProps
     proxy.dependsOnOwnProps = true;
 
@@ -67,8 +66,8 @@ export function wrapMapToPropsFunc(mapToProps, methodName) {
         props = proxy(stateOrDispatch, ownProps);
       }
 
-      if (process.env.NODE_ENV !== 'production')
-        verifyPlainObject(props, displayName, methodName);
+      // if (process.env.NODE_ENV !== 'production')
+      //   verifyPlainObject(props, displayName, methodName);
 
       return props;
     };

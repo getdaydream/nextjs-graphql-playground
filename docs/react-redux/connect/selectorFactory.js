@@ -1,5 +1,13 @@
 import verifySubselectors from './verifySubselectors';
 
+/**
+ * selectorFactory = (dispatch, options) => (nextState, nextOwnProps) => nextFinalProps
+ * selectorFactory 返回一个 selector 函数，该函数会在连接到 store 的组件实例每次收到新 props 和 store state 是被调用
+ */
+
+/**
+ * 如果 options.pure === false，每次都会返回一个新的 props 对象，且 shouldComponentUpdate 为 true
+ */
 export function impureFinalPropsSelectorFactory(
   mapStateToProps,
   mapDispatchToProps,
@@ -85,17 +93,21 @@ export function pureFinalPropsSelectorFactory(
 
   return function pureFinalPropsSelector(nextState, nextOwnProps) {
     return hasRunAtLeastOnce
-      ? handleSubsequentCalls(nextState, nextOwnProps)
-      : handleFirstCall(nextState, nextOwnProps);
+      ? // 后续调用根据 propsChanged、stateChanged 以及 dependsOnOwnProps 来优化计算
+        handleSubsequentCalls(nextState, nextOwnProps)
+      : // 第一次调用直接计算出 mergedProps
+        handleFirstCall(nextState, nextOwnProps);
   };
 }
-
-// TODO: Add more comments
 
 // If pure is true, the selector returned by selectorFactory will memoize its results,
 // allowing connectAdvanced's shouldComponentUpdate to return false if final
 // props have not changed. If false, the selector will always return a new
 // object and shouldComponentUpdate will always return true.
+
+/**
+ * options.pure 默认为 true，被 selectorFactory 返回的 selector 会记住它的结果
+ */
 
 export default function finalPropsSelectorFactory(
   dispatch,

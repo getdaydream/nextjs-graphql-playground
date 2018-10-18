@@ -2,12 +2,17 @@
 // well as nesting subscriptions of descendant components, so that we can ensure the
 // ancestor components re-render before descendants
 
+/**
+ * 封装 `connect` 组件到 redux store 的订阅逻辑，包括后代组件的嵌套订阅，用以保证父组件在后代组件之前重绘
+ */
+
 const CLEARED = null;
 const nullListeners = { notify() {} };
 
 function createListenerCollection() {
-  // the current/next pattern is copied from redux's createStore code.
-  // TODO: refactor+expose that code to be reusable here?
+  /**
+   * 监听逻辑类似 redux 代码中的 `createStore`
+   */
   let current = [];
   let next = [];
 
@@ -69,8 +74,10 @@ export default class Subscription {
   trySubscribe() {
     if (!this.unsubscribe) {
       this.unsubscribe = this.parentSub
-        ? this.parentSub.addNestedSub(this.onStateChange)
-        : this.store.subscribe(this.onStateChange);
+        ? // 如果有 parentSub 就会监听 parentSub
+          this.parentSub.addNestedSub(this.onStateChange)
+        : // 没有 parentSub， 即当前组件是通往根节点路径中第一个连接到 redux store 的组件，直接调用 store.subscribe
+          this.store.subscribe(this.onStateChange);
 
       this.listeners = createListenerCollection();
     }
