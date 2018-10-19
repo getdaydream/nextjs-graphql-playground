@@ -27,21 +27,14 @@ export function getDependsOnOwnProps(mapToProps) {
     : mapToProps.length !== 1;
 }
 
-// Used by whenMapStateToPropsIsFunction and whenMapDispatchToPropsIsFunction,
-// this function wraps mapToProps in a proxy function which does several things:
-//
-//  * Detects whether the mapToProps function being called depends on props, which
-//    is used by selectorFactory to decide if it should reinvoke on props changes.
-//
-//  * On first call, handles mapToProps if returns another function, and treats that
-//    new function as the true mapToProps for subsequent calls.
-//
-//  * On first call, verifies the first result is a plain object, in order to warn
-//    the developer that their mapToProps function is not returning a valid result.
-//
-
-// mapToProps ： mapStateToProps or mapDispatchToProps function
-
+/**
+ * 当 MapStateToProps 或 MapDispatchToProps 是函数时调用
+ * 该函数将 mapToProps 放在 proxy function 中：
+ * 1. 确认 mapToProps 是否依赖 props，帮助 selectorFactory 决定当 props 改变的时候是否需要计算
+ * 2. 在第一次调用时， 处理 mapToProps 返回另一个函数的情况，并在接下来的调用中将返回的函数作为真正的 mapToProps function
+ * @param {*} mapToProps mapStateToProps or mapDispatchToProps function
+ * @param {*} methodName
+ */
 export function wrapMapToPropsFunc(mapToProps, methodName) {
   return function initProxySelector(dispatch, { displayName }) {
     const proxy = function mapToPropsProxy(stateOrDispatch, ownProps) {
@@ -52,6 +45,7 @@ export function wrapMapToPropsFunc(mapToProps, methodName) {
     // allow detectFactoryAndVerify to get ownProps
     proxy.dependsOnOwnProps = true;
 
+    // detectFactoryAndVerify 用于确定真正的mapToProps（mapToProps 可能返回一个函数用于优化性能），并赋值给 proxy
     proxy.mapToProps = function detectFactoryAndVerify(
       stateOrDispatch,
       ownProps,
