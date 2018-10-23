@@ -7,7 +7,7 @@ export function whenMapStateToPropsIsFunction(mapStateToProps) {
     : undefined;
 }
 
-// 如果 `MapStateToProps` 参数
+// 如果未提供 `MapStateToProps` 参数
 export function whenMapStateToPropsIsMissing(mapStateToProps) {
   return !mapStateToProps ? wrapMapToPropsConstant(() => ({})) : undefined;
 }

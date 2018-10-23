@@ -52,6 +52,7 @@ export function wrapMapToPropsFunc(mapToProps, methodName) {
     // allow detectFactoryAndVerify to get ownProps
     proxy.dependsOnOwnProps = true;
 
+    // detectFactoryAndVerify 用于找到真正的 mapToProps 函数 以及判断 mapToProps 函数是否依赖于 ownProps
     proxy.mapToProps = function detectFactoryAndVerify(
       stateOrDispatch,
       ownProps,
