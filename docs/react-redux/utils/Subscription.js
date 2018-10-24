@@ -71,6 +71,7 @@ export default class Subscription {
     return Boolean(this.unsubscribe);
   }
 
+  // 订阅 redux store 的变化，或订阅 parentSubscription 的变化
   trySubscribe() {
     if (!this.unsubscribe) {
       this.unsubscribe = this.parentSub
