@@ -2,14 +2,10 @@ const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
-const portfinder = require('portfinder');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const { getStyleLoaders } = require('./utils');
 const paths = require('./paths');
-
-const HOST = process.env.HOST || '127.0.0.1';
-const PORT = (process.env.PORT && Number(process.env.PORT)) || 3000;
 
 // style files regexes
 const cssRegex = /\.css$/;
@@ -25,6 +21,9 @@ const baseWebpackConfig = {
   },
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
+    alias: {
+      '@': paths.appSrc,
+    },
   },
   module: {
     rules: [

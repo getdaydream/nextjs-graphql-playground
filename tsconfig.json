@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
+    "paths": {
+      // "redux": ["typings/redux"], // use for redux 3.X
+      // "@src/*": ["src/*"] // will enable -> import { ... } from '@src/components'
+      "@/*": ["./src/*"] // will enable -> import { ... } from '@src/components'
+      // in webpack you need to add -> resolve: { alias: { '@src': PATH_TO_SRC } }
+    },
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es5",
@@ -20,5 +26,6 @@
     "noUnusedLocals": true,
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["node_modules", "build", "scripts", "config", "docs"]
+  "exclude": ["node_modules", "build", "scripts", "config", "docs"],
+  "include": ["src/**/*"]
 }
