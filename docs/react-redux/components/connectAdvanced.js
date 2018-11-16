@@ -223,7 +223,7 @@ export default function connectAdvanced(
          * 一个通过 props 连接到 store 的组件不应该使用来自 context 的订阅类， 反之亦然
          */
 
-        // 如果当前组件是通往根节点路径中第一个通过context连接到 redux store 的组件，那么 parentSub 为 null
+        // 只考虑非 propsMode 时的情况： parentSub 不存在时，说明当前组件是通往根节点路径中第一个通过context连接到 redux store 的组件，那么当前 connector 会直接订阅 redux store 的变化；若 parentSub 存在，则会将自己加入到 parentSub 的订阅者列表中
         const parentSub = (this.propsMode ? this.props : this.context)[
           subscriptionKey
         ];
@@ -242,7 +242,7 @@ export default function connectAdvanced(
         );
       }
 
-      // 当 state 变化时的回调函数
+      // 当 redux state 或 parentSubscription 变化时的回调函数
       onStateChange() {
         this.selector.run(this.props);
 

@@ -6,7 +6,7 @@ const portfinder = require('portfinder');
 const { baseWebpackConfig } = require('./webpack.config.base');
 
 const HOST = process.env.HOST || '127.0.0.1';
-const PORT = (process.env.PORT && Number(process.env.PORT)) || 3000;
+const PORT = (process.env.PORT && Number(process.env.PORT)) || 8080;
 
 // style files regexes
 const cssRegex = /\.css$/;
