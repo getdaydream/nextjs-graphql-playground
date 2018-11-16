@@ -7,9 +7,6 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const { getStyleLoaders } = require('./utils');
 const paths = require('./paths');
 
-const HOST = process.env.HOST || '127.0.0.1';
-const PORT = (process.env.PORT && Number(process.env.PORT)) || 3000;
-
 // style files regexes
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
@@ -24,6 +21,9 @@ const baseWebpackConfig = {
   },
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
+    alias: {
+      '@': paths.appSrc,
+    },
   },
   module: {
     rules: [

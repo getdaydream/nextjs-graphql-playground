@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { ReduxStore } from 'src/store/store';
 import { counterActions } from '../../store/counter';
-import { globalStore } from '../../store/store';
 
 interface Props {
   count: number;
@@ -30,7 +30,7 @@ class Counter extends React.Component<Props> {
 }
 
 export default connect(
-  (state: globalStore.state) => ({
+  (state: ReduxStore.state) => ({
     count: state.counter.count,
   }),
   {

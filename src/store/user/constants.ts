@@ -1,2 +1,4 @@
-export const LOGIN = 'user/login';
-export const SIGNUP = 'user/signup';
+export const LOGIN_SUCCESS = '@user/loginSuccess';
+export const LOGIN_FAILED = '@user/loginFailed';
+
+export const SIGNUP = '@user/signup';
