@@ -13,7 +13,7 @@ class Login extends React.Component<Props> {
       email: '275522141@qq.com',
       password: '12345678',
     });
-  }
+  };
 
   public render() {
     return <button onClick={this.handleClickSubmit}>submit</button>;
@@ -23,6 +23,6 @@ class Login extends React.Component<Props> {
 export default connect(
   () => ({}),
   {
-    onLogin: userActions.fetchTodos.request,
-  }
+    onLogin: userActions.login.request,
+  },
 )(Login);
