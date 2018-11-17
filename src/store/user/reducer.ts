@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
-import { ActionType } from 'typesafe-actions';
-import { userActionTypes } from '../user';
+import { ActionType, getType } from 'typesafe-actions';
 import * as actions from './actions';
 
 export type UserAction = ActionType<typeof actions>;
@@ -23,11 +22,10 @@ const userReducer = combineReducers<UserState, UserAction>({
   },
   profile: (state = {} as UserProfile, action) => {
     switch (action.type) {
-      case userActionTypes.LOGIN_SUCCESS:
-        return {
-          ...state,
-          profile: action.payload,
-        };
+      case getType(actions.login.success):
+        // TODO: find a better way of redirecting
+        window.location.replace(`${window.location.origin}/#/explore`);
+        return Object.assign(state, action.payload);
       default:
         return state;
     }

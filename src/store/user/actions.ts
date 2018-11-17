@@ -1,12 +1,7 @@
-import { action, createAsyncAction } from 'typesafe-actions';
-import { LOGIN_SUCCESS } from './constants';
+import { createAsyncAction } from 'typesafe-actions';
+import { createAsyncActionTypes } from '../utils';
 import { UserProfile } from './reducer';
 
-export const loginSuccess = (profile: UserProfile) =>
-  action(LOGIN_SUCCESS, profile);
-
-export const fetchTodos = createAsyncAction(
-  'FETCH_TODOS_REQUEST',
-  'FETCH_TODOS_SUCCESS',
-  'FETCH_TODOS_FAILURE',
-)<{ email: string; password: string }, Array<{}>, Error>();
+export const login = createAsyncAction(
+  ...createAsyncActionTypes('user', 'login'),
+)<{ email: string; password: string }, UserProfile, Error>();
