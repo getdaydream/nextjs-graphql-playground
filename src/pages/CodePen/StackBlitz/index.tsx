@@ -5,7 +5,8 @@ import StackBlitzSDK from '@stackblitz/sdk';
 import { VM } from '@stackblitz/sdk/typings/VM';
 import React from 'react';
 
-import styles from './index.module.css';
+import { CubeGridLoading } from '@/components/Loading';
+import styles from './index.module.scss';
 
 // Create the index.ts file
 const code = `import moment from 'moment';
@@ -36,6 +37,9 @@ interface State {
 }
 
 class CodeEditor extends React.Component<{}, State> {
+  public state = {
+    loadingEditor: true,
+  };
   public vm: VM;
 
   public componentDidMount() {
@@ -55,6 +59,9 @@ class CodeEditor extends React.Component<{}, State> {
       // hideNavigation: true,
     }).then(vm => {
       this.vm = vm;
+      setTimeout(() => {
+        this.setState({ loadingEditor: false });
+      }, 1000);
     });
   };
   public getFsSnapshot = async () => {
@@ -65,9 +72,12 @@ class CodeEditor extends React.Component<{}, State> {
   };
 
   public render() {
+    const { loadingEditor } = this.state;
+
     return (
       <div className={styles.codeeditor}>
-        <div id="stackblitz" />
+        {loadingEditor && <CubeGridLoading />}
+        <div id="stackblitz" style={{ display: loadingEditor ? 'none' : '' }} />
       </div>
     );
   }
