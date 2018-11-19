@@ -2,9 +2,22 @@ import React from 'react';
 
 import styles from './AppHeader.module.scss';
 
-class AppHeader extends React.Component {
+interface Props {
+  isFixed?: boolean;
+}
+
+class AppHeader extends React.Component<Props> {
   public render() {
-    return <header className={styles.appHeader} />;
+    const { children, isFixed = false } = this.props;
+
+    return (
+      <header
+        className={styles.appHeader}
+        style={{ position: isFixed ? 'fixed' : undefined }}
+      >
+        {children}
+      </header>
+    );
   }
 }
 
