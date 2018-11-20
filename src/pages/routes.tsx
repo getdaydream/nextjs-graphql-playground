@@ -13,8 +13,8 @@ export const getRoutes = () => {
     <Fragment>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/playground" component={CodePen} exact={true} />
-        <Route path="/playground/:id" component={CodePen} exact={true} />
+        <Route path="/pen" component={CodePen} exact={true} />
+        <Route path="/pen/:id" component={CodePen} exact={true} />
         <BasicLayout>
           <Switch>
             <Route path="/collection" component={Collection} />
