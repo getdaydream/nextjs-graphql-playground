@@ -1,3 +1,31 @@
+@import '../../../node_modules/@blueprintjs/core/lib/scss/variables';
+
+$pt-intent-primary: #0084ff;
+
+// "intent": (default, hover, active colors)
+$button-intents: (
+  'primary': (
+    $pt-intent-primary,
+    #0069d9,
+    #0069d9,
+  ),
+  'success': (
+    $pt-intent-success,
+    $green2,
+    $green1,
+  ),
+  'warning': (
+    $pt-intent-warning,
+    $orange2,
+    $orange1,
+  ),
+  'danger': (
+    $pt-intent-danger,
+    $red2,
+    $red1,
+  ),
+);
+
 @import './normalize.scss';
 @import '@blueprintjs/core/src/blueprint.scss';
 @import 'spinkit/scss/spinners/9-cube-grid.scss';

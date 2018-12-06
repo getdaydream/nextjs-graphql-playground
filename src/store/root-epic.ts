@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
-import penEpic from './pen/epics';
+import gistEpic from './gist/epics';
 import userEpic from './user/epics';
 
-export default combineEpics(userEpic, penEpic);
+export default combineEpics(userEpic, gistEpic);

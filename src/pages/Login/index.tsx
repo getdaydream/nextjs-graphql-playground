@@ -10,7 +10,7 @@ class Login extends React.Component<Props> {
   public handleClickSubmit = () => {
     const { onLogin } = this.props;
     onLogin({
-      email: '275522141@qq.com',
+      email: '27552214@qq.com',
       password: '12345678',
     });
   };

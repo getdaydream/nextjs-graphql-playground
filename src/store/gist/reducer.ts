@@ -18,8 +18,8 @@ export interface PenState {
 const penReducer = combineReducers<PenState, PenAction>({
   current: (state = {} as Pen, action) => {
     switch (action.type) {
-      case getType(actions.newPen.success):
-        console.log(action.payload);
+      case getType(actions.newGist.success):
+        // TODO:
         return state;
       default:
         return state;

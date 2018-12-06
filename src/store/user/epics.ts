@@ -11,7 +11,7 @@ const userLogin: Epic<UserAction> = action$ =>
     filter(isActionOf(login.request)),
     mergeMap(action =>
       ajax
-        .post(genApiPath('/api/auth/login'), action.payload)
+        .post(genApiPath('/api/users/login'), action.payload)
         .pipe(map(ajaxResp => login.success(ajaxResp.response))),
     ),
   );
