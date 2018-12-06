@@ -4,25 +4,25 @@ import { ajax } from 'rxjs/ajax';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 import { PenAction } from '.';
-import { newPen, updatePen } from './actions';
+import { newGist, updateGist } from './actions';
 
 const epicNewPen: Epic<PenAction> = action$ =>
   action$.pipe(
-    filter(isActionOf(newPen.request)),
+    filter(isActionOf(newGist.request)),
     mergeMap(action =>
       ajax
         .post(genApiPath('/api/cheatsheet'), action.payload)
-        .pipe(map(ajaxResp => newPen.success(ajaxResp.response))),
+        .pipe(map(ajaxResp => newGist.success(ajaxResp.response))),
     ),
   );
 
 const epicUpdatePen: Epic<PenAction> = action$ =>
   action$.pipe(
-    filter(isActionOf(updatePen.request)),
+    filter(isActionOf(updateGist.request)),
     mergeMap(action =>
       ajax
         .put(genApiPath('/api/cheatsheet'), action.payload)
-        .pipe(map(ajaxResp => newPen.success(ajaxResp.response))),
+        .pipe(map(ajaxResp => newGist.success(ajaxResp.response))),
     ),
   );
 

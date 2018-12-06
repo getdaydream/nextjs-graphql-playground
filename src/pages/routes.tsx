@@ -6,6 +6,7 @@ import CodePen from './CodePen';
 import Collection from './Collection';
 import Counter from './Counter';
 import Explore from './Explore';
+import Gist from './Gist';
 import Login from './Login';
 
 export const getRoutes = () => {
@@ -13,6 +14,7 @@ export const getRoutes = () => {
     <Fragment>
       <Switch>
         <Route path="/login" component={Login} />
+        <Route path="/gist" component={Gist} />
         <Route path="/pen" component={CodePen} exact={true} />
         <Route path="/pen/:id" component={CodePen} exact={true} />
         <BasicLayout>
