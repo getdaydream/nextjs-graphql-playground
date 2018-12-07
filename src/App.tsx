@@ -1,7 +1,7 @@
 import React from 'react';
-import { HashRouter } from 'react-router-dom';
-
+import { hot } from 'react-hot-loader';
 import { Provider } from 'react-redux';
+import { HashRouter } from 'react-router-dom';
 import './assets/scss/global.scss';
 import { getRoutes } from './pages/routes';
 import store from './store';
@@ -16,4 +16,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default hot(module)(App);
