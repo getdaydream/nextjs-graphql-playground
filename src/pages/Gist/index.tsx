@@ -1,7 +1,7 @@
 import { Button, Classes, Intent, Navbar } from '@blueprintjs/core';
 import React, { Fragment } from 'react';
+import  GistNew from './GistNew';
 import styles from './index.module.scss';
-import NewGistDialog from './NewGistDialog';
 
 interface State {
   isOpenNewGistDialog: boolean;
@@ -14,7 +14,7 @@ class GistHome extends React.Component<{}, State> {
 
   public handleClickNewGist = async () => {
     this.setState({ isOpenNewGistDialog: true });
-  };
+  };  
 
   public closeNewGistDialog = () => {
     this.setState({ isOpenNewGistDialog: false });
@@ -42,7 +42,7 @@ class GistHome extends React.Component<{}, State> {
 
         {this.renderSidebar()}
 
-        <NewGistDialog
+        < GistNew
           isOpen={isOpenNewGistDialog}
           onClose={this.closeNewGistDialog}
         />

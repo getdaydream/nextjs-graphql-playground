@@ -6,6 +6,7 @@
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.config.prod.js"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "@blueprintjs/core": "^3.9.0",
     "@stackblitz/sdk": "^1.2.0",
     "axios": "^0.18.0",
@@ -38,7 +39,6 @@
     "@types/react-router-dom": "^4.3.1",
     "@types/redux-logger": "^3.0.6",
     "babel-loader": "^8.0.4",
-    "babel-polyfill": "^6.26.0",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "file-loader": "^2.0.0",
@@ -46,6 +46,7 @@
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.3",
+    "monaco-editor-webpack-plugin": "^1.7.0",
     "node-sass": "^4.9.3",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "portfinder": "^1.0.17",

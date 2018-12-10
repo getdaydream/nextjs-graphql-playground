@@ -1,4 +1,8 @@
-import 'monaco-editor/esm/vs/editor/contrib/find/findController';
+/**
+ * 参考：
+ * https://microsoft.github.io/monaco-editor/api/index.html
+ * https://juejin.im/entry/5be64cd95188250f24131913
+ */
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React, { RefObject } from 'react';
 
@@ -18,17 +22,13 @@ class MonacoEditor extends React.Component<Props> {
     this.containerRef = React.createRef();
   }
 
-  public componentDidMount() {
+  public async componentDidMount() {
     const { value, language } = this.props;
 
-    import('monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution').then(
-      () => {
-        this.editor = monaco.editor.create(this.containerRef.current!, {
-          language,
-          value,
-        });
-      },
-    );
+    this.editor = monaco.editor.create(this.containerRef.current!, {
+      language,
+      value,
+    });
   }
 
   public componentWillUnmount() {

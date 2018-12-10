@@ -1,6 +1,6 @@
-import * as penActions from './actions';
-import penReducer, { PenAction } from './reducer';
+import * as gistActions from './actions';
+import gistReducer, { GistAction } from './reducer';
 
-export type PenAction = PenAction;
+export type GistAction = GistAction;
 
-export { penActions, penReducer };
+export { gistActions, gistReducer };
