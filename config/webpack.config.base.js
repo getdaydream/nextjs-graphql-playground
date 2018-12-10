@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+// https://github.com/Microsoft/monaco-editor-webpack-plugin
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const { getStyleLoaders } = require('./utils');
 const paths = require('./paths');
@@ -11,7 +13,7 @@ const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 const baseWebpackConfig = {
-  entry: paths.appEntry,
+  entry: ['@babel/polyfill', paths.appEntry],
   output: {
     filename: '[name].js',
     path: paths.appBuild,
@@ -115,6 +117,78 @@ const baseWebpackConfig = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+    }),
+    new MonacoWebpackPlugin({
+      languages: [
+        'bat',
+        'cpp',
+        'csharp',
+        'css',
+        'dockerfile',
+        'go',
+        'html',
+        'ini',
+        'java',
+        'javascript',
+        'json',
+        'less',
+        'markdown',
+        'mysql',
+        'php',
+        'powershell',
+        'python',
+        'redis',
+        'redshift',
+        'scss',
+        'shell',
+        'sql',
+        'typescript',
+        'xml',
+        'yaml',
+      ],
+      features: [
+        'accessibilityHelp',
+        'bracketMatching',
+        'caretOperations',
+        'clipboard',
+        'codeAction',
+        'codelens',
+        'colorDetector',
+        'comment',
+        'contextmenu',
+        'coreCommands',
+        'cursorUndo',
+        'dnd',
+        'find',
+        'folding',
+        'fontZoom',
+        'format',
+        'goToDefinitionCommands',
+        'goToDefinitionMouse',
+        'gotoError',
+        'gotoLine',
+        'hover',
+        'inPlaceReplace',
+        'inspectTokens',
+        'iPadShowKeyboard',
+        'linesOperations',
+        'links',
+        'multicursor',
+        'parameterHints',
+        'quickCommand',
+        'quickOutline',
+        'referenceSearch',
+        'rename',
+        'smartSelect',
+        'snippets',
+        'suggest',
+        'toggleHighContrast',
+        'toggleTabFocusMode',
+        'transpose',
+        'wordHighlighter',
+        'wordOperations',
+        'wordPartOperations',
+      ],
     }),
     new ForkTsCheckerWebpackPlugin({
       async: false,

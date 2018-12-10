@@ -8,7 +8,7 @@ import {
 } from '@blueprintjs/core';
 import classnames from 'classnames';
 import React, { Fragment } from 'react';
-import styles from './NewGistDialog.module.scss';
+import styles from './GistNew.module.scss';
 
 interface Props {
   readonly isOpen: boolean;
@@ -16,6 +16,9 @@ interface Props {
 }
 
 class NewGistDialog extends React.Component<Props> {
+  public title = '';
+  public description = '';
+
   public renderDialogBody = () => {
     return (
       <Fragment>
@@ -30,7 +33,7 @@ class NewGistDialog extends React.Component<Props> {
             value={
               "// First line\nfunction hello() {\n\talert('Hello world!');\n}\n// Last line"
             }
-            language="javascript"
+            language="typescript"
           />
         </FormGroup>
       </Fragment>

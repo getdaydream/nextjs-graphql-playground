@@ -3,10 +3,10 @@ import { combineEpics, Epic } from 'redux-observable';
 import { ajax } from 'rxjs/ajax';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
-import { PenAction } from '.';
+import { GistAction } from '.';
 import { newGist, updateGist } from './actions';
 
-const epicNewPen: Epic<PenAction> = action$ =>
+const epicNewGist: Epic<GistAction> = action$ =>
   action$.pipe(
     filter(isActionOf(newGist.request)),
     mergeMap(action =>
@@ -16,7 +16,7 @@ const epicNewPen: Epic<PenAction> = action$ =>
     ),
   );
 
-const epicUpdatePen: Epic<PenAction> = action$ =>
+const epicUpdateGist: Epic<GistAction> = action$ =>
   action$.pipe(
     filter(isActionOf(updateGist.request)),
     mergeMap(action =>
@@ -26,4 +26,4 @@ const epicUpdatePen: Epic<PenAction> = action$ =>
     ),
   );
 
-export default combineEpics(epicNewPen, epicUpdatePen);
+export default combineEpics(epicNewGist, epicUpdateGist);

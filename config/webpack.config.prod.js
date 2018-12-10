@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -7,9 +6,6 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const { baseWebpackConfig } = require('./webpack.config.base');
 const paths = require('./paths');
-
-// Note: defined here because it will be used more than once.
-const cssFilename = 'static/css/[name].[contenthash:8].css';
 
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
