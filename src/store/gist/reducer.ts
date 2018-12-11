@@ -1,7 +1,11 @@
 // import { Project } from '@stackblitz/sdk/typings/interfaces';
 import { combineReducers } from 'redux';
-import { ActionType, getType } from 'typesafe-actions';
+import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
+import {
+  ADD_FILE_TO_CURRENT_EDIT_GIST,
+  UPDATE_CURRENT_EDIT_GIST,
+} from './constants';
 
 export type GistAction = ActionType<typeof actions>;
 
@@ -29,14 +33,20 @@ export interface GistState {
   currentEditGist: Gist;
 }
 
+const getDefaultEditGist = () => ({
+  description: '',
+  files: [{ filename: '', filetype: 'typescript' }],
+  title: '',
+});
+
 const gistReducer = combineReducers<GistState, GistAction>({
-  currentEditGist: (state = {} as Gist, action) => {
+  currentEditGist: (state = getDefaultEditGist() as Gist, action) => {
     switch (action.type) {
-      case getType(actions.updateCurrentEditGist):
+      case UPDATE_CURRENT_EDIT_GIST:
         return {
           ...state,
         };
-      case getType(actions.addFileToCurrentEditGist):
+      case ADD_FILE_TO_CURRENT_EDIT_GIST:
         return {
           ...state,
         };

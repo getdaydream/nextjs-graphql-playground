@@ -1,6 +1,7 @@
 import { Button, Classes, Intent, Navbar } from '@blueprintjs/core';
 import React, { Fragment } from 'react';
 import { RouteComponentProps } from 'react-router';
+import GistEdit from './GistEdit';
 import styles from './index.module.scss';
 
 interface Props extends RouteComponentProps<{}> {}
@@ -32,12 +33,18 @@ class GistHome extends React.Component<Props, State> {
     );
   };
 
+  public renderMainContent = () => {
+    return <GistEdit />;
+  };
+
   public render() {
     return (
       <Fragment>
         <Navbar fixedToTop={true} className={Classes.DARK} />
 
         {this.renderSidebar()}
+
+        {this.renderMainContent()}
       </Fragment>
     );
   }
