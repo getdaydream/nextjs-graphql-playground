@@ -6,14 +6,17 @@
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React, { RefObject } from 'react';
 
-// import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution';
-
 interface Props {
   value: string;
   language: string;
+  theme?: 'vs' | 'vs-dark' | 'hc-black';
 }
 
 class MonacoEditor extends React.Component<Props> {
+  public static defaultProps: Partial<Props> = {
+    theme: 'vs-dark',
+  };
+
   public containerRef: RefObject<HTMLDivElement>;
   public editor: monaco.editor.IStandaloneCodeEditor;
 
@@ -23,10 +26,11 @@ class MonacoEditor extends React.Component<Props> {
   }
 
   public async componentDidMount() {
-    const { value, language } = this.props;
+    const { value, language, theme } = this.props;
 
     this.editor = monaco.editor.create(this.containerRef.current!, {
       language,
+      theme,
       value,
     });
   }

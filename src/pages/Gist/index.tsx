@@ -1,23 +1,22 @@
 import { Button, Classes, Intent, Navbar } from '@blueprintjs/core';
 import React, { Fragment } from 'react';
-import  GistNew from './GistNew';
+import { RouteComponentProps } from 'react-router';
 import styles from './index.module.scss';
+
+interface Props extends RouteComponentProps<{}> {}
 
 interface State {
   isOpenNewGistDialog: boolean;
 }
 
-class GistHome extends React.Component<{}, State> {
+class GistHome extends React.Component<Props, State> {
   public state = {
     isOpenNewGistDialog: false,
   };
 
   public handleClickNewGist = async () => {
-    this.setState({ isOpenNewGistDialog: true });
-  };  
-
-  public closeNewGistDialog = () => {
-    this.setState({ isOpenNewGistDialog: false });
+    const { history } = this.props;
+    history.push('/gist/new');
   };
 
   public renderSidebar = () => {
@@ -34,18 +33,11 @@ class GistHome extends React.Component<{}, State> {
   };
 
   public render() {
-    const { isOpenNewGistDialog } = this.state;
-
     return (
       <Fragment>
         <Navbar fixedToTop={true} className={Classes.DARK} />
 
         {this.renderSidebar()}
-
-        < GistNew
-          isOpen={isOpenNewGistDialog}
-          onClose={this.closeNewGistDialog}
-        />
       </Fragment>
     );
   }
