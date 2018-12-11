@@ -31,6 +31,7 @@ class MonacoEditor extends React.Component<Props> {
     const { value, language, theme } = this.props;
 
     this.editor = monaco.editor.create(this.containerRef.current!, {
+      automaticLayout: true,
       language,
       theme,
       value,
