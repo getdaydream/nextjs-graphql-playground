@@ -1,4 +1,7 @@
 import MonacoEditor from '@/components/MonacoEditor';
+import { gistActions } from '@/store/gist';
+import { Gist } from '@/store/gist/reducer';
+import { ReduxStore } from '@/store/store';
 import {
   Button,
   FormGroup,
@@ -8,17 +11,20 @@ import {
 } from '@blueprintjs/core';
 import classnames from 'classnames';
 import React from 'react';
+import { connect } from 'react-redux';
 import styles from './GistEdit.module.scss';
 
 interface Props {
-  gist: any;
+  gist: Gist;
+  onChangeGist: (gist: Partial<Gist>) => void;
 }
 
-class NewGistDialog extends React.Component<Props> {
+class GistEdit extends React.Component<Props> {
   public title = '';
   public description = '';
 
   public render() {
+    // const { gist } = this.props;
     return (
       <div>
         <Button text="保存" intent={Intent.PRIMARY} />
@@ -44,4 +50,11 @@ class NewGistDialog extends React.Component<Props> {
   }
 }
 
-export default NewGistDialog;
+export default connect(
+  (state: ReduxStore.state) => ({
+    gist: state.gist.currentEditGist,
+  }),
+  {
+    onChangeGist: gistActions.updateCurrentEditGistAction,
+  },
+)(GistEdit);

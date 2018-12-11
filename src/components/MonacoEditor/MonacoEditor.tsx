@@ -7,14 +7,16 @@ import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React, { RefObject } from 'react';
 
 interface Props {
-  value: string;
-  language: string;
+  value?: string;
+  language?: string;
   theme?: 'vs' | 'vs-dark' | 'hc-black';
 }
 
 class MonacoEditor extends React.Component<Props> {
   public static defaultProps: Partial<Props> = {
+    language: 'typescript',
     theme: 'vs-dark',
+    value: '',
   };
 
   public containerRef: RefObject<HTMLDivElement>;

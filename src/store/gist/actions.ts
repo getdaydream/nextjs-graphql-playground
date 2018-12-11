@@ -1,22 +1,34 @@
 import { action } from 'typesafe-actions';
-import { createAsyncAction } from 'typesafe-actions';
-import { createAsyncActionTypes } from '../utils';
 import {
   ADD_FILE_TO_CURRENT_EDIT_GIST,
+  NEW_GIST_REQUEST,
+  NEW_GIST_SUCCESS,
   UPDATE_CURRENT_EDIT_GIST,
+  UPDATE_GIST_REQUEST,
+  UPDATE_GIST_SUCCESS,
 } from './constants';
 import { Gist } from './reducer';
 
-export const newGist = createAsyncAction(
-  ...createAsyncActionTypes('gist', 'new'),
-)<Gist, Gist, Error>();
+/**
+ * 异步 action
+ */
+// 新建gist
+export const newGistRequestAction = (gist: Partial<Gist>) =>
+  action(NEW_GIST_REQUEST, gist);
+export const newGistSuccessAction = (gist: Partial<Gist>) =>
+  action(NEW_GIST_SUCCESS, gist);
 
-export const updateGist = createAsyncAction(
-  ...createAsyncActionTypes('gist', 'update'),
-)();
+// 更新gist
+export const updateGistRequestAction = (gist: Partial<Gist>) =>
+  action(UPDATE_GIST_REQUEST, gist);
+export const updateGistSuccessAction = (gist: Partial<Gist>) =>
+  action(UPDATE_GIST_SUCCESS, gist);
 
-export const updateCurrentEditGist = (gist: Partial<Gist>) =>
+/**
+ * 同步 action
+ */
+export const updateCurrentEditGistAction = (gist: Partial<Gist>) =>
   action(UPDATE_CURRENT_EDIT_GIST, gist);
 
-export const addFileToCurrentEditGist = () =>
+export const addFileToCurrentEditGistAction = () =>
   action(ADD_FILE_TO_CURRENT_EDIT_GIST);

@@ -7,7 +7,6 @@ import Collection from './Collection';
 import Counter from './Counter';
 import Explore from './Explore';
 import GistHome from './Gist';
-import GistNew from './Gist/GistEdit';
 import Login from './Login';
 
 export const getRoutes = () => {
@@ -16,7 +15,6 @@ export const getRoutes = () => {
       <Switch>
         <Route path="/login" component={Login} exact={true} />
         <Route path="/gist" component={GistHome} exact={true} />
-        <Route path="/gist/new" component={GistNew} exact={true} />
         <Route path="/pen" component={CodePen} exact={true} />
         <Route path="/pen/:id" component={CodePen} exact={true} />
         <BasicLayout>
