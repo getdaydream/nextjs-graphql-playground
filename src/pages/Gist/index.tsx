@@ -6,15 +6,7 @@ import styles from './index.module.scss';
 
 interface Props extends RouteComponentProps<{}> {}
 
-interface State {
-  isOpenNewGistDialog: boolean;
-}
-
-class GistHome extends React.Component<Props, State> {
-  public state = {
-    isOpenNewGistDialog: false,
-  };
-
+class GistHome extends React.Component<Props> {
   public handleClickNewGist = async () => {
     const { history } = this.props;
     history.push('/gist/new');
@@ -44,7 +36,7 @@ class GistHome extends React.Component<Props, State> {
 
         {this.renderSidebar()}
 
-        {this.renderMainContent()}
+        <main className={styles.main}>{this.renderMainContent()}</main>
       </Fragment>
     );
   }
