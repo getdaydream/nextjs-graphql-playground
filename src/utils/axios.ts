@@ -1,6 +1,7 @@
 import Axios from 'axios';
 
 const axios = Axios.create({
+  baseURL: 'http://192.168.100.39:3000',
   headers: { 'Content-Type': 'application/json' },
   transformRequest: [
     data => {

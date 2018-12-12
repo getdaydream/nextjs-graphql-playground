@@ -5,7 +5,7 @@ const portfinder = require('portfinder');
 
 const { baseWebpackConfig } = require('./webpack.config.base');
 
-const HOST = process.env.HOST || '127.0.0.1';
+const HOST = process.env.HOST || '192.168.100.39';
 const PORT = (process.env.PORT && Number(process.env.PORT)) || 8080;
 
 const devWebpackConfig = merge(baseWebpackConfig, {
