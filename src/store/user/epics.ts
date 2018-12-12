@@ -1,6 +1,6 @@
-import { genApiPath } from '@/utils/tools';
+import axios from '@/utils/axios';
 import { combineEpics, Epic } from 'redux-observable';
-import { ajax } from 'rxjs/ajax';
+import { from } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 import { login } from './actions';
@@ -10,13 +10,9 @@ const userLogin: Epic<UserAction> = action$ =>
   action$.pipe(
     filter(isActionOf(login.request)),
     mergeMap(action =>
-      ajax({
-        body: action.payload,
-        crossDomain: true,
-        method: 'post',
-        url: genApiPath('/api/users/login'),
-        withCredentials: true,
-      }).pipe(map(ajaxResp => login.success(ajaxResp.response))),
+      from(axios.post('/api/users/login', action.payload)).pipe(
+        map(resp => login.success(resp.data)),
+      ),
     ),
   );
 
