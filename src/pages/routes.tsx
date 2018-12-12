@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import DevTools from '@/components/ReduxDevTools';
+import { Classes } from '@blueprintjs/core';
+import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-
 import BasicLayout from './BasicLayout';
 import CodePen from './CodePen';
 import Collection from './Collection';
@@ -11,7 +12,8 @@ import Login from './Login';
 
 export const getRoutes = () => {
   return (
-    <Fragment>
+    <div className={Classes.DARK}>
+      <DevTools />
       <Switch>
         <Route path="/login" component={Login} exact={true} />
         <Route path="/gist" component={GistHome} exact={true} />
@@ -26,6 +28,6 @@ export const getRoutes = () => {
           </Switch>
         </BasicLayout>
       </Switch>
-    </Fragment>
+    </div>
   );
 };

@@ -6,14 +6,15 @@
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React, { RefObject } from 'react';
 
-interface Props {
+export interface MonacoEditorProps {
   value?: string;
   language?: string;
   theme?: 'vs' | 'vs-dark' | 'hc-black';
+  onChangeContent?: (content: string) => void;
 }
 
-class MonacoEditor extends React.Component<Props> {
-  public static defaultProps: Partial<Props> = {
+class MonacoEditor extends React.Component<MonacoEditorProps> {
+  public static defaultProps: Partial<MonacoEditorProps> = {
     language: 'typescript',
     theme: 'vs-dark',
     value: '',
@@ -22,13 +23,13 @@ class MonacoEditor extends React.Component<Props> {
   public containerRef: RefObject<HTMLDivElement>;
   public editor: monaco.editor.IStandaloneCodeEditor;
 
-  constructor(props: Props) {
+  constructor(props: MonacoEditorProps) {
     super(props);
     this.containerRef = React.createRef();
   }
 
   public async componentDidMount() {
-    const { value, language, theme } = this.props;
+    const { value, language, theme, onChangeContent } = this.props;
 
     this.editor = monaco.editor.create(this.containerRef.current!, {
       automaticLayout: true,
@@ -36,6 +37,12 @@ class MonacoEditor extends React.Component<Props> {
       theme,
       value,
     });
+
+    if (onChangeContent) {
+      this.editor.onDidChangeModelContent(() => {
+        onChangeContent(this.editor.getValue());
+      });
+    }
   }
 
   public componentWillUnmount() {

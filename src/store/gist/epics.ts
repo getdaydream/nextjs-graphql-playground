@@ -11,9 +11,13 @@ const epicNewGist: Epic<GistAction> = action$ =>
   action$.pipe(
     filter(isOfType(NEW_GIST_REQUEST)),
     mergeMap(action =>
-      ajax
-        .post(genApiPath('/api/cheatsheet'), action.payload)
-        .pipe(map(ajaxResp => newGistSuccessAction(ajaxResp.response))),
+      ajax({
+        body: action.payload,
+        crossDomain: true,
+        method: 'POST',
+        url: genApiPath('/api/gists'),
+        withCredentials: true,
+      }).pipe(map(ajaxResp => newGistSuccessAction(ajaxResp.response))),
     ),
   );
 
@@ -22,7 +26,7 @@ const epicUpdateGist: Epic<GistAction> = action$ =>
     filter(isOfType(UPDATE_GIST_REQUEST)),
     mergeMap(action =>
       ajax
-        .put(genApiPath('/api/cheatsheet'), action.payload)
+        .put(genApiPath('/api/gists'), action.payload)
         .pipe(map(ajaxResp => updateGistSuccessAction(ajaxResp.response))),
     ),
   );

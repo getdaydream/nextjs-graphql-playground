@@ -3,6 +3,7 @@ import {
   ADD_FILE_TO_CURRENT_EDIT_GIST,
   NEW_GIST_REQUEST,
   NEW_GIST_SUCCESS,
+  RESET_CURRENT_EDIT_GIST,
   UPDATE_CURRENT_EDIT_GIST,
   UPDATE_GIST_REQUEST,
   UPDATE_GIST_SUCCESS,
@@ -27,6 +28,8 @@ export const updateGistSuccessAction = (gist: Partial<Gist>) =>
 /**
  * 同步 action
  */
+export const resetCurrnetEditGist = () => action(RESET_CURRENT_EDIT_GIST);
+
 export const updateCurrentEditGistAction = (gist: Partial<Gist>) =>
   action(UPDATE_CURRENT_EDIT_GIST, gist);
 

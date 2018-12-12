@@ -1,15 +1,19 @@
+import { gistActions } from '@/store/gist';
 import { Button, Classes, Intent, Navbar } from '@blueprintjs/core';
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import GistEdit from './GistEdit';
 import styles from './index.module.scss';
 
-interface Props extends RouteComponentProps<{}> {}
+interface Props extends RouteComponentProps<{}> {
+  onClickNewGist: () => void;
+}
 
 class GistHome extends React.Component<Props> {
   public handleClickNewGist = async () => {
-    const { history } = this.props;
-    history.push('/gist/new');
+    const { onClickNewGist } = this.props;
+    onClickNewGist();
   };
 
   public renderSidebar = () => {
@@ -42,4 +46,9 @@ class GistHome extends React.Component<Props> {
   }
 }
 
-export default GistHome;
+export default connect(
+  null,
+  {
+    onClickNewGist: gistActions.resetCurrnetEditGist,
+  },
+)(GistHome);
