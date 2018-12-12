@@ -12,4 +12,7 @@
 
 ## TODO
 
+- reselect
 - production 时排除 redux-devtools
+- rxjs
+- worker

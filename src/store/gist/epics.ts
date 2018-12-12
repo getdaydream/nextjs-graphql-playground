@@ -1,6 +1,6 @@
-import { genApiPath } from '@/utils/tools';
+import axios from '@/utils/axios';
 import { combineEpics, Epic } from 'redux-observable';
-import { ajax } from 'rxjs/ajax';
+import { from } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { isOfType } from 'typesafe-actions';
 import { GistAction } from '.';
@@ -11,13 +11,9 @@ const epicNewGist: Epic<GistAction> = action$ =>
   action$.pipe(
     filter(isOfType(NEW_GIST_REQUEST)),
     mergeMap(action =>
-      ajax({
-        body: action.payload,
-        crossDomain: true,
-        method: 'POST',
-        url: genApiPath('/api/gists'),
-        withCredentials: true,
-      }).pipe(map(ajaxResp => newGistSuccessAction(ajaxResp.response))),
+      from(axios.post('/gists', action.payload)).pipe(
+        map(resp => newGistSuccessAction(resp.data)),
+      ),
     ),
   );
 
@@ -25,9 +21,9 @@ const epicUpdateGist: Epic<GistAction> = action$ =>
   action$.pipe(
     filter(isOfType(UPDATE_GIST_REQUEST)),
     mergeMap(action =>
-      ajax
-        .put(genApiPath('/api/gists'), action.payload)
-        .pipe(map(ajaxResp => updateGistSuccessAction(ajaxResp.response))),
+      from(axios.put('/gists', action.payload)).pipe(
+        map(resp => updateGistSuccessAction(resp.data)),
+      ),
     ),
   );
 
