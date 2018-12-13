@@ -3,7 +3,7 @@ import axios from '@/utils/axios';
 import { applyMiddleware, compose, createStore } from 'redux';
 import logger from 'redux-logger';
 import { createEpicMiddleware } from 'redux-observable';
-import rootEpic from './root-epic';
+import { rootEpic } from './root-epic';
 import rootReducers from './root-reducer';
 
 const epicMiddleware = createEpicMiddleware({
