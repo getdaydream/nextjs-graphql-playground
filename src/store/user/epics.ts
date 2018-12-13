@@ -10,7 +10,7 @@ const userLogin: Epic<UserAction> = action$ =>
   action$.pipe(
     filter(isActionOf(login.request)),
     mergeMap(action =>
-      from(axios.post('/api/users/login', action.payload)).pipe(
+      from(axios.post('/users/login', action.payload)).pipe(
         map(resp => login.success(resp.data)),
       ),
     ),

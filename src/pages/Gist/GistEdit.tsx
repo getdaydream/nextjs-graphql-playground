@@ -2,7 +2,6 @@ import MonacoEditor from '@/components/MonacoEditor';
 import { gistActions } from '@/store/gist';
 import { Gist } from '@/store/gist/reducer';
 import { ReduxStore } from '@/store/store';
-import axios from '@/utils/axios';
 import {
   Button,
   FormGroup,
@@ -44,14 +43,22 @@ class GistEdit extends React.Component<Props> {
   };
 
   public handleClickSave = () => {
-    axios.post('/api/gists', {});
+    const { gist, onCreate, onUpdate } = this.props;
+    if (gist.id) {
+      onUpdate(gist);
+    } else {
+      onCreate(gist);
+    }
+  };
 
-    // const { gist, onCreate, onUpdate } = this.props;
-    // if (gist.id) {
-    //   onUpdate(gist);
-    // } else {
-    //   onCreate(gist);
-    // }
+  public handleChangeEditorContent = (index: number, value: string) => {
+    const { gist, onChange } = this.props;
+    const newFiles = [...gist.files];
+    const newFile = { ...newFiles[index], content: value };
+    newFiles[index] = newFile;
+    onChange({
+      files: newFiles,
+    });
   };
 
   public render() {
@@ -79,7 +86,13 @@ class GistEdit extends React.Component<Props> {
 
           {gist.files.map((f, index) => (
             <div className={styles.fileEditor} key={index}>
-              <MonacoEditor value={f.content} language={f.filetype} />
+              <MonacoEditor
+                value={f.content}
+                language={f.filetype}
+                onChangeContent={value =>
+                  this.handleChangeEditorContent(index, value)
+                }
+              />
             </div>
           ))}
 

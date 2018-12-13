@@ -22,7 +22,7 @@ const epicUpdateGist: Epic<GistAction> = action$ =>
     filter(isOfType(UPDATE_GIST_REQUEST)),
     mergeMap(action =>
       from(axios.put('/gists', action.payload)).pipe(
-        map(resp => updateGistSuccessAction(resp.data)),
+        map(resp => updateGistSuccessAction(resp.data.data)),
       ),
     ),
   );
