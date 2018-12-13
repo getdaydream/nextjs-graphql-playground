@@ -1,10 +1,19 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 // https://github.com/Microsoft/monaco-editor-webpack-plugin
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
+const getClientEnvironment = require('./env');
 const { getStyleLoaders } = require('./utils');
 const paths = require('./paths');
+
+// `publicUrl` is just like `publicPath`, but we will provide it to our app
+// as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
+// Omit trailing slash as %PUBLIC_PATH%/xyz looks better than %PUBLIC_PATH%xyz.
+const publicUrl = '';
+// Get environment variables to inject into our app.
+const env = getClientEnvironment(publicUrl);
 
 // style files regexes
 const cssRegex = /\.css$/;
@@ -118,6 +127,7 @@ const baseWebpackConfig = {
       inject: true,
       template: paths.appHtml,
     }),
+    new webpack.DefinePlugin(env.stringified),
     new MonacoWebpackPlugin({
       languages: [
         'bat',

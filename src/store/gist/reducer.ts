@@ -4,6 +4,7 @@ import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import {
   ADD_FILE_TO_CURRENT_EDIT_GIST,
+  NEW_GIST_SUCCESS,
   RESET_CURRENT_EDIT_GIST,
   UPDATE_CURRENT_EDIT_GIST,
 } from './constants';
@@ -24,6 +25,7 @@ export interface Gist {
   title: string;
   description: string;
   files: GistFile[];
+  isPrivate: boolean;
   creat_at: Date;
   update_at: Date;
 }
@@ -38,7 +40,7 @@ export interface GistState {
 const getDefaultGistFile = () =>
   ({
     content: '',
-    filename: '',
+    filename: 'index',
     filetype: 'typescript',
   } as GistFile);
 
@@ -46,6 +48,7 @@ const getDefaultEditGist = () =>
   ({
     description: '',
     files: [getDefaultGistFile()],
+    isPrivate: false,
     title: '',
   } as Gist);
 
@@ -70,6 +73,8 @@ const gistReducer = combineReducers<GistState, GistAction>({
   },
   gistList: (state = [], action) => {
     switch (action.type) {
+      case NEW_GIST_SUCCESS:
+        return state.concat([action.payload as Gist]);
       default:
         return state;
     }

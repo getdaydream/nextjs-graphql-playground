@@ -24,6 +24,8 @@ const configureStore = (initialState?: object) => {
   // You might need to call this multiple times if your app implements code splitting and you want to load some of the epics dynamically or you're using hot reloading.
   epicMiddleware.run(rootEpic);
 
+  // TODO: hot replace reducer
+
   return store;
 };
 
