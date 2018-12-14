@@ -4,8 +4,17 @@ import { from } from 'rxjs';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { isOfType } from 'typesafe-actions';
 import { GistAction } from '.';
-import { newGistSuccessAction, updateGistSuccessAction } from './actions';
-import { NEW_GIST_REQUEST, UPDATE_GIST_REQUEST } from './constants';
+import {
+  fetchGistListSuccessAction,
+  newGistSuccessAction,
+  updateGistSuccessAction,
+} from './actions';
+import {
+  FETCH_GIST_LIST_REQUEST,
+  NEW_GIST_REQUEST,
+  UPDATE_GIST_REQUEST,
+} from './constants';
+import { Gist } from './reducer';
 
 const epicNewGist: Epic<GistAction> = action$ =>
   action$.pipe(
@@ -27,4 +36,14 @@ const epicUpdateGist: Epic<GistAction> = action$ =>
     ),
   );
 
-export default combineEpics(epicNewGist, epicUpdateGist);
+const epicFetchGistList: Epic<GistAction> = action$ =>
+  action$.pipe(
+    filter(isOfType(FETCH_GIST_LIST_REQUEST)),
+    mergeMap(action =>
+      from(axios.get('/gists')).pipe(
+        map(resp => fetchGistListSuccessAction(resp.data as Gist[])),
+      ),
+    ),
+  );
+
+export default combineEpics(epicNewGist, epicUpdateGist, epicFetchGistList);

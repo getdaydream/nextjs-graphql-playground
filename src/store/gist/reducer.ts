@@ -4,6 +4,7 @@ import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import {
   ADD_FILE_TO_CURRENT_EDIT_GIST,
+  FETCH_GIST_LIST_SUCCESS,
   NEW_GIST_SUCCESS,
   RESET_CURRENT_EDIT_GIST,
   UPDATE_CURRENT_EDIT_GIST,
@@ -71,10 +72,12 @@ const gistReducer = combineReducers<GistState, GistAction>({
         return state;
     }
   },
-  gistList: (state = [], action) => {
+  gistList: (state = [] as Gist[], action) => {
     switch (action.type) {
       case NEW_GIST_SUCCESS:
         return state.concat([action.payload as Gist]);
+      case FETCH_GIST_LIST_SUCCESS:
+        return action.payload;
       default:
         return state;
     }
