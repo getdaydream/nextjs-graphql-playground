@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import { AxiosResponse } from 'axios';
 import { combineEpics } from 'redux-observable';
 import { catchError } from 'rxjs/operators';
 import gistEpic from './gist/epics';
@@ -9,8 +9,8 @@ import userEpic from './user/epics';
  * 未来或许会增加一个标志位
  * https://github.com/axios/axios/blob/75c8b3f146aaa8a71f7dca0263686fb1799f8f31/lib/core/enhanceError.js
  */
-const isAxiosError = (err: AxiosError) => {
-  return err.code && err.config && err.request && err.response;
+const isAxiosError = (err: AxiosResponse) => {
+  return err.status && err.config && err.statusText;
 };
 
 /**

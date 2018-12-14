@@ -11,7 +11,7 @@ class Login extends React.Component<Props> {
     const { onLogin } = this.props;
     onLogin({
       email: '27552214@qq.com',
-      password: '1234567',
+      password: '12345678',
     });
   };
 

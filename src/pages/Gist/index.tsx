@@ -7,10 +7,16 @@ import GistEdit from './GistEdit';
 import styles from './index.module.scss';
 
 interface Props extends RouteComponentProps<{}> {
+  onFetchGistList: () => void;
   onClickNewGist: () => void;
 }
 
 class GistHome extends React.Component<Props> {
+  public componentDidMount() {
+    const { onFetchGistList } = this.props;
+    onFetchGistList();
+  }
+
   public handleClickNewGist = async () => {
     const { onClickNewGist } = this.props;
     onClickNewGist();
@@ -49,6 +55,7 @@ class GistHome extends React.Component<Props> {
 export default connect(
   null,
   {
-    onClickNewGist: gistActions.resetCurrnetEditGist,
+    onClickNewGist: gistActions.resetCurrnetEditGistAction,
+    onFetchGistList: gistActions.fetchGistListRequestAction,
   },
 )(GistHome);
