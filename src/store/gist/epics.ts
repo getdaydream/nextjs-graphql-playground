@@ -14,7 +14,6 @@ import {
   NEW_GIST_REQUEST,
   UPDATE_GIST_REQUEST,
 } from './constants';
-import { Gist } from './reducer';
 
 const epicNewGist: Epic<GistAction> = action$ =>
   action$.pipe(
@@ -41,7 +40,7 @@ const epicFetchGistList: Epic<GistAction> = action$ =>
     filter(isOfType(FETCH_GIST_LIST_REQUEST)),
     mergeMap(action =>
       from(axios.get('/gists')).pipe(
-        map(resp => fetchGistListSuccessAction(resp.data as Gist[])),
+        map(resp => fetchGistListSuccessAction(resp.data)),
       ),
     ),
   );
