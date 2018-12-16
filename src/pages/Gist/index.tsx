@@ -1,4 +1,6 @@
 import { gistActions } from '@/store/gist';
+import { Gist } from '@/store/gist/reducer';
+import { ReduxStore } from '@/store/store';
 import { Button, Classes, Intent, Navbar } from '@blueprintjs/core';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
@@ -7,6 +9,7 @@ import GistEdit from './GistEdit';
 import styles from './index.module.scss';
 
 interface Props extends RouteComponentProps<{}> {
+  gistList: Gist[];
   onFetchGistList: () => void;
   onClickNewGist: () => void;
 }
@@ -53,7 +56,9 @@ class GistHome extends React.Component<Props> {
 }
 
 export default connect(
-  null,
+  (state: ReduxStore.state) => ({
+    gistList: state.gist.gistList,
+  }),
   {
     onClickNewGist: gistActions.resetCurrnetEditGistAction,
     onFetchGistList: gistActions.fetchGistListRequestAction,
