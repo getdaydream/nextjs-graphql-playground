@@ -109,7 +109,7 @@ class GistEdit extends React.Component<Props> {
 
 export default connect(
   (state: ReduxStore.state) => ({
-    gist: state.gist.currentEditGist,
+    gist: state.gist.currentGist,
   }),
   {
     onAddFile: gistActions.addFileToCurrentEditGistAction,

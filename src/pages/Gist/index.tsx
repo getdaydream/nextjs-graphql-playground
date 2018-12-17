@@ -1,3 +1,4 @@
+import GistListItem from '@/components/GistListItem';
 import { gistActions } from '@/store/gist';
 import { Gist } from '@/store/gist/reducer';
 import { ReduxStore } from '@/store/store';
@@ -10,11 +11,20 @@ import styles from './index.module.scss';
 
 interface Props extends RouteComponentProps<{}> {
   gistList: Gist[];
+  onDeleteGist: (id: number) => void;
   onFetchGistList: () => void;
   onClickNewGist: () => void;
 }
 
-class GistHome extends React.Component<Props> {
+interface State {
+  hoverIndex: number;
+}
+
+class GistHome extends React.Component<Props, State> {
+  public state = {
+    hoverIndex: -1,
+  };
+
   public componentDidMount() {
     const { onFetchGistList } = this.props;
     onFetchGistList();
@@ -25,7 +35,14 @@ class GistHome extends React.Component<Props> {
     onClickNewGist();
   };
 
+  public handleHoverIndexChange = (id: number) => {
+    this.setState({ hoverIndex: id });
+  };
+
   public renderSidebar = () => {
+    const { gistList, onDeleteGist } = this.props;
+    const { hoverIndex } = this.state;
+
     return (
       <div className={styles.sidebar}>
         <Button
@@ -34,6 +51,17 @@ class GistHome extends React.Component<Props> {
           fill={true}
           onClick={this.handleClickNewGist}
         />
+        {gistList.length > 0 &&
+          gistList.map(gist => (
+            <GistListItem
+              key={gist.id}
+              hover={gist.id === hoverIndex}
+              onHoverEnter={() => this.handleHoverIndexChange(gist.id)}
+              onHoverLeave={() => this.handleHoverIndexChange(-1)}
+              onDelete={() => onDeleteGist(gist.id)}
+              {...gist}
+            />
+          ))}
       </div>
     );
   };
@@ -61,6 +89,7 @@ export default connect(
   }),
   {
     onClickNewGist: gistActions.resetCurrnetEditGistAction,
+    onDeleteGist: gistActions.deleteGistRequestAction,
     onFetchGistList: gistActions.fetchGistListRequestAction,
   },
 )(GistHome);

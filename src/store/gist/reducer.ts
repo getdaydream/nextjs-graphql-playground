@@ -3,11 +3,13 @@ import { combineReducers } from 'redux';
 import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import {
-  ADD_FILE_TO_CURRENT_EDIT_GIST,
+  ADD_FILE_TO_CURRENT_GIST,
+  DELETE_GIST_SUCCESS,
   FETCH_GIST_LIST_SUCCESS,
   NEW_GIST_SUCCESS,
-  RESET_CURRENT_EDIT_GIST,
-  UPDATE_CURRENT_EDIT_GIST,
+  RESET_CURRENT_GIST,
+  UPDATE_CURRENT_GIST,
+  UPDATE_IS_EDITING,
 } from './constants';
 
 export type GistAction = ActionType<typeof actions>;
@@ -34,8 +36,10 @@ export interface Gist {
 export interface GistState {
   // gist 列表
   gistList: Gist[];
-  // 当前编辑的gist
-  currentEditGist: Gist;
+  // 当前显示的gist
+  currentGist: Gist;
+  // 是否在编辑
+  isEditing: boolean;
 }
 
 const getDefaultGistFile = () =>
@@ -54,16 +58,16 @@ const getDefaultEditGist = () =>
   } as Gist);
 
 const gistReducer = combineReducers<GistState, GistAction>({
-  currentEditGist: (state = getDefaultEditGist() as Gist, action) => {
+  currentGist: (state = getDefaultEditGist() as Gist, action) => {
     switch (action.type) {
-      case RESET_CURRENT_EDIT_GIST:
+      case RESET_CURRENT_GIST:
         return getDefaultEditGist();
-      case UPDATE_CURRENT_EDIT_GIST:
+      case UPDATE_CURRENT_GIST:
         return {
           ...state,
           ...action.payload,
         };
-      case ADD_FILE_TO_CURRENT_EDIT_GIST:
+      case ADD_FILE_TO_CURRENT_GIST:
         return {
           ...state,
           files: state.files.concat([getDefaultGistFile()]),
@@ -77,6 +81,21 @@ const gistReducer = combineReducers<GistState, GistAction>({
       case NEW_GIST_SUCCESS:
         return state.concat([action.payload as Gist]);
       case FETCH_GIST_LIST_SUCCESS:
+        return action.payload;
+      case DELETE_GIST_SUCCESS:
+        const nextState = [...state];
+        const index = nextState.findIndex(gist => gist.id === action.payload);
+        if (index > -1) {
+          nextState.splice(index, 1);
+        }
+        return nextState;
+      default:
+        return state;
+    }
+  },
+  isEditing: (state = false, action) => {
+    switch (action.type) {
+      case UPDATE_IS_EDITING:
         return action.payload;
       default:
         return state;

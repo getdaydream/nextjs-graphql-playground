@@ -17,10 +17,14 @@ export const FETCH_GIST_LIST_REQUEST = '@@gist/FETCH_GIST_LIST_REQUEST';
 export const FETCH_GIST_LIST_SUCCESS = '@@gist/FETCH_GIST_LIST_SUCCESS';
 export const FETCH_GIST_LIST_ERROR = '@@gist/FETCH_GIST_LIST_ERROR';
 
+// 删除 gist list
+export const DELETE_GIST_REQUEST = '@@gist/DELETE_GIST_REQUEST';
+export const DELETE_GIST_SUCCESS = '@@gist/DELETE_GIST_SUCCESS';
+
 /**
  * 同步 action type
  */
-export const RESET_CURRENT_EDIT_GIST = '@@gist/RESET_CURRENT_EDIT_GIST';
-export const UPDATE_CURRENT_EDIT_GIST = '@@gist/UPDATE_CURRENT_EDIT_GIST';
-export const ADD_FILE_TO_CURRENT_EDIT_GIST =
-  '@@gist/ADD_FILE_TO_CURRENT_EDIT_GIST';
+export const RESET_CURRENT_GIST = '@@gist/RESET_CURRENT_GIST';
+export const UPDATE_CURRENT_GIST = '@@gist/UPDATE_CURRENT_GIST';
+export const ADD_FILE_TO_CURRENT_GIST = '@@gist/ADD_FILE_TO_CURRENT_GIST';
+export const UPDATE_IS_EDITING = '@@gist/UPDATE_IS_EDITING';
