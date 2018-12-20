@@ -1,48 +1,43 @@
 import { Gist } from '@/store/gist/reducer';
+import { Menu, MenuItem, Popover } from '@blueprintjs/core';
 import React from 'react';
-import { MdDelete } from 'react-icons/md';
-import { Spring } from 'react-spring';
+import { MdDelete, MdSettings } from 'react-icons/md';
 import styles from './index.module.css';
 
 interface Props extends Partial<Gist> {
+  active: boolean;
   onDelete: () => void;
-  onHoverEnter: () => void;
-  onHoverLeave: () => void;
-  hover?: boolean;
   className?: string;
 }
 
 class GistListItem extends React.Component<Props> {
   public render() {
-    const {
-      title,
-      hover,
-      description,
-      onDelete,
-      onHoverEnter,
-      onHoverLeave,
-    } = this.props;
+    const { title, description, onDelete } = this.props;
 
     return (
-      <Spring
-        from={{ background: hover ? 'rgb(20, 47, 67)' : 'hsla(0,0%,100%,.1)' }}
-        to={{ background: hover ? 'hsla(0,0%,100%,.1)' : 'rgb(20, 47, 67)' }}
-      >
-        {props => (
-          <div
-            className={styles.gistLitsItem}
-            onMouseEnter={onHoverEnter}
-            onMouseLeave={onHoverLeave}
-            style={props}
-          >
-            <div>
-              <MdDelete onClick={onDelete} />
+      <div className={styles.gistLitsItem}>
+        <div>
+          <div />
+          <div>{title}</div>
+          <div>{description}</div>
+        </div>
+        <Popover
+          target={
+            <div className={styles.settingIcon}>
+              <MdSettings size={16} color="#b3b3b3" />
             </div>
-            <div>{title}</div>
-            <div>{description}</div>
-          </div>
-        )}
-      </Spring>
+          }
+          content={
+            <Menu>
+              <MenuItem
+                icon={<MdDelete size={16} color="#bfccd6" />}
+                text="删除文章"
+                onClick={onDelete}
+              />
+            </Menu>
+          }
+        />
+      </div>
     );
   }
 }

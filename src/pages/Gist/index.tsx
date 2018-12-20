@@ -10,21 +10,14 @@ import GistEdit from './GistEdit';
 import styles from './index.module.scss';
 
 interface Props extends RouteComponentProps<{}> {
+  currentGist: Gist;
   gistList: Gist[];
   onDeleteGist: (id: number) => void;
   onFetchGistList: () => void;
   onClickNewGist: () => void;
 }
 
-interface State {
-  hoverIndex: number;
-}
-
-class GistHome extends React.Component<Props, State> {
-  public state = {
-    hoverIndex: -1,
-  };
-
+class GistHome extends React.Component<Props> {
   public componentDidMount() {
     const { onFetchGistList } = this.props;
     onFetchGistList();
@@ -35,13 +28,8 @@ class GistHome extends React.Component<Props, State> {
     onClickNewGist();
   };
 
-  public handleHoverIndexChange = (id: number) => {
-    this.setState({ hoverIndex: id });
-  };
-
   public renderSidebar = () => {
-    const { gistList, onDeleteGist } = this.props;
-    const { hoverIndex } = this.state;
+    const { gistList, onDeleteGist, currentGist } = this.props;
 
     return (
       <div className={styles.sidebar}>
@@ -54,10 +42,8 @@ class GistHome extends React.Component<Props, State> {
         {gistList.length > 0 &&
           gistList.map(gist => (
             <GistListItem
+              active={currentGist.id === gist.id}
               key={gist.id}
-              hover={gist.id === hoverIndex}
-              onHoverEnter={() => this.handleHoverIndexChange(gist.id)}
-              onHoverLeave={() => this.handleHoverIndexChange(-1)}
               onDelete={() => onDeleteGist(gist.id)}
               {...gist}
             />
@@ -85,6 +71,7 @@ class GistHome extends React.Component<Props, State> {
 
 export default connect(
   (state: ReduxStore.state) => ({
+    currentGist: state.gist.currentGist,
     gistList: state.gist.gistList,
   }),
   {
