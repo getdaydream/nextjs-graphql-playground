@@ -20,12 +20,11 @@ class MonacoEditor extends React.Component<MonacoEditorProps> {
     value: '',
   };
 
-  public containerRef: RefObject<HTMLDivElement>;
+  public containerRef: RefObject<HTMLDivElement> = React.createRef();
   public editor: monaco.editor.IStandaloneCodeEditor;
 
   constructor(props: MonacoEditorProps) {
     super(props);
-    this.containerRef = React.createRef();
   }
 
   public async componentDidMount() {
