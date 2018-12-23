@@ -1,6 +1,6 @@
 import MonacoEditor from '@/components/MonacoEditor';
 import { postActions } from '@/store/post';
-import { Post } from '@/store/post/reducer';
+import { Post } from '@/store/post/interface';
 import { ReduxStore } from '@/store/store';
 import {
   Button,
@@ -67,13 +67,13 @@ class GistEdit extends React.Component<Props> {
     return (
       <div>
         <Button
-          text="保存"
+          text="Save"
           intent={Intent.PRIMARY}
           onClick={this.handleClickSave}
         />
 
         <div className={classnames(styles.dialogBody)}>
-          <FormGroup label="Gist Title">
+          <FormGroup label="Title">
             <InputGroup value={gist.title} onChange={this.handleChangeTitle} />
           </FormGroup>
           <FormGroup label="Description">

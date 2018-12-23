@@ -1,6 +1,6 @@
 import PostListItem from '@/components/PostListItem';
 import { postActions } from '@/store/post';
-import { Post } from '@/store/post/reducer';
+import { Post } from '@/store/post/interface';
 import { ReduxStore } from '@/store/store';
 import { Button, Classes, Intent, Navbar } from '@blueprintjs/core';
 import React, { Fragment } from 'react';
@@ -15,6 +15,7 @@ interface Props extends RouteComponentProps<{}> {
   onDeletePost: (id: number) => void;
   onFetchPostList: () => void;
   onClickNewPost: () => void;
+  onChangeCurrent: (post: Post) => void;
 }
 
 class PostHome extends React.Component<Props> {
@@ -26,6 +27,10 @@ class PostHome extends React.Component<Props> {
   public handleClickNewPost = async () => {
     const { onClickNewPost } = this.props;
     onClickNewPost();
+  };
+
+  public handleClickPostItem = () => {
+    // TODO:
   };
 
   public renderSidebar = () => {
@@ -45,6 +50,7 @@ class PostHome extends React.Component<Props> {
               active={currentPost.id === post.id}
               key={post.id}
               onDelete={() => onDeletePost(post.id)}
+              onClick={this.handleClickPostItem}
               {...post}
             />
           ))}
