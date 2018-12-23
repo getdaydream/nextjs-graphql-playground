@@ -1,21 +1,21 @@
-import { Gist } from '@/store/gist/reducer';
+import { Post } from '@/store/post/reducer';
 import { Menu, MenuItem, Popover } from '@blueprintjs/core';
 import React from 'react';
 import { MdDelete, MdSettings } from 'react-icons/md';
 import styles from './index.module.css';
 
-interface Props extends Partial<Gist> {
+interface Props extends Partial<Post> {
   active: boolean;
   onDelete: () => void;
   className?: string;
 }
 
-class GistListItem extends React.Component<Props> {
+class PostListItem extends React.Component<Props> {
   public render() {
     const { title, description, onDelete } = this.props;
 
     return (
-      <div className={styles.gistLitsItem}>
+      <div className={styles.postLitsItem}>
         <div>
           <div />
           <div>{title}</div>
@@ -42,4 +42,4 @@ class GistListItem extends React.Component<Props> {
   }
 }
 
-export default GistListItem;
+export default PostListItem;

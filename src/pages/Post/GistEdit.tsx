@@ -1,6 +1,6 @@
 import MonacoEditor from '@/components/MonacoEditor';
-import { gistActions } from '@/store/gist';
-import { Gist } from '@/store/gist/reducer';
+import { postActions } from '@/store/post';
+import { Post } from '@/store/post/reducer';
 import { ReduxStore } from '@/store/store';
 import {
   Button,
@@ -15,10 +15,10 @@ import { connect } from 'react-redux';
 import styles from './GistEdit.module.scss';
 
 interface Props {
-  gist: Gist;
-  onUpdate: (gist: Partial<Gist>) => void;
-  onCreate: (gist: Partial<Gist>) => void;
-  onChange: (gist: Partial<Gist>) => void;
+  gist: Post;
+  onUpdate: (gist: Partial<Post>) => void;
+  onCreate: (gist: Partial<Post>) => void;
+  onChange: (gist: Partial<Post>) => void;
   onAddFile: () => void;
 }
 
@@ -109,12 +109,12 @@ class GistEdit extends React.Component<Props> {
 
 export default connect(
   (state: ReduxStore.state) => ({
-    gist: state.gist.currentGist,
+    gist: state.post.currentPost,
   }),
   {
-    onAddFile: gistActions.addFileToCurrentEditGistAction,
-    onChange: gistActions.updateCurrentEditGistAction,
-    onCreate: gistActions.newGistRequestAction,
-    onUpdate: gistActions.updateGistRequestAction,
+    onAddFile: postActions.addFileToCurrentEditGistAction,
+    onChange: postActions.updateCurrentEditPostAction,
+    onCreate: postActions.newPostRequestAction,
+    onUpdate: postActions.updatePostRequestAction,
   },
 )(GistEdit);
