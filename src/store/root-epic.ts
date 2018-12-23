@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { combineEpics } from 'redux-observable';
 import { catchError } from 'rxjs/operators';
-import gistEpic from './gist/epics';
+import postEpic from './post/epics';
 import userEpic from './user/epics';
 
 /**
@@ -18,7 +18,7 @@ const isAxiosError = (err: AxiosResponse) => {
  * https://github.com/redux-observable/redux-observable/issues/94
  */
 export const rootEpic = (action$, store) =>
-  combineEpics(userEpic, gistEpic)(action$, store).pipe(
+  combineEpics(userEpic, postEpic)(action$, store).pipe(
     catchError((err, source) => {
       if (isAxiosError(err)) {
         // TODO: dispatch redux action
