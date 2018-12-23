@@ -13,7 +13,7 @@ import {
   UPDATE_POST_REQUEST,
   UPDATE_POST_SUCCESS,
 } from './constants';
-import { Post } from './reducer';
+import { Post } from './interface';
 
 /**
  * async action

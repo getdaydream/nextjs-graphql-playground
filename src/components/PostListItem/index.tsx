@@ -1,4 +1,4 @@
-import { Post } from '@/store/post/reducer';
+import { Post } from '@/store/post/interface';
 import { Menu, MenuItem, Popover } from '@blueprintjs/core';
 import React from 'react';
 import { MdDelete, MdSettings } from 'react-icons/md';
@@ -6,16 +6,17 @@ import styles from './index.module.css';
 
 interface Props extends Partial<Post> {
   active: boolean;
+  onClick: () => void;
   onDelete: () => void;
   className?: string;
 }
 
 class PostListItem extends React.Component<Props> {
   public render() {
-    const { title, description, onDelete } = this.props;
+    const { title, description, onDelete, onClick } = this.props;
 
     return (
-      <div className={styles.postLitsItem}>
+      <div className={styles.postLitsItem} onClick={onClick}>
         <div>
           <div />
           <div>{title}</div>
@@ -31,7 +32,7 @@ class PostListItem extends React.Component<Props> {
             <Menu>
               <MenuItem
                 icon={<MdDelete size={16} color="#bfccd6" />}
-                text="删除文章"
+                text="Delete Post"
                 onClick={onDelete}
               />
             </Menu>
