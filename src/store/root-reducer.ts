@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { counterReducer } from './counter';
-import { gistReducer } from './gist';
+import { postReducer } from './post';
 import { userReducer } from './user';
 
 const rootReducers = combineReducers({
   counter: counterReducer,
-  gist: gistReducer,
+  post: postReducer,
   user: userReducer,
 });
 
