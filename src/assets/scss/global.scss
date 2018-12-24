@@ -2,6 +2,8 @@
 
 $pt-intent-primary: #0084ff;
 
+$dark-gray4: rgb(44, 44, 66);
+
 // "intent": (default, hover, active colors)
 $button-intents: (
   'primary': (
@@ -31,5 +33,5 @@ $button-intents: (
 @import 'spinkit/scss/spinners/9-cube-grid.scss';
 
 body {
-  background-color: #30404d;
+  background-color: rgb(39, 40, 56);
 }

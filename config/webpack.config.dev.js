@@ -20,6 +20,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     // Enable HMR
     hot: true,
     host: HOST,
+    disableHostCheck: true,
   },
 
   module: {},
