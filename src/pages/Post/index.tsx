@@ -1,17 +1,18 @@
-import PostListItem from '@/components/PostListItem';
 import { postActions } from '@/store/post';
 import { Post } from '@/store/post/interface';
 import { ReduxStore } from '@/store/store';
-import { Button, Classes, Intent, Navbar } from '@blueprintjs/core';
-import React, { Fragment } from 'react';
+import { Classes } from '@blueprintjs/core';
+import c from 'classnames';
+import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import GistEdit from './GistEdit';
 import styles from './index.module.scss';
+import Sidebar from './Sidebar';
+import SidebarSecondary from './SidebarSecondary';
 
 interface Props extends RouteComponentProps<{}> {
   currentPost: Post;
-  postList: Post[];
   onDeletePost: (id: number) => void;
   onFetchPostList: () => void;
   onClickNewPost: () => void;
@@ -33,30 +34,30 @@ class PostHome extends React.Component<Props> {
     // TODO:
   };
 
-  public renderSidebar = () => {
-    const { postList, onDeletePost, currentPost } = this.props;
+  // public renderSidebar = () => {
+  //   const { postList, onDeletePost, currentPost } = this.props;
 
-    return (
-      <div className={styles.sidebar}>
-        <Button
-          text="New Post"
-          intent={Intent.PRIMARY}
-          fill={true}
-          onClick={this.handleClickNewPost}
-        />
-        {postList.length > 0 &&
-          postList.map(post => (
-            <PostListItem
-              active={currentPost.id === post.id}
-              key={post.id}
-              onDelete={() => onDeletePost(post.id)}
-              onClick={this.handleClickPostItem}
-              {...post}
-            />
-          ))}
-      </div>
-    );
-  };
+  //   return (
+  //     <div className={styles.sidebar}>
+  //       <Button
+  //         text="New Post"
+  //         intent={Intent.PRIMARY}
+  //         fill={true}
+  //         onClick={this.handleClickNewPost}
+  //       />
+  //       {postList.length > 0 &&
+  //         postList.map(post => (
+  //           <PostListItem
+  //             active={currentPost.id === post.id}
+  //             key={post.id}
+  //             onDelete={() => onDeletePost(post.id)}
+  //             onClick={this.handleClickPostItem}
+  //             {...post}
+  //           />
+  //         ))}
+  //     </div>
+  //   );
+  // };
 
   public renderMainContent = () => {
     return <GistEdit />;
@@ -64,13 +65,12 @@ class PostHome extends React.Component<Props> {
 
   public render() {
     return (
-      <Fragment>
-        <Navbar fixedToTop={true} className={Classes.DARK} />
-
-        {this.renderSidebar()}
+      <div className={c(styles.root, Classes.DARK)}>
+        <Sidebar className={styles.sidebar} />
+        <SidebarSecondary className={styles.sidebarSecondary} />
 
         <main className={styles.main}>{this.renderMainContent()}</main>
-      </Fragment>
+      </div>
     );
   }
 }
@@ -78,7 +78,6 @@ class PostHome extends React.Component<Props> {
 export default connect(
   (state: ReduxStore.state) => ({
     currentPost: state.post.currentPost,
-    postList: state.post.postList,
   }),
   {
     onClickNewPost: postActions.resetCurrnetEditPostAction,

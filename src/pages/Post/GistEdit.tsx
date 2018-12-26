@@ -10,7 +10,7 @@ import {
   TextArea,
 } from '@blueprintjs/core';
 import classnames from 'classnames';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import styles from './GistEdit.module.scss';
 
@@ -65,7 +65,7 @@ class GistEdit extends React.Component<Props> {
     const { gist } = this.props;
 
     return (
-      <div>
+      <Fragment>
         <Button
           text="Save"
           intent={Intent.PRIMARY}
@@ -102,7 +102,7 @@ class GistEdit extends React.Component<Props> {
             onClick={this.handleClickAddFile}
           />
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
