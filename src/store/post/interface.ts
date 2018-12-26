@@ -1,6 +1,12 @@
+export interface PostState {
+  postList: Post[];
+  currentPost: Post;
+  isEditing: boolean;
+}
+
 export enum PostType {
   snippet = 'snippet',
-  article = 'article',
+  markdown = 'markdown',
 }
 
 export interface PostFile {
@@ -22,10 +28,4 @@ export interface Post {
   isPrivate: boolean;
   creat_at: Date;
   update_at: Date;
-}
-
-export interface PostState {
-  postList: Post[];
-  currentPost: Post;
-  isEditing: boolean;
 }

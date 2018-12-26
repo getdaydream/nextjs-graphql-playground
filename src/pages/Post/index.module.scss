@@ -1,15 +1,25 @@
-.sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
+@import '@/assets/scss/variables.scss';
+
+.root {
+  position: absolute;
   left: 0;
-  width: 230px;
-  padding-top: 50px;
-  overflow-y: scroll;
+  top: 0;
+  width: 100%;
+  display: flex;
+}
+
+.sidebar {
+  flex: 0 0 80px;
+}
+
+.sidebarSecondary {
+  flex: 0 0 250px;
 }
 
 .main {
-  padding-top: 50px;
-  padding-left: 250px;
-  padding-right: 30px;
+  flex: 1;
+  height: 100vh;
+  padding: 16px;
+  overflow: auto;
+  background: $dark-gray5;
 }

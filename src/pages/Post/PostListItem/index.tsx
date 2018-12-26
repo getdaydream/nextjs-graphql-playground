@@ -5,9 +5,9 @@ import { MdDelete, MdSettings } from 'react-icons/md';
 import styles from './index.module.css';
 
 interface Props extends Partial<Post> {
-  active: boolean;
-  onClick: () => void;
-  onDelete: () => void;
+  active?: boolean;
+  onClick?: () => void;
+  onDelete?: () => void;
   className?: string;
 }
 
