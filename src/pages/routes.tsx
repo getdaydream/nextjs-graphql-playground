@@ -5,7 +5,6 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import BasicLayout from './BasicLayout';
 import CodePen from './CodePen';
 import Collection from './Collection';
-import Counter from './Counter';
 import Explore from './Explore';
 import Login from './Login';
 import PostHome from './Post';
@@ -23,7 +22,6 @@ export const getRoutes = () => {
           <Switch>
             <Route path="/collection" component={Collection} />
             <Route path="/explore" component={Explore} />
-            <Route path="/counter" component={Counter} />
             <Redirect from="/" to="/explore" />
           </Switch>
         </BasicLayout>

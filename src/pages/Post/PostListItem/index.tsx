@@ -1,19 +1,30 @@
 import { Post } from '@/store/post/interface';
+import { ReduxStore } from '@/store/store';
 import { Menu, MenuItem, Popover } from '@blueprintjs/core';
 import React from 'react';
 import { MdDelete, MdSettings } from 'react-icons/md';
+import { connect } from 'react-redux';
 import styles from './index.module.css';
 
-interface Props extends Partial<Post> {
+interface OwnProps {
+  id: number;
   active?: boolean;
   onClick?: () => void;
   onDelete?: () => void;
   className?: string;
 }
 
+interface Props extends OwnProps {
+  post: Post;
+}
+
 class PostListItem extends React.Component<Props> {
   public render() {
-    const { title, description, onDelete, onClick } = this.props;
+    const {
+      post: { title, description },
+      onDelete,
+      onClick,
+    } = this.props;
 
     return (
       <div className={styles.postLitsItem} onClick={onClick}>
@@ -43,4 +54,6 @@ class PostListItem extends React.Component<Props> {
   }
 }
 
-export default PostListItem;
+export default connect((state: ReduxStore.state, ownProps: OwnProps) => ({
+  post: state.post.idMapPost[ownProps.id],
+}))(PostListItem);
