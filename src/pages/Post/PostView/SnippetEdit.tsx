@@ -1,4 +1,4 @@
-import MonacoEditor from '@/components/MonacoEditor';
+// import MonacoEditor from '@/components/MonacoEditor';
 import { postActions } from '@/store/post';
 import { Post } from '@/store/post/interface';
 import { ReduxStore } from '@/store/store';
@@ -12,17 +12,17 @@ import {
 import classnames from 'classnames';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import styles from './GistEdit.module.scss';
+import styles from './SnippetEdit.module.scss';
 
 interface Props {
-  gist: Post;
+  post: Post;
   onUpdate: (gist: Partial<Post>) => void;
   onCreate: (gist: Partial<Post>) => void;
   onChange: (gist: Partial<Post>) => void;
   onAddFile: () => void;
 }
 
-class GistEdit extends React.Component<Props> {
+class SnippetEdit extends React.Component<Props> {
   public handleClickAddFile = () => {
     const { onAddFile } = this.props;
     onAddFile();
@@ -43,26 +43,26 @@ class GistEdit extends React.Component<Props> {
   };
 
   public handleClickSave = () => {
-    const { gist, onCreate, onUpdate } = this.props;
-    if (gist.id) {
-      onUpdate(gist);
+    const { post, onCreate, onUpdate } = this.props;
+    if (post.id) {
+      onUpdate(post);
     } else {
-      onCreate(gist);
+      onCreate(post);
     }
   };
 
   public handleChangeEditorContent = (index: number, value: string) => {
-    const { gist, onChange } = this.props;
-    const newFiles = [...gist.files];
-    const newFile = { ...newFiles[index], content: value };
-    newFiles[index] = newFile;
-    onChange({
-      files: newFiles,
-    });
+    // const { post, onChange } = this.props;
+    // const newFiles = [...post.files];
+    // const newFile = { ...newFiles[index], content: value };
+    // newFiles[index] = newFile;
+    // onChange({
+    //   files: newFiles,
+    // });
   };
 
   public render() {
-    const { gist } = this.props;
+    const { post } = this.props;
 
     return (
       <Fragment>
@@ -74,17 +74,17 @@ class GistEdit extends React.Component<Props> {
 
         <div className={classnames(styles.dialogBody)}>
           <FormGroup label="Title">
-            <InputGroup value={gist.title} onChange={this.handleChangeTitle} />
+            <InputGroup value={post.title} onChange={this.handleChangeTitle} />
           </FormGroup>
           <FormGroup label="Description">
             <TextArea
               fill={true}
-              value={gist.description}
+              value={post.description}
               onChange={this.handleChangeDesc}
             />
           </FormGroup>
 
-          {gist.files.map((f, index) => (
+          {/* {post.files.map((f, index) => (
             <div className={styles.fileEditor} key={index}>
               <MonacoEditor
                 value={f.content}
@@ -94,10 +94,10 @@ class GistEdit extends React.Component<Props> {
                 }
               />
             </div>
-          ))}
+          ))} */}
 
           <Button
-            text="添加文件"
+            text="add file"
             intent={Intent.PRIMARY}
             onClick={this.handleClickAddFile}
           />
@@ -109,7 +109,7 @@ class GistEdit extends React.Component<Props> {
 
 export default connect(
   (state: ReduxStore.state) => ({
-    gist: state.post.currentPost,
+    // post: state.post.currentPost,
   }),
   {
     onAddFile: postActions.addFileToCurrentEditGistAction,
@@ -117,4 +117,4 @@ export default connect(
     onCreate: postActions.newPostRequestAction,
     onUpdate: postActions.updatePostRequestAction,
   },
-)(GistEdit);
+)(SnippetEdit);

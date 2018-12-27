@@ -1,7 +1,6 @@
 export interface PostState {
-  postList: Post[];
-  currentPost: Post;
-  isEditing: boolean;
+  idMapPost: { [index: number]: Post };
+  postIds: number[];
 }
 
 export enum PostType {
@@ -24,7 +23,7 @@ export interface Post {
   type: PostType;
   folder: string;
   description: string;
-  files: PostFile[];
+  files: string;
   isPrivate: boolean;
   creat_at: Date;
   update_at: Date;
