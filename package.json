@@ -24,7 +24,8 @@
     "redux-observable": "^1.0.0",
     "rxjs": "^6.3.3",
     "spinkit": "^1.2.5",
-    "typesafe-actions": "^2.0.4"
+    "typesafe-actions": "^2.0.4",
+    "unstated": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
