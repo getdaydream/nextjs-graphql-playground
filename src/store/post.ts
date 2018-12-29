@@ -8,7 +8,8 @@ class Post {
   @action
   public async fetchPostList() {
     const { data } = await axios.get('/posts');
-    this.list = data;
+    // this.list = data;
+    console.log(data);
   }
 }
 

@@ -1,22 +1,24 @@
 import { inject, observer } from 'mobx-react';
 import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 
-interface Props {
-  login: (params: { email: string; password: string }) => Promise<void>;
+interface Props extends RouteComponentProps {
+  login: (
+    params: { email: string; password: string },
+  ) => Promise<{ error: string }>;
 }
 
 @observer
 class Login extends React.Component<Props> {
-  public componentDidMount() {
-    console.log(this);
-  }
-
-  public handleClickSubmit = () => {
-    const { login } = this.props;
-    login({
+  public handleClickSubmit = async () => {
+    const { login, history } = this.props;
+    const { error } = await login({
       email: '27552214@qq.com',
       password: '12345678',
     });
+    if (!error) {
+      history.push('/post');
+    }
   };
 
   public render() {
@@ -26,4 +28,4 @@ class Login extends React.Component<Props> {
 
 export default inject(store => ({
   login: store.loginView.login,
-}))(Login);
+}))(withRouter(Login));

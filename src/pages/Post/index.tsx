@@ -1,6 +1,7 @@
-import { IPost } from '@/store/post/interface';
+import { Post } from '@/store/post.interface';
 import { Classes } from '@blueprintjs/core';
 import c from 'classnames';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import styles from './index.module.scss';
@@ -9,10 +10,11 @@ import Sidebar from './Sidebar';
 // import SidebarSecondary from './SidebarSecondary';
 
 interface Props extends RouteComponentProps<{}> {
-  currentPost: IPost;
-  onFetchPostList: () => void;
+  currentPost: Post;
+  onFetchPostList: () => Promise<void>;
 }
 
+@observer
 class PostHome extends React.Component<Props> {
   public componentDidMount() {
     const { onFetchPostList } = this.props;
@@ -33,4 +35,6 @@ class PostHome extends React.Component<Props> {
   }
 }
 
-export default PostHome;
+export default inject(store => ({
+  onFetchPostList: store.post.fetchPostList,
+}))(PostHome);
