@@ -24,7 +24,8 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators":true
   },
   "exclude": ["node_modules", "build", "scripts", "config", "docs"],
   "include": ["src/**/*"]

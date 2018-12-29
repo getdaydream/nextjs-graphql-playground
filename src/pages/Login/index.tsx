@@ -1,15 +1,19 @@
-import { userActions } from '@/store/user';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
-import { connect } from 'react-redux';
 
 interface Props {
-  onLogin: (params: { email: string; password: string }) => void;
+  login: (params: { email: string; password: string }) => Promise<void>;
 }
 
+@observer
 class Login extends React.Component<Props> {
+  public componentDidMount() {
+    console.log(this);
+  }
+
   public handleClickSubmit = () => {
-    const { onLogin } = this.props;
-    onLogin({
+    const { login } = this.props;
+    login({
       email: '27552214@qq.com',
       password: '12345678',
     });
@@ -20,9 +24,6 @@ class Login extends React.Component<Props> {
   }
 }
 
-export default connect(
-  () => ({}),
-  {
-    onLogin: userActions.login.request,
-  },
-)(Login);
+export default inject(store => ({
+  login: store.loginView.login,
+}))(Login);

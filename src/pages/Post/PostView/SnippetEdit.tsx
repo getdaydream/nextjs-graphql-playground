@@ -1,7 +1,5 @@
 // import MonacoEditor from '@/components/MonacoEditor';
-import { postActions } from '@/store/post';
-import { Post } from '@/store/post/interface';
-import { ReduxStore } from '@/store/store';
+import { IPost } from '@/store/post/interface';
 import {
   Button,
   FormGroup,
@@ -11,14 +9,13 @@ import {
 } from '@blueprintjs/core';
 import classnames from 'classnames';
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
 import styles from './SnippetEdit.module.scss';
 
 interface Props {
-  post: Post;
-  onUpdate: (gist: Partial<Post>) => void;
-  onCreate: (gist: Partial<Post>) => void;
-  onChange: (gist: Partial<Post>) => void;
+  post: IPost;
+  onUpdate: (gist: Partial<IPost>) => void;
+  onCreate: (gist: Partial<IPost>) => void;
+  onChange: (gist: Partial<IPost>) => void;
   onAddFile: () => void;
 }
 
@@ -107,14 +104,4 @@ class SnippetEdit extends React.Component<Props> {
   }
 }
 
-export default connect(
-  (state: ReduxStore.state) => ({
-    // post: state.post.currentPost,
-  }),
-  {
-    onAddFile: postActions.addFileToCurrentEditGistAction,
-    onChange: postActions.updateCurrentEditPostAction,
-    onCreate: postActions.newPostRequestAction,
-    onUpdate: postActions.updatePostRequestAction,
-  },
-)(SnippetEdit);
+export default SnippetEdit;
