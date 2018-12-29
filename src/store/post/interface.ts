@@ -1,14 +1,9 @@
-export interface PostState {
-  idMapPost: { [index: number]: Post };
-  postIds: number[];
-}
-
 export enum PostType {
   snippet = 'snippet',
   markdown = 'markdown',
 }
 
-export interface PostFile {
+export interface IPostFile {
   id: number;
   filename: string;
   filetype: string;
@@ -17,7 +12,7 @@ export interface PostFile {
   update_at: Date;
 }
 
-export interface Post {
+export interface IPost {
   id: number;
   title: string;
   type: PostType;

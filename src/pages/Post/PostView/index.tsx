@@ -1,11 +1,9 @@
-import { Post, PostType } from '@/store/post/interface';
-import { ReduxStore } from '@/store/store';
+import { IPost, PostType } from '@/store/post/interface';
 import React from 'react';
-import { connect } from 'react-redux';
 // import SnippetEdit from './SnippetEdit';
 
 interface Props {
-  post: Post;
+  post: IPost;
 }
 
 class PostView extends React.Component<Props> {
@@ -18,6 +16,4 @@ class PostView extends React.Component<Props> {
   }
 }
 
-export default connect((state: ReduxStore.state) => ({
-  // post: state.post.currentPost,
-}))(PostView);
+export default PostView

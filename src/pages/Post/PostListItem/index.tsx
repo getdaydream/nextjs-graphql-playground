@@ -1,12 +1,10 @@
-import { Post } from '@/store/post/interface';
-import { ReduxStore } from '@/store/store';
+import { IPost } from '@/store/post/interface';
 import { Menu, MenuItem, Popover } from '@blueprintjs/core';
 import React from 'react';
 import { MdDelete, MdSettings } from 'react-icons/md';
-import { connect } from 'react-redux';
 import styles from './index.module.css';
 
-interface OwnProps {
+interface IOwnProps {
   id: number;
   active?: boolean;
   onClick?: () => void;
@@ -14,11 +12,11 @@ interface OwnProps {
   className?: string;
 }
 
-interface Props extends OwnProps {
-  post: Post;
+interface IProps extends IOwnProps {
+  post: IPost;
 }
 
-class PostListItem extends React.Component<Props> {
+class PostListItem extends React.Component<IProps> {
   public render() {
     const {
       post: { title, description },
@@ -54,6 +52,4 @@ class PostListItem extends React.Component<Props> {
   }
 }
 
-export default connect((state: ReduxStore.state, ownProps: OwnProps) => ({
-  post: state.post.idMapPost[ownProps.id],
-}))(PostListItem);
+export default PostListItem;
