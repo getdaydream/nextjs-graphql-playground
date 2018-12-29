@@ -1,4 +1,4 @@
-import { IPost } from '@/store/post/interface';
+import { Post } from '@/store/post.interface';
 import { Menu, MenuItem, Popover } from '@blueprintjs/core';
 import React from 'react';
 import { MdDelete, MdSettings } from 'react-icons/md';
@@ -13,7 +13,7 @@ interface IOwnProps {
 }
 
 interface IProps extends IOwnProps {
-  post: IPost;
+  post: Post;
 }
 
 class PostListItem extends React.Component<IProps> {

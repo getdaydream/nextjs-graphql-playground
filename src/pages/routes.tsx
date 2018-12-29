@@ -1,4 +1,5 @@
 import { Classes } from '@blueprintjs/core';
+import DevTools from 'mobx-react-devtools';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import BasicLayout from './BasicLayout';
@@ -11,6 +12,7 @@ import PostHome from './Post';
 export const getRoutes = () => {
   return (
     <div className={Classes.DARK}>
+      <DevTools />
       <Switch>
         <Route path="/login" component={Login} exact={true} />
         <Route path="/post" component={PostHome} exact={true} />

@@ -1,9 +1,9 @@
-import { IPost, PostType } from '@/store/post/interface';
+import { Post, PostType } from '@/store/post.interface';
 import React from 'react';
 // import SnippetEdit from './SnippetEdit';
 
 interface Props {
-  post: IPost;
+  post: Post;
 }
 
 class PostView extends React.Component<Props> {

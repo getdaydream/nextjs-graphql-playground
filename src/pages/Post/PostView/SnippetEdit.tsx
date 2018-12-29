@@ -1,5 +1,5 @@
 // import MonacoEditor from '@/components/MonacoEditor';
-import { IPost } from '@/store/post/interface';
+import { Post } from '@/store/post.interface';
 import {
   Button,
   FormGroup,
@@ -12,10 +12,10 @@ import React, { Fragment } from 'react';
 import styles from './SnippetEdit.module.scss';
 
 interface Props {
-  post: IPost;
-  onUpdate: (gist: Partial<IPost>) => void;
-  onCreate: (gist: Partial<IPost>) => void;
-  onChange: (gist: Partial<IPost>) => void;
+  post: Post;
+  onUpdate: (gist: Partial<Post>) => void;
+  onCreate: (gist: Partial<Post>) => void;
+  onChange: (gist: Partial<Post>) => void;
   onAddFile: () => void;
 }
 

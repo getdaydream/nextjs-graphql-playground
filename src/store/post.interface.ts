@@ -3,7 +3,7 @@ export enum PostType {
   markdown = 'markdown',
 }
 
-export interface IPostFile {
+export interface PostFile {
   id: number;
   filename: string;
   filetype: string;
@@ -12,7 +12,7 @@ export interface IPostFile {
   update_at: Date;
 }
 
-export interface IPost {
+export interface Post {
   id: number;
   title: string;
   type: PostType;
@@ -22,4 +22,10 @@ export interface IPost {
   isPrivate: boolean;
   creat_at: Date;
   update_at: Date;
+}
+
+export interface FetchPostListQuery {
+  method: 'listRecent' | 'listPostByParentId';
+  limit: number;
+  offset: number;
 }
