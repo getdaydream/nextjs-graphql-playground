@@ -4,10 +4,10 @@ import c from 'classnames';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
+import Catalog from './Catalog';
 import styles from './index.module.scss';
 // import PostView from './PostView';
 import Sidebar from './Sidebar';
-// import SidebarSecondary from './SidebarSecondary';
 
 interface Props extends RouteComponentProps<{}> {
   currentPost: Post;
@@ -25,7 +25,7 @@ class PostHome extends React.Component<Props> {
     return (
       <div className={c(styles.root, Classes.DARK)}>
         <Sidebar className={styles.sidebar} />
-        {/* <SidebarSecondary className={styles.sidebarSecondary} /> */}
+        <Catalog className={styles.sidebarSecondary} />
 
         {/* <main className={styles.main}>
     <PostView />

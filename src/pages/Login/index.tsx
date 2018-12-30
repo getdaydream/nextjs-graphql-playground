@@ -13,7 +13,7 @@ class Login extends React.Component<Props> {
   public handleClickSubmit = async () => {
     const { login, history } = this.props;
     const { error } = await login({
-      email: '27552214@qq.com',
+      email: '275522141@qq.com',
       password: '12345678',
     });
     if (!error) {

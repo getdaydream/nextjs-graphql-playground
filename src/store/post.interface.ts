@@ -3,6 +3,12 @@ export enum PostType {
   markdown = 'markdown',
 }
 
+export interface Folder {
+  id: number;
+  name: string;
+  parent_id: number;
+}
+
 export interface PostFile {
   id: number;
   filename: string;
