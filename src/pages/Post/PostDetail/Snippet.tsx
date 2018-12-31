@@ -19,7 +19,7 @@ interface Props {
   onAddFile: () => void;
 }
 
-class SnippetEdit extends React.Component<Props> {
+class Snippet extends React.Component<Props> {
   public handleClickAddFile = () => {
     const { onAddFile } = this.props;
     onAddFile();
@@ -104,4 +104,4 @@ class SnippetEdit extends React.Component<Props> {
   }
 }
 
-export default SnippetEdit;
+export default Snippet;

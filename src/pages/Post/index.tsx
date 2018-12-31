@@ -6,7 +6,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Catalog from './Catalog';
 import styles from './index.module.scss';
-// import PostView from './PostView';
+import PostDetail from './PostDetail';
 import Sidebar from './Sidebar';
 
 interface Props extends RouteComponentProps<{}> {
@@ -25,16 +25,13 @@ class PostHome extends React.Component<Props> {
     return (
       <div className={c(styles.root, Classes.DARK)}>
         <Sidebar className={styles.sidebar} />
-        <Catalog className={styles.sidebarSecondary} />
-
-        {/* <main className={styles.main}>
-    <PostView />
-  </main> */}
+        <Catalog className={styles.catalog} />
+        <PostDetail className={styles.postDetail} />
       </div>
     );
   }
 }
 
 export default inject(store => ({
-  onFetchPostList: store.post.fetchPostList,
+  onFetchPostList: store.post.fetchPostsByFolderId,
 }))(PostHome);
