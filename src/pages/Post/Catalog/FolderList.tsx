@@ -1,5 +1,5 @@
 import { Folder } from '@/store/post.interface';
-import { MenuDivider, MenuItem } from '@blueprintjs/core';
+import { Alignment, Button, ButtonGroup, Divider } from '@blueprintjs/core';
 import { inject } from 'mobx-react';
 import React from 'react';
 import { MdFolder } from 'react-icons/md';
@@ -15,19 +15,26 @@ class FolderList extends React.Component<InjectProps> {
     const { folders, onChangeFolderId } = this.props;
 
     return (
-      <div>
+      <ButtonGroup
+        vertical={true}
+        alignText={Alignment.LEFT}
+        className={styles.root}
+      >
         {folders.map(f => (
           <div key={f.id}>
-            <MenuItem
+            <Button
               text={f.name}
               icon={<MdFolder />}
               className={styles.item}
               onClick={() => onChangeFolderId(f.id)}
+              minimal={true}
+              large={true}
+              fill={true}
             />
-            <MenuDivider />
+            <Divider />
           </div>
         ))}
-      </div>
+      </ButtonGroup>
     );
   }
 }

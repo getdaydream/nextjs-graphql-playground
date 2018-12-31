@@ -5,3 +5,15 @@
   height: 100vh;
   background: $dark-gray3;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 16px;
+}
+
+.content {
+  height: calc(100% - 60px);
+  overflow: auto;
+}

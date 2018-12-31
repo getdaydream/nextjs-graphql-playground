@@ -30,8 +30,13 @@ export interface Post {
   update_at: Date;
 }
 
+export enum QueryPostMethod {
+  listRecent = 'listRecent',
+  listPostByFolderId = 'listPostByFolderId',
+}
+
 export interface FetchPostListQuery {
-  method: 'listRecent' | 'listPostByParentId';
-  limit: number;
-  offset: number;
+  method: QueryPostMethod;
+  limit?: number;
+  offset?: number;
 }

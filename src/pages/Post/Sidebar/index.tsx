@@ -1,17 +1,23 @@
+import { PostType } from '@/store/post.interface';
 import { Button, Menu, MenuItem, Popover, Position } from '@blueprintjs/core';
 import c from 'classnames';
+import { inject } from 'mobx-react';
 import React from 'react';
 import { FaFile } from 'react-icons/fa';
 import { MdAdd, MdFolder } from 'react-icons/md';
 import styles from './index.module.scss';
 
+interface InjectProps {
+  createPost: (type: PostType) => Promise<void>;
+}
+
 interface Props {
   className?: string;
 }
 
-class Sidebar extends React.Component<Props> {
+class Sidebar extends React.Component<Props & InjectProps> {
   public render() {
-    const { className } = this.props;
+    const { className, createPost } = this.props;
 
     return (
       <div className={c(styles.sidebar, className)}>
@@ -22,8 +28,14 @@ class Sidebar extends React.Component<Props> {
             className={styles.createButton}
           />
           <Menu>
-            <MenuItem text="New Snippet" />
-            <MenuItem text="New Markdown" />
+            <MenuItem
+              text="New Snippet"
+              onClick={() => createPost(PostType.snippet)}
+            />
+            <MenuItem
+              text="New Markdown"
+              onClick={() => createPost(PostType.markdown)}
+            />
           </Menu>
         </Popover>
         <div className={styles.tabList}>
@@ -45,4 +57,6 @@ class Sidebar extends React.Component<Props> {
   }
 }
 
-export default Sidebar;
+export default inject(store => ({ createPost: store.post.createPost }))(
+  Sidebar,
+);
