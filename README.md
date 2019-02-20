@@ -12,6 +12,8 @@
 
 ## TODO
 
+- mobx-react-lite
+- mobx-state-tree
 - reselect
 - production 时排除 redux-devtools
 - rxjs

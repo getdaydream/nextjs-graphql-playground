@@ -37,7 +37,7 @@ class PostStore {
     this.idMapPost[newPost.id] = newPost;
 
     this.folderIdMapPost.set(
-      this.currentFolderId,
+      newPost.id,
       [newPost].concat(this.folderIdMapPost.get(this.currentFolderId)!),
     );
   };

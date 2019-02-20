@@ -24,7 +24,7 @@ export interface Post {
   type: PostType;
   folder: string;
   description: string;
-  files: string;
+  files: any;
   isPrivate: boolean;
   creat_at: Date;
   update_at: Date;

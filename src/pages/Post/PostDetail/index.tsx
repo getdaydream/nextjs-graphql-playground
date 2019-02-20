@@ -1,33 +1,32 @@
-import { Post, PostType } from '@/store/post.interface';
-import { Spinner } from '@blueprintjs/core';
-import { inject } from 'mobx-react';
+// import { Post, PostType } from '@/store/post.interface';
+// import { Spinner } from '@blueprintjs/core';
+import { Post } from '@/store/post.interface';
+import { inject, observer } from 'mobx-react';
 import React from 'react';
-// import SnippetEdit from './SnippetEdit';
+import Snippet from './Snippet';
 
 interface InjectProps {
-  post: Post;
+  post: Post | undefined;
 }
 
 interface OwnProps {
   className?: string;
 }
 
+@observer
 class PostDetail extends React.Component<OwnProps & InjectProps> {
-  public renderContent = () => {
-    const { post } = this.props;
-    if (!post) {
-      return <Spinner size={24} />;
-    }
-    console.log(post);
-    if (post.type === PostType.snippet) {
-      return <div />;
-    }
-    return null;
-  };
-
   public render() {
-    const { className } = this.props;
-    return <div className={className}>{this.renderContent()}</div>;
+    const { className, post } = this.props;
+
+    if (!post) {
+      return null;
+    }
+
+    return (
+      <div className={className}>
+        <Snippet />
+      </div>
+    );
   }
 }
 
