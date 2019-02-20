@@ -1,4 +1,4 @@
-// import MonacoEditor from '@/components/MonacoEditor';
+import MonacoEditor from '@/components/MonacoEditor';
 import { Post } from '@/store/post.interface';
 import {
   Button,
@@ -8,44 +8,49 @@ import {
   TextArea,
 } from '@blueprintjs/core';
 import classnames from 'classnames';
+import { inject, observer } from 'mobx-react';
 import React, { Fragment } from 'react';
-import styles from './SnippetEdit.module.scss';
+import styles from './Snippet.module.scss';
 
-interface Props {
+interface InjectProps {
   post: Post;
-  onUpdate: (gist: Partial<Post>) => void;
-  onCreate: (gist: Partial<Post>) => void;
-  onChange: (gist: Partial<Post>) => void;
-  onAddFile: () => void;
 }
 
-class Snippet extends React.Component<Props> {
+interface OwnProps {
+  // onUpdate: (gist: Partial<Post>) => void;
+  // onCreate: (gist: Partial<Post>) => void;
+  // onChange: (gist: Partial<Post>) => void;
+  onAddFile?: () => void;
+}
+
+@observer
+class Snippet extends React.Component<OwnProps & InjectProps> {
   public handleClickAddFile = () => {
-    const { onAddFile } = this.props;
-    onAddFile();
+    // const { onAddFile } = this.props;
+    // onAddFile();
   };
 
   public handleChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
-    const { onChange } = this.props;
-    onChange({
-      title: e.currentTarget.value,
-    });
+    // const { onChange } = this.props;
+    // onChange({
+    //   title: e.currentTarget.value,
+    // });
   };
 
   public handleChangeDesc = (e: React.FormEvent<HTMLTextAreaElement>) => {
-    const { onChange } = this.props;
-    onChange({
-      description: e.currentTarget.value,
-    });
+    // const { onChange } = this.props;
+    // onChange({
+    //   description: e.currentTarget.value,
+    // });
   };
 
   public handleClickSave = () => {
-    const { post, onCreate, onUpdate } = this.props;
-    if (post.id) {
-      onUpdate(post);
-    } else {
-      onCreate(post);
-    }
+    // const { post, onCreate, onUpdate } = this.props;
+    // if (post && post.id) {
+    //   onUpdate(post);
+    // } else {
+    //   onCreate(post!);
+    // }
   };
 
   public handleChangeEditorContent = (index: number, value: string) => {
@@ -81,7 +86,7 @@ class Snippet extends React.Component<Props> {
             />
           </FormGroup>
 
-          {/* {post.files.map((f, index) => (
+          {post.files.map((f, index) => (
             <div className={styles.fileEditor} key={index}>
               <MonacoEditor
                 value={f.content}
@@ -91,7 +96,7 @@ class Snippet extends React.Component<Props> {
                 }
               />
             </div>
-          ))} */}
+          ))}
 
           <Button
             text="add file"
@@ -104,4 +109,6 @@ class Snippet extends React.Component<Props> {
   }
 }
 
-export default Snippet;
+export default inject(store => ({
+  post: store.post.currentPost,
+}))(Snippet);
