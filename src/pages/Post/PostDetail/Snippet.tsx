@@ -1,5 +1,5 @@
 import MonacoEditor from '@/components/MonacoEditor';
-import { Post } from '@/store/post.interface';
+import { Post, PostFile } from '@/store/post.interface';
 import {
   Button,
   FormGroup,
@@ -14,20 +14,28 @@ import styles from './Snippet.module.scss';
 
 interface InjectProps {
   post: Post;
+  updatePost: (newPost: Partial<Post>) => Promise<void>;
+  deletePost: (id: number) => Promise<boolean>;
 }
 
 interface OwnProps {
-  // onUpdate: (gist: Partial<Post>) => void;
-  // onCreate: (gist: Partial<Post>) => void;
-  // onChange: (gist: Partial<Post>) => void;
   onAddFile?: () => void;
 }
 
 @observer
 class Snippet extends React.Component<OwnProps & InjectProps> {
   public handleClickAddFile = () => {
-    // const { onAddFile } = this.props;
-    // onAddFile();
+    const { post, updatePost } = this.props;
+    const defaultFile = {
+      content: '',
+      filename: 'index',
+      filetype: 'typescript',
+    } as PostFile;
+    const params = {
+      files: [...post.files, defaultFile],
+      id: post.id,
+    };
+    updatePost(params);
   };
 
   public handleChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
@@ -63,6 +71,20 @@ class Snippet extends React.Component<OwnProps & InjectProps> {
     // });
   };
 
+  public deletePostFile = (fileId: number) => {
+    const { updatePost, post } = this.props;
+    const params = {
+      files: post.files.filter(p => p.id !== fileId),
+      id: post.id,
+    };
+    updatePost(params);
+  };
+
+  public handleClickDelete = () => {
+    const { deletePost, post } = this.props;
+    deletePost(post.id);
+  };
+
   public render() {
     const { post } = this.props;
 
@@ -72,6 +94,11 @@ class Snippet extends React.Component<OwnProps & InjectProps> {
           text="Save"
           intent={Intent.PRIMARY}
           onClick={this.handleClickSave}
+        />
+        <Button
+          text="Delete"
+          intent={Intent.DANGER}
+          onClick={this.handleClickDelete}
         />
 
         <div className={classnames(styles.dialogBody)}>
@@ -87,15 +114,18 @@ class Snippet extends React.Component<OwnProps & InjectProps> {
           </FormGroup>
 
           {post.files.map((f, index) => (
-            <div className={styles.fileEditor} key={index}>
-              <MonacoEditor
-                value={f.content}
-                language={f.filetype}
-                onChangeContent={value =>
-                  this.handleChangeEditorContent(index, value)
-                }
-              />
-            </div>
+            <Fragment>
+              <Button text="delete" onClick={() => this.deletePostFile(f.id)} />
+              <div className={styles.fileEditor} key={f.id || String(index)}>
+                <MonacoEditor
+                  value={f.content}
+                  language={f.filetype}
+                  onChangeContent={value =>
+                    this.handleChangeEditorContent(index, value)
+                  }
+                />
+              </div>
+            </Fragment>
           ))}
 
           <Button
@@ -110,5 +140,7 @@ class Snippet extends React.Component<OwnProps & InjectProps> {
 }
 
 export default inject(store => ({
+  deletePost: store.post.deletePost,
   post: store.post.currentPost,
+  updatePost: store.post.updatePost,
 }))(Snippet);

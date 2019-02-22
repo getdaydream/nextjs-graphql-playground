@@ -22,9 +22,9 @@ export interface Post {
   id: number;
   title: string;
   type: PostType;
-  folder: string;
+  folder_id: number;
   description: string;
-  files: any;
+  files: PostFile[];
   isPrivate: boolean;
   creat_at: Date;
   update_at: Date;
