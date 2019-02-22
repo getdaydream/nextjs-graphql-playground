@@ -37,9 +37,34 @@ class PostStore {
     this.idMapPost[newPost.id] = newPost;
 
     this.folderIdMapPost.set(
-      newPost.id,
+      this.currentFolderId,
       [newPost].concat(this.folderIdMapPost.get(this.currentFolderId)!),
     );
+  };
+
+  @action
+  public updatePost = async (newPost: Partial<IPost>) => {
+    const { data: updatedPost } = await axios.put('/posts', newPost);
+    this.idMapPost[updatedPost.id] = updatedPost;
+    this.folderIdMapPost.set(
+      this.currentFolderId,
+      [updatedPost].concat(this.folderIdMapPost.get(this.currentFolderId)!),
+    );
+  };
+
+  @action
+  public deletePost = async (id: number): Promise<boolean> => {
+    const { data } = await axios.delete(`/posts/${id}`);
+    if (!data.error) {
+      const oldPost = this.idMapPost.get(id)!;
+      this.idMapPost.delete(id);
+      this.folderIdMapPost.set(
+        oldPost.folder_id,
+        this.folderIdMapPost.get(oldPost.folder_id)!.filter(p => p.id !== id),
+      );
+      return true;
+    }
+    return false;
   };
 
   @action
