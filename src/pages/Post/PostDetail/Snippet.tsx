@@ -5,6 +5,7 @@ import {
   FormGroup,
   InputGroup,
   Intent,
+  Spinner,
   TextArea,
 } from '@blueprintjs/core';
 import classnames from 'classnames';
@@ -14,6 +15,7 @@ import styles from './Snippet.module.scss';
 
 interface InjectProps {
   post: Post;
+  files: PostFile[] | undefined;
   updatePost: (newPost: Partial<Post>) => Promise<void>;
   deletePost: (id: number) => Promise<boolean>;
 }
@@ -25,17 +27,17 @@ interface OwnProps {
 @observer
 class Snippet extends React.Component<OwnProps & InjectProps> {
   public handleClickAddFile = () => {
-    const { post, updatePost } = this.props;
-    const defaultFile = {
-      content: '',
-      filename: 'index',
-      filetype: 'typescript',
-    } as PostFile;
-    const params = {
-      files: [...post.files, defaultFile],
-      id: post.id,
-    };
-    updatePost(params);
+    // const { post, updatePost } = this.props;
+    // const defaultFile = {
+    //   content: '',
+    //   filename: 'index',
+    //   filetype: 'typescript',
+    // } as PostFile;
+    // const params = {
+    //   files: [...post.files, defaultFile],
+    //   id: post.id,
+    // };
+    // updatePost(params);
   };
 
   public handleChangeTitle = (e: React.FormEvent<HTMLInputElement>) => {
@@ -72,12 +74,12 @@ class Snippet extends React.Component<OwnProps & InjectProps> {
   };
 
   public deletePostFile = (fileId: number) => {
-    const { updatePost, post } = this.props;
-    const params = {
-      files: post.files.filter(p => p.id !== fileId),
-      id: post.id,
-    };
-    updatePost(params);
+    // const { updatePost, post } = this.props;
+    // const params = {
+    //   files: post.files.filter(p => p.id !== fileId),
+    //   id: post.id,
+    // };
+    // updatePost(params);
   };
 
   public handleClickDelete = () => {
@@ -86,7 +88,11 @@ class Snippet extends React.Component<OwnProps & InjectProps> {
   };
 
   public render() {
-    const { post } = this.props;
+    const { post, files } = this.props;
+
+    if (!files) {
+      return <Spinner size={Spinner.SIZE_STANDARD} />;
+    }
 
     return (
       <Fragment>
@@ -113,10 +119,10 @@ class Snippet extends React.Component<OwnProps & InjectProps> {
             />
           </FormGroup>
 
-          {post.files.map((f, index) => (
-            <Fragment>
+          {files.map((f, index) => (
+            <Fragment key={f.id || String(index)}>
               <Button text="delete" onClick={() => this.deletePostFile(f.id)} />
-              <div className={styles.fileEditor} key={f.id || String(index)}>
+              <div className={styles.fileEditor}>
                 <MonacoEditor
                   value={f.content}
                   language={f.filetype}
@@ -141,6 +147,7 @@ class Snippet extends React.Component<OwnProps & InjectProps> {
 
 export default inject(store => ({
   deletePost: store.post.deletePost,
+  files: store.post.currentFiles,
   post: store.post.currentPost,
   updatePost: store.post.updatePost,
 }))(Snippet);
