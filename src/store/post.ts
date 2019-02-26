@@ -3,6 +3,7 @@ import { action, computed, observable } from 'mobx';
 import {
   Folder,
   Post as IPost,
+  PostFile,
   PostType,
   QueryPostMethod,
 } from './post.interface';
@@ -16,6 +17,9 @@ class PostStore {
 
   @observable
   public folders: Folder[] = [];
+
+  @observable
+  public postIdMapFiles: Map<number, PostFile[]> = new Map();
 
   @observable
   public currentFolderId: number = 0;
@@ -68,6 +72,17 @@ class PostStore {
   };
 
   @action
+  public addFileToPost = async (postId: number, postType: PostType) => {
+    //
+  };
+
+  @action
+  public fetchPostFiles = async postId => {
+    const { data } = await axios.get(`/posts/${postId}/files`);
+    console.log(data);
+  };
+
+  @action
   public changeCurrentPostId = (id: number) => {
     this.currentPostId = id;
   };
@@ -76,6 +91,9 @@ class PostStore {
   public changeCurrentFolderId = (id: number) => {
     this.currentFolderId = id;
     this.fetchPostsByFolderId();
+    if (!this.postIdMapFiles.get(id)) {
+      this.fetchPostFiles(id);
+    }
   };
 
   @action
@@ -121,6 +139,11 @@ class PostStore {
   @computed
   get currentPost() {
     return this.idMapPost.get(this.currentPostId);
+  }
+
+  @computed
+  get currentFiles() {
+    return this.postIdMapFiles.get(this.currentPostId);
   }
 
   @computed get isRoot() {
