@@ -1,8 +1,9 @@
 // import { Post, PostType } from '@/store/post.interface';
 // import { Spinner } from '@blueprintjs/core';
-import { Post } from '@/store/post.interface';
+import { Post, PostType } from '@/store/post.interface';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
+import Article from './Article';
 import Snippet from './Snippet';
 
 interface InjectProps {
@@ -24,7 +25,8 @@ class PostDetail extends React.Component<OwnProps & InjectProps> {
 
     return (
       <div className={className}>
-        <Snippet />
+        {post.type === PostType.snippet && <Snippet />}
+        {post.type === PostType.markdown && <Article />}
       </div>
     );
   }

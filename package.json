@@ -22,6 +22,7 @@
     "react-icons": "^3.2.2",
     "react-router-dom": "^4.3.1",
     "react-spring": "^7.1.3",
+    "rxjs": "^6.4.0",
     "spinkit": "^1.2.5"
   },
   "devDependencies": {
@@ -55,11 +56,11 @@
     "postcss-preset-env": "^6.0.10",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
+    "terser-webpack-plugin": "^1.2.3",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-react": "^3.6.0",
     "typescript": "^3.1.6",
-    "uglifyjs-webpack-plugin": "^2.0.1",
     "url-loader": "^1.1.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",

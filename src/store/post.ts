@@ -72,28 +72,58 @@ class PostStore {
   };
 
   @action
-  public addFileToPost = async (postId: number, postType: PostType) => {
-    //
+  public addFileToPost = async (postId: number) => {
+    const { data } = await axios.post<PostFile>(`/posts/${postId}/files`);
+    this.postIdMapFiles.set(postId, [
+      ...this.postIdMapFiles.get(postId)!,
+      data,
+    ]);
+  };
+
+  @action
+  public deleteFile = async (postId: number, fileId: number) => {
+    const { data } = await axios.delete(`/posts/${postId}/files/${fileId}`);
+    if (!data.error) {
+      const files = this.postIdMapFiles.get(postId)!;
+      const index = files.findIndex(f => f.id === fileId);
+      files.splice(index, 1);
+    }
+  };
+
+  @action
+  public updateFile = async (
+    postId: number,
+    fileId: number,
+    newFile: Partial<PostFile>,
+  ) => {
+    const { data } = await axios.put<PostFile>(
+      `/posts/${postId}/files/${fileId}`,
+      newFile,
+    );
+    const files = this.postIdMapFiles
+      .get(postId)!
+      .map(f => (f.id === fileId ? data : f));
+    this.postIdMapFiles.set(postId, files);
   };
 
   @action
   public fetchPostFiles = async postId => {
-    const { data } = await axios.get(`/posts/${postId}/files`);
-    console.log(data);
+    const { data } = await axios.get<PostFile[]>(`/posts/${postId}/files`);
+    this.postIdMapFiles.set(postId, data);
   };
 
   @action
   public changeCurrentPostId = (id: number) => {
     this.currentPostId = id;
+    if (!this.postIdMapFiles.get(id)) {
+      this.fetchPostFiles(id);
+    }
   };
 
   @action
   public changeCurrentFolderId = (id: number) => {
     this.currentFolderId = id;
     this.fetchPostsByFolderId();
-    if (!this.postIdMapFiles.get(id)) {
-      this.fetchPostFiles(id);
-    }
   };
 
   @action

@@ -12,9 +12,11 @@
 
 ## TODO
 
+- webpack 配置优化
+- 富文本编辑器(summernote,quilljs,MediumEditor,slate)
+- [配色](https://colorhunt.co/)
 - mobx-react-lite
 - mobx-state-tree
 - reselect
-- production 时排除 redux-devtools
 - rxjs
 - worker

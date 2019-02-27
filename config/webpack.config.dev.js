@@ -25,7 +25,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   module: {},
   plugins: [
-    // Enable HMR, 当前只对css有效；ts会刷新页面
+    // Enable HMR
     new webpack.HotModuleReplacementPlugin(),
   ],
 });
