@@ -33,7 +33,12 @@ class PostStore {
 
   @action
   public createPost = async (type: PostType) => {
-    const { data: newPost } = await axios.post<IPost>('/posts', {
+    const {
+      data: { post: newPost, files },
+    } = await axios.post<{
+      post: IPost;
+      files: PostFile[];
+    }>('/posts', {
       folderId: this.currentFolderId,
       type,
     });
@@ -44,6 +49,8 @@ class PostStore {
       this.currentFolderId,
       [newPost].concat(this.folderIdMapPost.get(this.currentFolderId)!),
     );
+    console.log(files);
+    this.postIdMapFiles.set(newPost.id, files);
   };
 
   @action
