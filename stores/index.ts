@@ -24,4 +24,4 @@ const store = Store.create({
   ],
 });
 
-store.todos[0].done
+store.todos[0].done;
