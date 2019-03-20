@@ -8,6 +8,9 @@
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
     "@zeit/next-typescript": "^1.1.1",
+    "apollo-boost": "^0.3.1",
+    "graphql": "^14.1.1",
+    "isomorphic-fetch": "^2.2.1",
     "mobx": "^5.9.0",
     "mobx-state-tree": "^3.11.0",
     "next": "^8.0.3",
@@ -17,6 +20,7 @@
     "react-dom": "^16.8.4"
   },
   "devDependencies": {
+    "@types/isomorphic-fetch": "^0.0.35",
     "@types/node": "^11.11.3",
     "@types/react": "^16.8.7"
   }
