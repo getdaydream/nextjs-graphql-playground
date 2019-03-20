@@ -2,6 +2,8 @@
 
 ## DEP
 
+- [next-compose-plugins](https://github.com/cyrilwanner/next-compose-plugins):next-plugins provides a cleaner API for enabling and configuring plugins for next.js.
+
 ## REF
 
 - [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree)
