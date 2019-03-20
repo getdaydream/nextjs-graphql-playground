@@ -8,6 +8,11 @@ import fetch from 'isomorphic-fetch';
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
   fetch,
-  fetchOptions: { credentials: 'include' },
-  uri: 'http://192.168.100.67:3000/graphql',
+  fetchOptions: {
+    credentials: 'include',
+    headers: {
+      authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6I…xMTl9.9fALG5e4hTfR0nV0RT1tRBso6Ci6yBk359oGQlbLFRM`,
+    },
+  },
+  uri: 'http://192.168.0.4:3000/graphql',
 });
