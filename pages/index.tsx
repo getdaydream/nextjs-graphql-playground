@@ -1,39 +1,37 @@
 import React from 'react';
-import { NextAppContext } from 'next/app';
-// import { client } from '../utils/graphql';
-// import gql from 'graphql-tag';
+import gql from 'graphql-tag';
+import { client } from '../utils/initApolloClient';
+// import { NextAppContext } from 'next/app';
 
 class Home extends React.Component {
-  static async getInitialProps(context: NextAppContext) {
-    // 
+  static async getInitialProps() {
+    const r = await client.query({
+      query: gql`
+        {
+          me {
+            id
+            nickname
+          }
+        }
+      `,
+    });
+    return r;
   }
 
-  componentDidMount() {
-    // client
-    //   .query({
-    //     query: gql`
-    //       {
-    //         me {
-    //           id
-    //           nickname
-    //         }
-    //       }
-    //     `,
-    //     // query: gql`
-    //     //   query {
-    //     //     login(email: "1@qq.com", password: "12345678") {
-    //     //       user {
-    //     //         nickname
-    //     //       }
-    //     //       token
-    //     //     }
-    //     //   }
-    //     // `,
-    //   })
-    //   .then(result => {
-    //     console.log(result);
-    //     // localStorage.setItem('token', result.data.login.token);
-    //   });
+  async componentDidMount() {
+    console.log(this.props);
+
+    const r = await client.query({
+      query: gql`
+        {
+          me {
+            id
+            nickname
+          }
+        }
+      `,
+    });
+    console.log(r.data);
   }
 
   render() {
