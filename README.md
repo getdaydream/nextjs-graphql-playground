@@ -11,6 +11,7 @@
 - [react-redux-typescript-guide](https://github.com/piotrwitek/react-redux-typescript-guide)
 - [next-plugins](https://github.com/zeit/next-plugins)
 - [nest-user-auth](https://github.com/EricKit/nest-user-auth)
+- [next-boilerplate](https://github.com/pankod/next-boilerplate.git)
 
 - [dev](https://dev.to/)
 - [hashnode](https://hashnode.com/)
