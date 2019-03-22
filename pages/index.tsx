@@ -19,7 +19,6 @@ class Home extends React.Component {
   }
 
   async componentDidMount() {
-    console.log(this.props);
 
     const r = await client.query({
       query: gql`
