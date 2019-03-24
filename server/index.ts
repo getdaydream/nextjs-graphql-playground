@@ -1,8 +1,9 @@
 // stops mobx from listening to ssr rendered components
 // ssr only mounts components once
-const { useStaticRendering } = require('mobx-react');
-const next = require('next');
-const express = require('express');
+import { useStaticRendering } from 'mobx-react';
+import * as cookieParser from 'cookie-parser';
+import * as next from 'next';
+import * as express from 'express';
 
 useStaticRendering(true);
 
@@ -15,11 +16,13 @@ app
   .then(() => {
     const server = express();
 
+    server.use(cookieParser());
+
     server.get('*', (req, res) => {
       return handle(req, res);
     });
 
-    server.listen(3001, err => {
+    server.listen(3001, (err: any) => {
       if (err) throw err;
       console.log('> Ready on http://localhost:3001');
     });

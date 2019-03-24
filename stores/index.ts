@@ -1,27 +1,29 @@
-import { types } from 'mobx-state-tree';
+import RootStore from './RootStore';
+import {
+  applySnapshot,
+  Instance,
+  SnapshotIn,
+  SnapshotOut,
+} from 'mobx-state-tree';
 
-const Todo = types
-  .model('Todo', {
-    title: types.string,
-    done: false,
-  })
-  .actions(self => ({
-    toggle() {
-      self.done = !self.done;
-    },
-  }));
+let rootStore: IStore;
 
-const Store = types.model('Store', {
-  todos: types.array(Todo),
-});
+export type IStore = Instance<typeof RootStore>;
+export type IStoreSnapshotIn = SnapshotIn<typeof RootStore>;
+export type IStoreSnapshotOut = SnapshotOut<typeof RootStore>;
 
-// create an instance from a snapshot
-const store = Store.create({
-  todos: [
-    {
-      title: 'Get coffee',
-    },
-  ],
-});
+export const initStore = (isInitialRender: boolean, snapshot?: any) => {
+  if (isInitialRender) {
+    rootStore = RootStore.create();
+  }
 
-store.todos[0].done;
+  if (!rootStore) {
+    rootStore = RootStore.create();
+  }
+
+  if (snapshot) {
+    applySnapshot(rootStore, snapshot);
+  }
+
+  return rootStore;
+};
