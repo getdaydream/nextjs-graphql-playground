@@ -10,6 +10,7 @@ import App, { Container, NextAppContext } from 'next/app';
 import { initStore, IStore } from '@/stores';
 import { getSnapshot } from 'mobx-state-tree';
 import { Provider } from 'mobx-react';
+import { Normalize } from 'styled-normalize';
 
 interface InitialProps {
   isInitialRender: boolean;
@@ -56,6 +57,7 @@ class MyApp extends App {
 
     return (
       <Container>
+        <Normalize />
         <Provider store={this.store}>
           <Component {...pageProps} />
         </Provider>
