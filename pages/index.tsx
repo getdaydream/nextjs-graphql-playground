@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import initApolloClient from '@/utils/initApolloClient';
 import { NextContext } from 'next';
 import Link from 'next/link';
+import Header from '@/containers/Headers';
 
 class Home extends React.Component {
   static async getInitialProps(ctx: NextContext) {
@@ -23,6 +24,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
+        <Header />
         Home
         <Link href="/user">
           <a>user</a>
