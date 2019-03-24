@@ -28,7 +28,8 @@
     "next-compose-plugins": "^2.1.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "styled-normalize": "^8.0.6"
   },
   "devDependencies": {
     "@types/cookie": "^0.3.2",
