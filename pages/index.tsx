@@ -1,10 +1,12 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import { client } from '../utils/initApolloClient';
-// import { NextAppContext } from 'next/app';
+import initApolloClient from '@/utils/initApolloClient';
+import { NextContext } from 'next';
+import Link from 'next/link';
 
 class Home extends React.Component {
-  static async getInitialProps() {
+  static async getInitialProps(ctx: NextContext) {
+    const client = initApolloClient(ctx);
     const r = await client.query({
       query: gql`
         {
@@ -18,23 +20,15 @@ class Home extends React.Component {
     return r;
   }
 
-  async componentDidMount() {
-
-    const r = await client.query({
-      query: gql`
-        {
-          me {
-            id
-            nickname
-          }
-        }
-      `,
-    });
-    console.log(r.data);
-  }
-
   render() {
-    return <div>Home</div>;
+    return (
+      <div>
+        Home
+        <Link href="/user">
+          <a>user</a>
+        </Link>
+      </div>
+    );
   }
 }
 

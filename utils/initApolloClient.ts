@@ -1,55 +1,80 @@
-/**
- * Apollo Boost is a zero-config way to start using Apollo Client.
- * https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost
- */
-import ApolloClient, { InMemoryCache, Operation } from 'apollo-boost';
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
+import { onError } from 'apollo-link-error';
+import { ApolloLink } from 'apollo-link';
 import fetch from 'isomorphic-fetch';
+import { NextContext } from 'next';
+import cookie from 'cookie';
 
-let apolloClient: ApolloClient<{}>;
+let gqClient: ApolloClient<NormalizedCacheObject>;
 
-const createClient = () =>
-  // options: { getToken: () => string },
-  {
-    // const { getToken } = options;
-
-    // Check out https://github.com/zeit/next.js/pull/4611 if you want to use the AWSAppSyncClient
-    return new ApolloClient({
-      // ssrMode: process.browser, // Disables forceFetch on the server (so queries are only run once)
-      cache: new InMemoryCache(),
-      uri: 'http://192.168.0.4:3000/graphql',
-      credentials: 'include',
-    });
-  };
-
-export const client = new ApolloClient({
-  fetch,
-  fetchOptions: {
-    credentials: 'include',
-  },
+const httpLink = new HttpLink({
   uri: 'http://192.168.0.4:3000/graphql',
-  // This function is called on each request.
-  // It takes a GraphQL operation and can return a promise.
-  request: async (operation: Operation) => {
-    operation.setContext({
-      headers: {
-        Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ijg4ODg4ODg4QHFxLmNvbSIsImlhdCI6MTU1MzE3MjQ4NSwiZXhwIjoxNTUzMjA4NDg1fQ.c1-6K3rVdCgCerhzblMPD1H7YhyBNuh3-RFStUOrk_M`,
-      },
-    });
-  },
+  fetch,
 });
 
-const initApolloClient = () => {
-  // Make sure to create a new client for every server-side request so that data
-  // isn't shared between connections (which would be bad)
-  if (typeof window === undefined) {
-    return createClient();
+const authMiddleware = (token: string) => {
+  return new ApolloLink((operation, forward) => {
+    // add the authorization to the headers
+    operation.setContext({
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
+
+    return forward!(operation);
+  });
+};
+
+const create = (options: CreateApolloClientOptions = {}) => {
+  const { token } = options;
+
+  const handlers = [
+    onError(({ graphQLErrors, networkError }) => {
+      if (graphQLErrors)
+        graphQLErrors.map(({ message, locations, path }) =>
+          console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+          ),
+        );
+      if (networkError) console.log(`[Network error]: ${networkError}`);
+    }),
+    httpLink,
+  ];
+
+  if (token) {
+    handlers.unshift(authMiddleware(token));
   }
 
-  // Reuse client on the client-side
-  if (!apolloClient) {
-    apolloClient = createClient();
+  return new ApolloClient({
+    ssrMode: typeof window !== undefined,
+    link: ApolloLink.from(handlers),
+    cache: new InMemoryCache(),
+  });
+};
+
+interface CreateApolloClientOptions {
+  token?: string;
+}
+
+const initApolloClient = (ctx?: NextContext) => {
+  if (typeof window === undefined) {
+    return create();
   }
-  return apolloClient;
+
+  if (!gqClient) {
+    let token;
+    if (ctx && ctx.req && ctx.req.headers.cookie) {
+      // 如果是在后端渲染时初始化 apollo-client，从前端的 cookie 中取出token
+      const cookies = cookie.parse(ctx.req.headers.cookie);
+      token = cookies['token'];
+    }
+
+    gqClient = create({ token });
+  }
+
+  return gqClient;
 };
 
 export default initApolloClient;

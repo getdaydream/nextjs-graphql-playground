@@ -1,7 +1,7 @@
 import { types as t } from 'mobx-state-tree';
 import AccountStore from '../AccountStore';
 
-const rootStore = t
+const RootStore = t
   .model({
     // model stores
     account: t.optional(AccountStore, {}),
@@ -10,4 +10,4 @@ const rootStore = t
   .views(() => ({}))
   .actions(() => ({}));
 
-export default rootStore;
+export default RootStore;
