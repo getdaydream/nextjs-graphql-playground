@@ -69,6 +69,10 @@ const initApolloClient = (ctx?: NextContext) => {
       // 如果是在后端渲染时初始化 apollo-client，从前端的 cookie 中取出token
       const cookies = cookie.parse(ctx.req.headers.cookie);
       token = cookies['token'];
+    } else if (ctx && !ctx.req) {
+      // TODO: 优化逻辑
+      const cookies = cookie.parse(document.cookie);
+      token = cookies['token'];
     }
 
     gqClient = create({ token });
