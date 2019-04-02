@@ -21,6 +21,10 @@ class Home extends React.Component {
     return r;
   }
 
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   render() {
     return (
       <div>

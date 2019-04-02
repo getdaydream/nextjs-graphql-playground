@@ -11,6 +11,7 @@ import { initStore, IStore } from '@/stores';
 import { getSnapshot } from 'mobx-state-tree';
 import { Provider } from 'mobx-react';
 import { Normalize } from 'styled-normalize';
+import GlobalStyle from '@/containers/GlobalStyle';
 
 interface InitialProps {
   isInitialRender: boolean;
@@ -58,6 +59,7 @@ class MyApp extends App {
     return (
       <Container>
         <Normalize />
+        <GlobalStyle />
         <Provider store={this.store}>
           <Component {...pageProps} />
         </Provider>
