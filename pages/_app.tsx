@@ -14,7 +14,6 @@ import { Normalize } from 'styled-normalize';
 import GlobalStyle from '@/containers/GlobalStyle';
 
 interface InitialProps {
-  isInitialRender: boolean;
   initialState: IStore;
 }
 
@@ -27,8 +26,7 @@ class MyApp extends App {
     // Use getInitialProps as a step in the lifecycle when
     // we can initialize our store
     //
-    const isInitialRender = typeof window === 'undefined';
-    const store = initStore(isInitialRender);
+    const store = initStore();
 
     //
     // Check whether the page being rendered by the App has a
@@ -43,14 +41,15 @@ class MyApp extends App {
      * Make sure the returned object from getInitialProps is a plain `Object` and not using `Date`, `Map` or `Set`.
      * getInitialProps can not be used in children components. Only in `pages`.
      */
-    return { pageProps, isInitialRender, initialState: getSnapshot(store) };
+    return { pageProps, initialState: getSnapshot(store) };
   }
 
   private store: IStore;
 
   constructor(props: InitialProps & any) {
     super(props);
-    this.store = initStore(props.isInitialRender, props.initialState);
+    this.store = initStore(props.initialState);
+    console.log(getSnapshot(this.store));
   }
 
   render() {

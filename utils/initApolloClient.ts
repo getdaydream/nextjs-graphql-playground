@@ -10,7 +10,7 @@ import cookie from 'cookie';
 let gqClient: ApolloClient<NormalizedCacheObject>;
 
 const httpLink = new HttpLink({
-  uri: 'http://192.168.100.63:3000/graphql',
+  uri: 'http://192.168.0.4:3000/graphql',
   fetch,
 });
 
