@@ -1,13 +1,15 @@
-import { types as t } from 'mobx-state-tree';
-import AccountStore from '../AccountStore';
+import { types as t, getParent } from 'mobx-state-tree';
+import { AccountStore } from '../SharedStore';
 
 const RootStore = t
   .model({
-    // model stores
     account: t.optional(AccountStore, {}),
-    // model end
   })
-  .views(() => ({}))
+  .views(self => ({
+    get root() {
+      return getParent(self);
+    },
+  }))
   .actions(() => ({}));
 
 export default RootStore;
