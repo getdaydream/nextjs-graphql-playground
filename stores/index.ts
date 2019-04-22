@@ -12,8 +12,8 @@ export type IStore = Instance<typeof RootStore>;
 export type IStoreSnapshotIn = SnapshotIn<typeof RootStore>;
 export type IStoreSnapshotOut = SnapshotOut<typeof RootStore>;
 
-export const initStore = (isInitialRender: boolean, snapshot?: any) => {
-  if (isInitialRender) {
+export const initStore = (isServer: boolean, snapshot?: Partial<IStore>) => {
+  if (isServer) {
     rootStore = RootStore.create();
   }
 

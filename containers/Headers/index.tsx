@@ -1,10 +1,30 @@
 import React from 'react';
-import { HeaderContainer } from './styles';
+import styles from './styles/index.css';
+import { inject, observer } from 'mobx-react';
+import { IStore } from '@/stores';
+import LoginModal from '../LoginModal';
 
-class Header extends React.Component {
+interface Props {
+  store?: IStore;
+}
+
+class Header extends React.Component<Props> {
+  componentDidMount() {
+    //
+  }
+
   render() {
-    return <HeaderContainer />;
+    const {
+      globalHeader: { showLoginModal, toggleLoginModal },
+    } = this.props.store!;
+
+    return (
+      <div className={styles.root}>
+        <button onClick={toggleLoginModal}>Login</button>
+        {showLoginModal && <LoginModal />}
+      </div>
+    );
   }
 }
 
-export default Header;
+export default inject('store')(observer(Header));

@@ -1,11 +1,11 @@
 import { types as t } from 'mobx-state-tree';
-import AccountStore from '../AccountStore';
+import AccountStore from '../shared';
+import { GlobalHeader } from '@/containers/Headers/store';
 
 const RootStore = t
   .model({
-    // model stores
     account: t.optional(AccountStore, {}),
-    // model end
+    globalHeader: t.optional(GlobalHeader, {}),
   })
   .views(() => ({}))
   .actions(() => ({}));
