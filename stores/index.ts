@@ -6,17 +6,15 @@ import {
   SnapshotOut,
 } from 'mobx-state-tree';
 
-const isServer = typeof window === undefined;
-
 let rootStore: IStore;
 
 export type IStore = Instance<typeof RootStore>;
 export type IStoreSnapshotIn = SnapshotIn<typeof RootStore>;
 export type IStoreSnapshotOut = SnapshotOut<typeof RootStore>;
 
-export const initStore = (snapshot?: any) => {
+export const initStore = (isServer: boolean, snapshot?: Partial<IStore>) => {
   if (isServer) {
-    rootStore = RootStore.create(snapshot);
+    rootStore = RootStore.create();
   }
 
   if (!rootStore) {

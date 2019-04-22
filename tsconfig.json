@@ -19,7 +19,8 @@
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
-    "outDir": ".next"
+    "outDir": ".next",
+    "experimentalDecorators": true
   },
   "exclude": [".next", "server/**/*.*"]
 }
