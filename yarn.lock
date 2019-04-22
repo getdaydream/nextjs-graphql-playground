@@ -891,9 +891,9 @@
     "@types/webpack" "*"
 
 "@types/react-native@*":
-  version "0.57.41"
-  resolved "http://registry.npm.taobao.org/@types/react-native/download/@types/react-native-0.57.41.tgz#bf355f38d8cfe5eac68de977e210ae0805cd053a"
-  integrity sha1-vzVfONjP5erGjel34hCuCAXNBTo=
+  version "0.57.46"
+  resolved "http://registry.npm.taobao.org/@types/react-native/download/@types/react-native-0.57.46.tgz#a209b0878ceed10dd6aaa4c19e0a13cb092a81a8"
+  integrity sha1-ogmwh4zu0Q3WqqTBngoTywkqgag=
   dependencies:
     "@types/prop-types" "*"
     "@types/react" "*"
@@ -922,10 +922,10 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
-"@types/styled-components@^4.1.12":
-  version "4.1.12"
-  resolved "http://registry.npm.taobao.org/@types/styled-components/download/@types/styled-components-4.1.12.tgz#62c19bd1aa37b1a904d36c179a0fec66c24ac99c"
-  integrity sha1-YsGb0ao3sakE02wXmg/sZsJKyZw=
+"@types/styled-components@^4.1.14":
+  version "4.1.14"
+  resolved "http://registry.npm.taobao.org/@types/styled-components/download/@types/styled-components-4.1.14.tgz#fe029b0bfb2d26af7f9bd4dd4811b31961ff6d49"
+  integrity sha1-/gKbC/stJq9/m9TdSBGzGWH/bUk=
   dependencies:
     "@types/react" "*"
     "@types/react-native" "*"

@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './styles/index.css';
 import { inject, observer } from 'mobx-react';
 import { IStore } from '@/stores';
 import initApolloClient from '@/utils/initApolloClient';
 import Cookies from 'js-cookie';
 import gql from 'graphql-tag';
+import { Root } from './styles';
 
 interface Props {
   store?: IStore;
@@ -36,9 +36,9 @@ class LoginModal extends React.Component<Props> {
 
   render() {
     return (
-      <div className={styles.root}>
+      <Root>
         <button onClick={this.handleClickLogin}>login</button>
-      </div>
+      </Root>
     );
   }
 }
