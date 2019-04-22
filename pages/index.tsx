@@ -7,18 +7,22 @@ import Header from '@/containers/Headers';
 
 class Home extends React.Component {
   static async getInitialProps(ctx: NextContext) {
-    const client = initApolloClient(ctx);
-    const r = await client.query({
-      query: gql`
-        {
-          me {
-            id
-            nickname
+    try {
+      const client = initApolloClient(ctx);
+      const r = await client.query({
+        query: gql`
+          {
+            me {
+              id
+              nickname
+            }
           }
-        }
-      `,
-    });
-    return r;
+        `,
+      });
+      return r;
+    } catch (e) {
+      return null;
+    }
   }
 
   componentDidMount() {

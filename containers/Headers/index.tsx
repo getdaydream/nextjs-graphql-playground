@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './styles/index.css';
 import { inject, observer } from 'mobx-react';
 import { IStore } from '@/stores';
 import LoginModal from '../LoginModal';
+import { Root } from './styles';
 
 interface Props {
   store?: IStore;
@@ -19,10 +19,10 @@ class Header extends React.Component<Props> {
     } = this.props.store!;
 
     return (
-      <div className={styles.root}>
+      <Root>
         <button onClick={toggleLoginModal}>Login</button>
         {showLoginModal && <LoginModal />}
-      </div>
+      </Root>
     );
   }
 }
