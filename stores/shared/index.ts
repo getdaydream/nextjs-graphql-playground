@@ -1,10 +1,10 @@
 import { types as t, getParent } from 'mobx-state-tree';
-import { User } from '../ModelStore';
+import { User } from '../model';
 
 const AccountStore = t
   .model('AccountStore', {
-    user: t.optional(User, {}),
     isLogin: t.optional(t.boolean, false),
+    user: t.maybeNull(User),
   })
   .views(self => ({
     get root() {
