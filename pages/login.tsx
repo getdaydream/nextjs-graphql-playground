@@ -1,5 +1,5 @@
 import React from 'react';
-import initApolloClient from '@/utils/initApolloClient';
+import initApolloClient from '@/utils/init-apollo-client';
 import gql from 'graphql-tag';
 import Cookies from 'js-cookie';
 

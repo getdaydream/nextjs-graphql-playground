@@ -1,6 +1,6 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import initApolloClient from '@/utils/initApolloClient';
+import initApolloClient from '@/utils/init-apollo-client';
 import { NextContext } from 'next';
 import Link from 'next/link';
 import Header from '@/containers/Headers';

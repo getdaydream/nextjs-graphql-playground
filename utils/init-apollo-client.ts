@@ -7,10 +7,14 @@ import fetch from 'isomorphic-fetch';
 import { NextContext } from 'next';
 import cookie from 'cookie';
 
+const isBrowser = (process as any).browser;
+// process.browser is defined by webpack ?
+console.log('is browser :' + isBrowser);
+
 let gqClient: ApolloClient<NormalizedCacheObject>;
 
 const httpLink = new HttpLink({
-  uri: 'http://192.168.0.4:3000/graphql',
+  uri: 'http://localhost:3000/graphql',
   fetch,
 });
 
@@ -48,18 +52,22 @@ const create = (options: CreateApolloClientOptions = {}) => {
   }
 
   return new ApolloClient({
-    ssrMode: typeof window !== undefined,
+    connectToDevTools: isBrowser,
+    ssrMode: !isBrowser,
     link: ApolloLink.from(handlers),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache().restore(options.initialState || {}),
   });
 };
 
 interface CreateApolloClientOptions {
   token?: string;
+  initialState?: any;
 }
 
 const initApolloClient = (ctx?: NextContext) => {
-  if (typeof window === undefined) {
+  // Make sure to create a new client for every server-side request so that data
+  // isn't shared between connections (which would be bad)
+  if (!isBrowser) {
     return create();
   }
 
