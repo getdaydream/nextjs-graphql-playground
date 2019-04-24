@@ -28,7 +28,6 @@ class MyApp extends App {
     // we can initialize our store
     //
     const isServer = typeof window === 'undefined';
-    console.log(isServer);
     const store = initStore(isServer);
 
     //

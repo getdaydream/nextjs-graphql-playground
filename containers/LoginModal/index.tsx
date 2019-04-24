@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { IStore } from '@/stores';
-import initApolloClient from '@/utils/initApolloClient';
+import initApolloClient from '@/utils/init-apollo-client';
 import Cookies from 'js-cookie';
 import gql from 'graphql-tag';
 import { Root } from './styles';
