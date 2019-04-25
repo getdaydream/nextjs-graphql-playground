@@ -6,19 +6,30 @@
  */
 
 import React from 'react';
-import App, { Container, NextAppContext } from 'next/app';
+import App, { Container, NextAppContext, AppProps } from 'next/app';
 import { initStore, IStore } from '@/stores';
 import { getSnapshot } from 'mobx-state-tree';
 import { Provider } from 'mobx-react';
 import { Normalize } from 'styled-normalize';
 import GlobalStyle from '@/containers/GlobalStyle';
+import { ApolloClient } from 'apollo-client';
+import { NormalizedCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
+import { isBrowser } from '@/utils/is';
+import withApolloClient from '@/utils/with-apollo-client';
+import { ApolloProvider } from 'react-apollo';
+
+interface IAppProps extends AppProps {
+  pageProps: any;
+  apolloClient: ApolloClient<NormalizedCache>;
+  apolloState: NormalizedCacheObject;
+}
 
 interface InitialProps {
   isServer: boolean;
   initialState: IStore;
 }
 
-class MyApp extends App {
+class MyApp extends App<IAppProps> {
   /**
    * `getInitialProps` runs on server if it's server rendering, and does on client if page transition occurs by using `Link` component or `props.url.push()`.
    */
@@ -27,7 +38,7 @@ class MyApp extends App {
     // Use getInitialProps as a step in the lifecycle when
     // we can initialize our store
     //
-    const isServer = typeof window === 'undefined';
+    const isServer = !isBrowser;
     const store = initStore(isServer);
 
     //
@@ -55,18 +66,20 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, apolloClient } = this.props;
 
     return (
       <Container>
         <Normalize />
         <GlobalStyle />
         <Provider store={this.store}>
-          <Component {...pageProps} />
+          <ApolloProvider client={apolloClient}>
+            <Component {...pageProps} />
+          </ApolloProvider>
         </Provider>
       </Container>
     );
   }
 }
 
-export default MyApp;
+export default withApolloClient(MyApp);

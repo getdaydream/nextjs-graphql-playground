@@ -1,27 +1,31 @@
-import React from 'react';
+// copy from  https://github.com/itxuye/blog-admin
+// nextjs examples : with-apollo
+import * as React from 'react';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { getDataFromTree } from 'react-apollo';
 import { NextAppContext } from 'next/app';
-// ref: https://github.com/itxuye/blog-admin/blob/master/apollo/withApollo.tsx
 import Head from 'next/head';
-
 import initApollo from './init-apollo-client';
-const isBrowser = (process as any).browser;
+import { isBrowser } from './is';
+import { parseCookies } from './parse-cookies';
 
 export default (App: any) => {
-  App.displayName = 'ixuye App';
+  App.displayName = 'App';
   return class WithData extends React.Component {
     public static displayName = `WithData(${App.displayName})`;
 
-    public static async getInitialProps(ctx: NextAppContext & any) {
+    public static async getInitialProps(ctx: NextAppContext & IAppContext) {
       const {
         Component,
         router,
         ctx: { req, res },
       } = ctx;
 
-      const apollo: any = initApollo(ctx);
+      const apollo: any = initApollo({
+        initialState: {},
+        getToken: () => parseCookies(req).token,
+      });
 
       ctx.ctx.apolloClient = apollo;
 
@@ -68,7 +72,10 @@ export default (App: any) => {
 
     constructor(props: any) {
       super(props);
-      this.apolloClient = initApollo();
+      this.apolloClient = initApollo({
+        initialState: props.apolloState,
+        getToken: () => parseCookies().token,
+      });
     }
 
     public render() {
