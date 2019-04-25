@@ -4,11 +4,13 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import fetch from 'isomorphic-fetch';
-import { NextContext } from 'next';
-import cookie from 'cookie';
+
+interface CreateApolloClientOptions {
+  getToken: () => any;
+  initialState?: any;
+}
 
 const isBrowser = (process as any).browser;
-// process.browser is defined by webpack ?
 console.log('is browser :' + isBrowser);
 
 let gqClient: ApolloClient<NormalizedCacheObject>;
@@ -31,8 +33,9 @@ const authMiddleware = (token: string) => {
   });
 };
 
-const create = (options: CreateApolloClientOptions = {}) => {
-  const { token } = options;
+const create = (options: CreateApolloClientOptions) => {
+  const { getToken } = options;
+  const token = getToken();
 
   const handlers = [
     onError(({ graphQLErrors, networkError }) => {
@@ -59,31 +62,16 @@ const create = (options: CreateApolloClientOptions = {}) => {
   });
 };
 
-interface CreateApolloClientOptions {
-  token?: string;
-  initialState?: any;
-}
-
-const initApolloClient = (ctx?: NextContext) => {
+const initApolloClient = (options: CreateApolloClientOptions) => {
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (!isBrowser) {
-    return create();
+    return create(options);
   }
 
+  // Reuse client on the client-side
   if (!gqClient) {
-    let token;
-    if (ctx && ctx.req && ctx.req.headers.cookie) {
-      // 如果是在后端渲染时初始化 apollo-client，从前端的 cookie 中取出token
-      const cookies = cookie.parse(ctx.req.headers.cookie);
-      token = cookies['token'];
-    } else if (ctx && !ctx.req) {
-      // TODO: 优化逻辑
-      const cookies = cookie.parse(document.cookie);
-      token = cookies['token'];
-    }
-
-    gqClient = create({ token });
+    gqClient = create(options);
   }
 
   return gqClient;
