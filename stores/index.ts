@@ -5,6 +5,7 @@ import {
   SnapshotIn,
   SnapshotOut,
 } from 'mobx-state-tree';
+import { isBrowser } from '@/utils/is';
 
 let rootStore: IStore;
 
@@ -12,8 +13,8 @@ export type IStore = Instance<typeof RootStore>;
 export type IStoreSnapshotIn = SnapshotIn<typeof RootStore>;
 export type IStoreSnapshotOut = SnapshotOut<typeof RootStore>;
 
-export const initStore = (isServer: boolean, snapshot?: Partial<IStore>) => {
-  if (isServer) {
+export const initStore = (snapshot?: Partial<IStore>) => {
+  if (!isBrowser) {
     rootStore = RootStore.create();
   }
 

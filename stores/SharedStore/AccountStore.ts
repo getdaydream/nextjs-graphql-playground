@@ -1,7 +1,12 @@
 import { types as t } from 'mobx-state-tree';
-import { User } from '../ModelStore';
+import { ArticleQueryResult } from '../ModelStore';
 
-export const AccountStore = t.model('AccountStore', {
-  isLogin: t.optional(t.boolean, false),
-  user: t.maybeNull(User),
-});
+export const AccountStore = t
+  .model('AccountStore', {
+    user: t.maybeNull(ArticleQueryResult),
+  })
+  .views(self => ({
+    isLogin() {
+      return !!self.user;
+    },
+  }));

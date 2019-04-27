@@ -39,8 +39,7 @@ class MyApp extends App<IAppProps> {
     // we can initialize our store
     //
     const isServer = !isBrowser;
-    const store = initStore(isServer);
-
+    const store = initStore();
     //
     // Check whether the page being rendered by the App has a
     // static getInitialProps method and if so call it
@@ -61,8 +60,10 @@ class MyApp extends App<IAppProps> {
 
   constructor(props: InitialProps & any) {
     super(props);
-    this.store = initStore(props.isServer, props.initialState);
-    console.log(getSnapshot(this.store));
+    this.store = initStore(props.initialState);
+    if (isBrowser) {
+      console.log(getSnapshot(this.store));
+    }
   }
 
   render() {
