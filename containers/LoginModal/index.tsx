@@ -1,21 +1,19 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
-import { IStore } from '@/stores';
 import cookie from 'cookie';
 import gql from 'graphql-tag';
-import { Root } from './styles';
-import { ApolloConsumer } from 'react-apollo';
-import { ApolloClient } from 'apollo-client';
+import { Layer, Button } from 'grommet';
+import { withApollo, WithApolloClient } from 'react-apollo';
+// import { ApolloClient } from 'apollo-client';
 
 interface Props {
-  store?: IStore;
+  onClose: () => void;
 }
 
-class LoginModal extends React.Component<Props> {
-  handleClickLogin = async (client: ApolloClient<any>) => {
-    const {
-      globalHeader: { toggleLoginModal },
-    } = this.props.store!;
+type PropsInternal = WithApolloClient<Props>;
+
+class LoginModal extends React.Component<PropsInternal> {
+  handleClickLogin = async () => {
+    const { client, onClose } = this.props;
     const {
       data: {
         login: { token },
@@ -32,21 +30,17 @@ class LoginModal extends React.Component<Props> {
     document.cookie = cookie.serialize('token', token, {
       maxAge: 7 * 24 * 60 * 60, // 7 days
     });
-    console.log('login');
-    toggleLoginModal();
+    console.log(token);
+    onClose();
   };
 
   render() {
     return (
-      <Root>
-        <ApolloConsumer>
-          {client => (
-            <button onClick={() => this.handleClickLogin(client)}>login</button>
-          )}
-        </ApolloConsumer>
-      </Root>
+      <Layer>
+        <Button label="登陆" primary onClick={this.handleClickLogin} />
+      </Layer>
     );
   }
 }
 
-export default inject('store')(observer(LoginModal));
+export default withApollo(LoginModal);
