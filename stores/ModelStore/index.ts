@@ -1,2 +1,2 @@
 export { User } from './User';
-export { Article } from './Article';
+export { Article, ArticleQueryResult } from './Article';

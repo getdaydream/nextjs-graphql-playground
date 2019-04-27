@@ -4,16 +4,14 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import fetch from 'isomorphic-fetch';
+import { isBrowser } from './is';
 
 interface CreateApolloClientOptions {
   getToken: () => any;
   initialState?: any;
 }
 
-const isBrowser = (process as any).browser;
-console.log('is browser :' + isBrowser);
-
-let gqClient: ApolloClient<NormalizedCacheObject>;
+export let gqClient: ApolloClient<NormalizedCacheObject>;
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:3000/graphql',
@@ -55,9 +53,12 @@ const create = (options: CreateApolloClientOptions) => {
   }
 
   return new ApolloClient({
+    // TODO: isBrowser
     connectToDevTools: isBrowser,
     ssrMode: !isBrowser,
     link: ApolloLink.from(handlers),
+    // TODO:
+    // https://www.apollographql.com/docs/react/advanced/caching.html
     cache: new InMemoryCache().restore(options.initialState || {}),
   });
 };

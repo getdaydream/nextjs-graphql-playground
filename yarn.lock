@@ -819,11 +819,6 @@
   resolved "http://registry.npm.taobao.org/@types/isomorphic-fetch/download/@types/isomorphic-fetch-0.0.35.tgz#c1c0d402daac324582b6186b91f8905340ea3361"
   integrity sha1-wcDUAtqsMkWCthhrkfiQU0DqM2E=
 
-"@types/js-cookie@^2.2.1":
-  version "2.2.1"
-  resolved "http://registry.npm.taobao.org/@types/js-cookie/download/@types/js-cookie-2.2.1.tgz#aa6f6d5e5aaf7d97959e9fa938ac2501cf1a76f4"
-  integrity sha1-qm9tXlqvfZeVnp+pOKwlAc8advQ=
-
 "@types/mime@*":
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/@types/mime/download/@types/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
@@ -3493,11 +3488,6 @@ iterall@^1.2.2:
   resolved "http://registry.npm.taobao.org/iterall/download/iterall-1.2.2.tgz#92d70deb8028e0c39ff3164fdbf4d8b088130cd7"
   integrity sha1-ktcN64Ao4MOf8xZP2/TYsIgTDNc=
 
-js-cookie@^2.2.0:
-  version "2.2.0"
-  resolved "http://registry.npm.taobao.org/js-cookie/download/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
-  integrity sha1-Gywnmm7s44ChIWi5JIUmWzWx7/s=
-
 js-levenshtein@^1.1.3:
   version "1.1.6"
   resolved "http://registry.npm.taobao.org/js-levenshtein/download/js-levenshtein-1.1.6.tgz#c6cee58eb3550372df8deb85fad5ce66ce01d59d"
@@ -3915,6 +3905,11 @@ mobx-state-tree@^3.11.0:
   version "3.11.0"
   resolved "http://registry.npm.taobao.org/mobx-state-tree/download/mobx-state-tree-3.11.0.tgz#959890a0008101d7ef52a92a7156fdf7436a5ef2"
   integrity sha1-lZiQoACBAdfvUqkqcVb990NqXvI=
+
+mobx-utils@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.npm.taobao.org/mobx-utils/download/mobx-utils-5.4.0.tgz#ddc66e9edafedaa3762a42ec9da9c4c33ced74c4"
+  integrity sha1-3cZuntr+2qN2KkLsnanEwzztdMQ=
 
 mobx@^5.9.0:
   version "5.9.0"
