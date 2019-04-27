@@ -1,30 +1,38 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
-import { IStore } from '@/stores';
 import LoginModal from '../LoginModal';
-import { Root } from './styles';
+import { Button, Box } from 'grommet';
 
-interface Props {
-  store?: IStore;
+interface State {
+  showModal: boolean;
 }
 
-class Header extends React.Component<Props> {
+class Header extends React.Component<{}, State> {
+  state = {
+    showModal: false,
+  };
+
   componentDidMount() {
     //
   }
 
+  openModal = () => {
+    this.setState({ showModal: true });
+  };
+
+  closeModal = () => {
+    this.setState({ showModal: false });
+  };
+
   render() {
-    const {
-      globalHeader: { showLoginModal, toggleLoginModal },
-    } = this.props.store!;
+    const { showModal } = this.state;
 
     return (
-      <Root>
-        <button onClick={toggleLoginModal}>Login</button>
-        {showLoginModal && <LoginModal />}
-      </Root>
+      <Box direction="row" pad="small">
+        {showModal && <LoginModal onClose={this.closeModal} />}
+        <Button label="登陆" primary onClick={this.openModal} />
+      </Box>
     );
   }
 }
 
-export default inject('store')(observer(Header));
+export default Header;
