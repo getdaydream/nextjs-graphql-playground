@@ -1,6 +1,8 @@
 import React from 'react';
 import LoginModal from '../LoginModal';
 import { Button, Box } from 'grommet';
+import { withMe } from '@/graphql/user';
+import { compose } from 'react-apollo';
 
 interface State {
   showModal: boolean;
@@ -11,12 +13,11 @@ class Header extends React.Component<{}, State> {
     showModal: false,
   };
 
-  componentDidMount() {
-    //
-  }
+  componentDidMount() {}
 
   openModal = () => {
     this.setState({ showModal: true });
+    console.log(this.props);
   };
 
   closeModal = () => {
@@ -35,4 +36,4 @@ class Header extends React.Component<{}, State> {
   }
 }
 
-export default Header;
+export default compose(withMe)(Header);
