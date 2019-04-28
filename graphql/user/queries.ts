@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-export const QUERY_ME = gql`
-  query {
+export const QueryMe = gql`
+  query IQueryMe {
     me {
       id
       nickname

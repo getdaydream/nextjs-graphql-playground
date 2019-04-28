@@ -30,13 +30,14 @@ class LoginModal extends React.Component<PropsInternal> {
     document.cookie = cookie.serialize('token', token, {
       maxAge: 7 * 24 * 60 * 60, // 7 days
     });
-    console.log(token);
     onClose();
   };
 
   render() {
+    const { onClose } = this.props;
+
     return (
-      <Layer>
+      <Layer onEsc={onClose} onClickOutside={onClose}>
         <Button label="登陆" primary onClick={this.handleClickLogin} />
       </Layer>
     );
