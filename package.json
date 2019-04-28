@@ -37,6 +37,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@playlyfe/gql": "^2.6.1",
     "@types/cookie": "^0.3.2",
     "@types/cookie-parser": "^1.4.1",
     "@types/isomorphic-fetch": "^0.0.35",
