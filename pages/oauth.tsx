@@ -5,7 +5,7 @@ class Oauth extends React.Component {
   static async getInitialProps({ query }: NextContext) {
     const { code } = query
     if (code) {
-      
+
     }
   }
 
