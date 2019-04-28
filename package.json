@@ -6,7 +6,7 @@
     "build": "next build && tsc && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node .next/server",
     "schema": "apollo schema:download --endpoint=http://localhost:3000/graphql ./graphql/schema.json",
-    "types": "apollo codegen:generate ./graphql/__generated__/ --localSchemaFile=./graphql/schema.json --target=typescript --includes=./graphql/**/*.ts --tagName=gql --addTypename --outputFlat --watch"
+    "types": "apollo codegen:generate ./graphql/__generated-types__.ts --localSchemaFile=./graphql/schema.json --target=typescript --includes=./graphql/**/*.ts --tagName=gql --addTypename --outputFlat "
   },
   "dependencies": {
     "@types/express": "^4.16.1",
@@ -37,7 +37,6 @@
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-decorators": "^7.4.4",
-    "@playlyfe/gql": "^2.6.1",
     "@types/cookie": "^0.3.2",
     "@types/cookie-parser": "^1.4.1",
     "@types/isomorphic-fetch": "^0.0.35",

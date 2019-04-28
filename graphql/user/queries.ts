@@ -8,3 +8,11 @@ export const QueryMe = gql`
     }
   }
 `;
+
+export const MutationCreateUser = gql`
+  mutation IMutationCreateUser($createUserInput: CreateUserInput!) {
+    createUser(createUserInput: $createUserInput) {
+      token
+    }
+  }
+`;

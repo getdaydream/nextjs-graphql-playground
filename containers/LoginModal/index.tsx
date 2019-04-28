@@ -3,7 +3,6 @@ import cookie from 'cookie';
 import gql from 'graphql-tag';
 import { Layer, Button } from 'grommet';
 import { withApollo, WithApolloClient } from 'react-apollo';
-// import { ApolloClient } from 'apollo-client';
 
 interface Props {
   onClose: () => void;
