@@ -56,11 +56,11 @@ export interface IQueryMe_me {
   __typename: "User";
   id: string;
   nickname: string;
-  creatTime: any;
+  createTime: any;
 }
 
 export interface IQueryMe {
-  me: IQueryMe_me | null;
+  me: IQueryMe_me;
 }
 
 /* tslint:disable */
@@ -77,7 +77,7 @@ export interface IQueryUser_user {
   avatar: string;
   email: string;
   nickname: string;
-  creatTime: any;
+  createTime: any;
 }
 
 export interface IQueryUser {
@@ -100,7 +100,7 @@ export interface IQueryLoginResult_login_user {
   __typename: "User";
   id: string;
   nickname: string;
-  creatTime: any;
+  createTime: any;
 }
 
 export interface IQueryLoginResult_login {

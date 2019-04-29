@@ -5,7 +5,7 @@ export const QueryMe = gql`
     me {
       id
       nickname
-      creatTime
+      createTime
     }
   }
 `;
@@ -17,7 +17,7 @@ export const QueryUser = gql`
       avatar
       email
       nickname
-      creatTime
+      createTime
     }
   }
 `;
@@ -29,7 +29,7 @@ export const QueryLoginResult = gql`
       user {
         id
         nickname
-        creatTime
+        createTime
       }
     }
   }

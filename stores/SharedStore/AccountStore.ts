@@ -9,4 +9,9 @@ export const AccountStore = t
     isLogin() {
       return !!self.user;
     },
+  }))
+  .actions(self => ({
+    setUser(user: any) {
+      self.user = user;
+    },
   }));

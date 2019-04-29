@@ -13,7 +13,7 @@ export type IStore = Instance<typeof RootStore>;
 export type IStoreSnapshotIn = SnapshotIn<typeof RootStore>;
 export type IStoreSnapshotOut = SnapshotOut<typeof RootStore>;
 
-export const initStore = (snapshot?: Partial<IStore>) => {
+export const initStore = (snapshot?: IStoreSnapshotIn) => {
   if (!isBrowser) {
     rootStore = RootStore.create();
   }

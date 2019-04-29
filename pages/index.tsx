@@ -26,8 +26,12 @@ Home.getInitialProps = async (ctx: any) => {
     initialState: {},
     getToken: () => parseCookies(ctx.req).token,
   });
-  const response = await gqClient.query<IQueryMe>({ query: QueryMe });
-  return { account: { user: response.data.me } };
+  try {
+    const response = await gqClient.query<IQueryMe>({ query: QueryMe });
+    return { account: { user: response.data.me } };
+  } catch (e) {
+    return {};
+  }
 };
 
 export default Home;
