@@ -1,8 +1,12 @@
 import React from 'react';
 import cookie from 'cookie';
-import gql from 'graphql-tag';
 import { Layer, Button } from 'grommet';
 import { withApollo, WithApolloClient } from 'react-apollo';
+import { QueryLoginResult } from '@/graphql/user';
+import {
+  IQueryLoginResult,
+  IQueryLoginResultVariables,
+} from '@/graphql/__generated-types__';
 
 interface Props {
   onClose: () => void;
@@ -17,14 +21,15 @@ class LoginModal extends React.Component<PropsInternal> {
       data: {
         login: { token },
       },
-    } = await client.query({
-      query: gql`
-        {
-          login(email: "1@qq.com", password: "12345678") {
-            token
-          }
-        }
-      `,
+      data,
+    } = await client.query<IQueryLoginResult, IQueryLoginResultVariables>({
+      query: QueryLoginResult,
+      variables: { email: '1@qq.com', password: '12345678' },
+    });
+    console.log(data);
+    client.writeQuery({
+      query: QueryLoginResult,
+      data,
     });
     document.cookie = cookie.serialize('token', token, {
       maxAge: 7 * 24 * 60 * 60, // 7 days

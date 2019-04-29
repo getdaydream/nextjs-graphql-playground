@@ -1,39 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoginModal from '../LoginModal';
 import { Button, Box } from 'grommet';
-import { withMe } from '@/graphql/user';
-import { compose } from 'react-apollo';
+import { Query } from 'react-apollo';
+import { QueryMe } from '@/graphql/user';
+import { IQueryMe } from '@/graphql/__generated-types__';
 
-interface State {
-  showModal: boolean;
-}
+const Header: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
 
-class Header extends React.Component<{}, State> {
-  state = {
-    showModal: false,
-  };
+  return (
+    <Box direction="row" pad="small" style={{ background: 'white' }}>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
 
-  componentDidMount() {}
+      <Query<IQueryMe> query={QueryMe}>
+        {({ data }) => {
+          if (data && data.me) {
+            return data.me.nickname;
+          }
+          return (
+            <Button label="登陆" primary onClick={() => setShowModal(true)} />
+          );
+        }}
+      </Query>
+    </Box>
+  );
+};
 
-  openModal = () => {
-    this.setState({ showModal: true });
-    console.log(this.props);
-  };
-
-  closeModal = () => {
-    this.setState({ showModal: false });
-  };
-
-  render() {
-    const { showModal } = this.state;
-
-    return (
-      <Box direction="row" pad="small">
-        {showModal && <LoginModal onClose={this.closeModal} />}
-        <Button label="登陆" primary onClick={this.openModal} />
-      </Box>
-    );
-  }
-}
-
-export default compose(withMe)(Header);
+export default Header;

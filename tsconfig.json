@@ -23,5 +23,5 @@
     "experimentalDecorators": true,
     "typeRoots": ["typings/*", "node_modules/@types/*"]
   },
-  "exclude": [".next", "server/**/*.*"]
+  "exclude": [".next", "server/**/*.*", "node_modules"]
 }

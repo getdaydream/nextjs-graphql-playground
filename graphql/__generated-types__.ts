@@ -28,24 +28,6 @@ export interface IQueryArticleVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: IQueryMe
-// ====================================================
-
-export interface IQueryMe_me {
-  __typename: "User";
-  id: string;
-  nickname: string;
-}
-
-export interface IQueryMe {
-  me: IQueryMe_me | null;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: IMutationCreateUser
 // ====================================================
 
@@ -60,6 +42,80 @@ export interface IMutationCreateUser {
 
 export interface IMutationCreateUserVariables {
   createUserInput: CreateUserInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: IQueryMe
+// ====================================================
+
+export interface IQueryMe_me {
+  __typename: "User";
+  id: string;
+  nickname: string;
+  creatTime: any;
+}
+
+export interface IQueryMe {
+  me: IQueryMe_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: IQueryUser
+// ====================================================
+
+export interface IQueryUser_user {
+  __typename: "User";
+  id: string;
+  avatar: string;
+  email: string;
+  nickname: string;
+  creatTime: any;
+}
+
+export interface IQueryUser {
+  user: IQueryUser_user;
+}
+
+export interface IQueryUserVariables {
+  id: number;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: IQueryLoginResult
+// ====================================================
+
+export interface IQueryLoginResult_login_user {
+  __typename: "User";
+  id: string;
+  nickname: string;
+  creatTime: any;
+}
+
+export interface IQueryLoginResult_login {
+  __typename: "LoginResult";
+  token: string;
+  user: IQueryLoginResult_login_user;
+}
+
+export interface IQueryLoginResult {
+  login: IQueryLoginResult_login;
+}
+
+export interface IQueryLoginResultVariables {
+  email: string;
+  password: string;
 }
 
 /* tslint:disable */
