@@ -1,29 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import LoginModal from '../LoginModal';
 import { Button, Box } from 'grommet';
-import { Query } from 'react-apollo';
-import { QueryMe } from '@/graphql/user';
-import { IQueryMe } from '@/graphql/__generated-types__';
+import { observer, inject } from 'mobx-react';
+import { IStore } from '@/stores';
 
-const Header: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
+interface Props {
+  store: IStore;
+}
 
-  return (
-    <Box direction="row" pad="small" style={{ background: 'white' }}>
-      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
+class Header extends React.Component<Props> {
+  render() {
+    const {
+      globalHeader: { showLoginModal, toggleLoginModal },
+      account: { user },
+    } = this.props.store;
 
-      <Query<IQueryMe> query={QueryMe}>
-        {({ data }) => {
-          if (data && data.me) {
-            return data.me.nickname;
-          }
-          return (
-            <Button label="登陆" primary onClick={() => setShowModal(true)} />
-          );
-        }}
-      </Query>
-    </Box>
-  );
-};
+    return (
+      <Box direction="row" pad="small" style={{ background: 'white' }}>
+        {showLoginModal && <LoginModal onClose={toggleLoginModal} />}
 
-export default Header;
+        {user ? (
+          user.nickname
+        ) : (
+          <Button label="登陆" primary onClick={toggleLoginModal} />
+        )}
+      </Box>
+    );
+  }
+}
+
+export default inject((store: IStore) => store)(observer(Header));

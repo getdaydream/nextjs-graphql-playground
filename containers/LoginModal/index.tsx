@@ -1,15 +1,18 @@
 import React from 'react';
 import cookie from 'cookie';
 import { Layer, Button } from 'grommet';
-import { withApollo, WithApolloClient } from 'react-apollo';
+import { withApollo, WithApolloClient, compose } from 'react-apollo';
 import { QueryLoginResult } from '@/graphql/user';
 import {
   IQueryLoginResult,
   IQueryLoginResultVariables,
 } from '@/graphql/__generated-types__';
+import { inject } from 'mobx-react';
+import { IStore } from '@/stores';
 
 interface Props {
   onClose: () => void;
+  store: IStore;
 }
 
 type PropsInternal = WithApolloClient<Props>;
@@ -19,18 +22,16 @@ class LoginModal extends React.Component<PropsInternal> {
     const { client, onClose } = this.props;
     const {
       data: {
-        login: { token },
+        login: { token, user },
       },
-      data,
     } = await client.query<IQueryLoginResult, IQueryLoginResultVariables>({
       query: QueryLoginResult,
       variables: { email: '1@qq.com', password: '12345678' },
     });
-    console.log(data);
-    client.writeQuery({
-      query: QueryLoginResult,
-      data,
-    });
+    const {
+      account: { setUser },
+    } = this.props.store;
+    setUser(user);
     document.cookie = cookie.serialize('token', token, {
       maxAge: 7 * 24 * 60 * 60, // 7 days
     });
@@ -48,4 +49,7 @@ class LoginModal extends React.Component<PropsInternal> {
   }
 }
 
-export default withApollo(LoginModal);
+export default compose(
+  withApollo,
+  inject((store: IStore) => store),
+)(LoginModal);
