@@ -1,14 +1,12 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-const BraftEditor = dynamic(() => import('braft-editor'), {
+const BraftEditor = dynamic(() => import('@/components/BraftEditor'), {
   ssr: false,
 });
 
 class Post extends React.Component {
-  componentDidMount() {
-    import('braft-editor/dist/index.css');
-  }
+  componentDidMount() {}
 
   render() {
     return (

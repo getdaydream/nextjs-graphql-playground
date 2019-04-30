@@ -6,6 +6,7 @@ import { QueryMe } from '@/graphql/user';
 import { IQueryMe } from '@/graphql/__generated-types__';
 import { initApolloClient } from '@/utils';
 import { parseCookies } from '@/utils/parse-cookies';
+import { IStoreSnapshotIn } from '@/stores';
 
 const Home: NextFC = () => {
   return (
@@ -15,13 +16,13 @@ const Home: NextFC = () => {
       <div>test apollo client</div>
 
       <Link href="/user">
-        <a>s</a>
+        <a>user</a>
       </Link>
     </div>
   );
 };
 
-Home.getInitialProps = async (ctx: any) => {
+Home.getInitialProps = async (ctx: any): Promise<IStoreSnapshotIn> => {
   const gqClient = initApolloClient({
     initialState: {},
     getToken: () => parseCookies(ctx.req).token,
