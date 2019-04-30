@@ -1,19 +1,25 @@
 import React from 'react';
 import LoginModal from '../LoginModal';
 import { Button, Box } from 'grommet';
-import { observer, inject } from 'mobx-react';
-import { IStore } from '@/stores';
+import { observer } from 'mobx-react';
+import { InjectProps, inject } from '@/stores';
+import { observable, action } from 'mobx';
 
-interface Props {
-  store: IStore;
-}
+class Header extends React.Component<InjectProps> {
+  @observable
+  showLoginModal = false;
 
-class Header extends React.Component<Props> {
+  @action
+  toggleLoginModal = () => {
+    this.showLoginModal = !this.showLoginModal;
+  };
+
   render() {
     const {
-      globalHeader: { showLoginModal, toggleLoginModal },
       account: { user },
     } = this.props.store;
+
+    const { showLoginModal, toggleLoginModal } = this;
 
     return (
       <Box direction="row" pad="small" style={{ background: 'white' }}>
@@ -29,4 +35,4 @@ class Header extends React.Component<Props> {
   }
 }
 
-export default inject((store: IStore) => store)(observer(Header));
+export default inject(observer(Header));

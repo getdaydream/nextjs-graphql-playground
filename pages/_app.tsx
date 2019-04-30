@@ -14,10 +14,12 @@ import { Normalize } from 'styled-normalize';
 import GlobalStyle from '@/containers/GlobalStyle';
 import { ApolloClient } from 'apollo-client';
 import { NormalizedCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { isBrowser } from '@/utils/is';
+import { isBrowser, isProduction } from '@/utils/is';
 import { withApolloClient, grommetTheme } from '@/utils';
 import { ApolloProvider } from 'react-apollo';
 import { Grommet } from 'grommet';
+import { autorun } from 'mobx';
+import MobxReactDevTools from '@/components/MobxReactDevTools';
 
 interface IAppProps extends AppProps {
   pageProps: any;
@@ -50,10 +52,11 @@ class MyApp extends App<IAppProps> {
 
   constructor(props: any) {
     super(props);
-    console.log(props.pageProps);
     this.store = initStore(props.pageProps);
     if (isBrowser) {
-      console.log(getSnapshot(this.store));
+      autorun(() => {
+        console.log(getSnapshot(this.store));
+      });
     }
   }
 
@@ -64,6 +67,8 @@ class MyApp extends App<IAppProps> {
       <Container>
         <Normalize />
         <GlobalStyle />
+
+        {!isProduction && <MobxReactDevTools />}
         <Provider store={this.store}>
           <ApolloProvider client={apolloClient}>
             {/* TODO: theme */}
