@@ -1,4 +1,4 @@
-import { types as t } from 'mobx-state-tree';
+import { types as t, SnapshotIn } from 'mobx-state-tree';
 
 export const User = t.model('User', {
   id: t.string,
@@ -7,3 +7,5 @@ export const User = t.model('User', {
   createTime: t.string,
   // updateTime: t.string,
 });
+
+export type IUserSnapshotIn = SnapshotIn<typeof User>;

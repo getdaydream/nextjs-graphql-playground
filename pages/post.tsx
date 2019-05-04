@@ -6,8 +6,6 @@ const BraftEditor = dynamic(() => import('@/components/BraftEditor'), {
 });
 
 class Post extends React.Component {
-  componentDidMount() {}
-
   render() {
     return (
       <div style={{ background: 'white' }}>

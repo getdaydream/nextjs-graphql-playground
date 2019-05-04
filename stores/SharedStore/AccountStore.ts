@@ -1,5 +1,6 @@
 import { types as t } from 'mobx-state-tree';
 import { User } from '../ModelStore';
+import { IUserSnapshotIn } from '../ModelStore/User';
 
 export const AccountStore = t
   .model('AccountStore', {
@@ -11,7 +12,7 @@ export const AccountStore = t
     },
   }))
   .actions(self => ({
-    setUser(user: any) {
+    setUser(user: IUserSnapshotIn) {
       self.user = user;
     },
   }));
