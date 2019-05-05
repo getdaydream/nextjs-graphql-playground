@@ -7,25 +7,21 @@ import {
   IQueryLoginResultVariables,
 } from '@/graphql/__generated-types__';
 import { inject } from 'mobx-react';
-import { IStore } from '@/stores';
+import { IStore, InjectProps } from '@/stores';
 import { Overlay, Tabs, Tab, Classes } from '@blueprintjs/core';
 import { observable, action } from 'mobx';
 import { Box } from 'grommet';
 import { AuthCard, CloseIcon } from './styles';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
-
-interface Props {
-  onClose: () => void;
-  store: IStore;
-}
+import { gqClient } from '@/utils/init-apollo-client';
 
 enum TabEnum {
   Login = '登录',
   Signup = '注册',
 }
 
-type PropsInternal = WithApolloClient<Props>;
+type PropsInternal = WithApolloClient<InjectProps>;
 
 class AuthModal extends React.Component<PropsInternal> {
   @observable
@@ -37,12 +33,16 @@ class AuthModal extends React.Component<PropsInternal> {
   };
 
   handleClickLogin = async () => {
-    const { client, onClose } = this.props;
+    const {
+      store: {
+        globalHeader: { setShowAuthModal },
+      },
+    } = this.props;
     const {
       data: {
         login: { token, user },
       },
-    } = await client.query<IQueryLoginResult, IQueryLoginResultVariables>({
+    } = await gqClient.query<IQueryLoginResult, IQueryLoginResultVariables>({
       query: QueryLoginResult,
       variables: { email: '1@qq.com', password: '12345678' },
     });
@@ -53,18 +53,26 @@ class AuthModal extends React.Component<PropsInternal> {
     document.cookie = cookie.serialize('token', token, {
       maxAge: 7 * 24 * 60 * 60, // 7 days
     });
-    onClose();
+    setShowAuthModal(false);
   };
 
   render() {
-    const { onClose } = this.props;
+    const {
+      store: {
+        globalHeader: { setShowAuthModal },
+      },
+    } = this.props;
 
     return (
-      <Overlay onClose={onClose} isOpen={true} canOutsideClickClose>
+      <Overlay
+        onClose={() => setShowAuthModal(false)}
+        isOpen={true}
+        canOutsideClickClose
+      >
         <Box fill={true} align="center" justify="center">
           <AuthCard>
             <Box width="100%" align="end">
-              <CloseIcon icon="cross" onClick={onClose} />
+              <CloseIcon icon="cross" onClick={() => setShowAuthModal(false)} />
             </Box>
             <Box align="center">
               <Tabs
