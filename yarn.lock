@@ -5401,6 +5401,13 @@ next-compose-plugins@^2.1.1:
   resolved "http://registry.npm.taobao.org/next-compose-plugins/download/next-compose-plugins-2.1.1.tgz#7da0a3ce0c8ce267b5cb4164d2fb6e4aaf61bf86"
   integrity sha1-faCjzgyM4me1y0Fk0vtuSq9hv4Y=
 
+next-routes@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.npm.taobao.org/next-routes/download/next-routes-1.4.2.tgz#736a382579a792ea69f35ae70b449acdfefa7944"
+  integrity sha1-c2o4JXmnkupp81rnC0Sazf76eUQ=
+  dependencies:
+    path-to-regexp "^2.1.0"
+
 next-server@8.0.3:
   version "8.0.3"
   resolved "http://registry.npm.taobao.org/next-server/download/next-server-8.0.3.tgz#47c5ad0317cd712f5ad8d35d817ad0668b7341cc"
@@ -5981,6 +5988,11 @@ path-to-regexp@2.1.0:
   version "2.1.0"
   resolved "http://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-2.1.0.tgz#7e30f9f5b134bd6a28ffc2e3ef1e47075ac5259b"
   integrity sha1-fjD59bE0vWoo/8Lj7x5HB1rFJZs=
+
+path-to-regexp@^2.1.0:
+  version "2.4.0"
+  resolved "https://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-2.4.0.tgz#35ce7f333d5616f1c1e1bfe266c3aba2e5b2e704"
+  integrity sha1-Nc5/Mz1WFvHB4b/iZsOrouWy5wQ=
 
 path-type@^2.0.0:
   version "2.0.0"
