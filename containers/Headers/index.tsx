@@ -1,17 +1,18 @@
 import React from 'react';
-import LoginModal from '../LoginModal';
-import { Button, Box } from 'grommet';
-import { observer } from 'mobx-react';
-import { InjectProps, inject } from '@/stores';
+import AuthModal from '../AuthModal';
+import { Box } from 'grommet';
+import { observer, inject } from 'mobx-react';
+import { InjectProps, IStore } from '@/stores';
 import { observable, action } from 'mobx';
+import { Button, Intent } from '@blueprintjs/core';
 
 class Header extends React.Component<InjectProps> {
   @observable
-  showLoginModal = false;
+  showAuthModal = false;
 
   @action
-  toggleLoginModal = () => {
-    this.showLoginModal = !this.showLoginModal;
+  toggleAuthModal = () => {
+    this.showAuthModal = !this.showAuthModal;
   };
 
   render() {
@@ -19,20 +20,24 @@ class Header extends React.Component<InjectProps> {
       account: { user },
     } = this.props.store;
 
-    const { showLoginModal, toggleLoginModal } = this;
+    const { showAuthModal, toggleAuthModal } = this;
 
     return (
       <Box direction="row" pad="small" style={{ background: 'white' }}>
-        {showLoginModal && <LoginModal onClose={toggleLoginModal} />}
+        {showAuthModal && <AuthModal onClose={toggleAuthModal} />}
 
         {user ? (
           user.nickname
         ) : (
-          <Button label="登陆" primary onClick={toggleLoginModal} />
+          <Button
+            text="登陆"
+            intent={Intent.PRIMARY}
+            onClick={toggleAuthModal}
+          />
         )}
       </Box>
     );
   }
 }
 
-export default inject(observer(Header));
+export default inject((store: IStore) => store)(observer(Header));

@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "*": ["types/*"],
       "@/*": ["./*"] // will enable -> import { ... } from '@/pages'
     },
     "allowJs": true,
@@ -21,7 +22,7 @@
     "target": "esnext",
     "outDir": ".next",
     "experimentalDecorators": true,
-    "typeRoots": ["typings/*", "node_modules/@types/*"]
+    "typeRoots": ["types/*", "node_modules/@types/*"]
   },
   "exclude": [".next", "server/**/*.*", "node_modules"]
 }

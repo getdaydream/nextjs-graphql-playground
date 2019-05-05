@@ -6,7 +6,6 @@ import {
   SnapshotOut,
 } from 'mobx-state-tree';
 import { isBrowser } from '@/utils/is';
-import { inject as mobxInject } from 'mobx-react';
 
 let rootStore: IStore;
 
@@ -33,5 +32,3 @@ export const initStore = (snapshot?: IStoreSnapshotIn) => {
 export interface InjectProps {
   store: IStore;
 }
-
-export const inject = mobxInject((store: IStore) => store);
