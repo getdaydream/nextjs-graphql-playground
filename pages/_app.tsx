@@ -10,7 +10,6 @@ import App, { Container, NextAppContext, AppProps } from 'next/app';
 import { initStore, IStore } from '@/stores';
 import { getSnapshot } from 'mobx-state-tree';
 import { Provider } from 'mobx-react';
-import { Normalize } from 'styled-normalize';
 import GlobalStyle from '@/containers/GlobalStyle';
 import { ApolloClient } from 'apollo-client';
 import { NormalizedCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
@@ -65,7 +64,6 @@ class MyApp extends App<IAppProps> {
 
     return (
       <Container>
-        <Normalize />
         <GlobalStyle />
 
         {!isProduction && <MobxReactDevTools />}
