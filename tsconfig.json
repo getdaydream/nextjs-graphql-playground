@@ -2,7 +2,6 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "*": ["types/*"],
       "@/*": ["./*"] // will enable -> import { ... } from '@/pages'
     },
     "allowJs": true,
