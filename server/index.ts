@@ -4,12 +4,13 @@ import { useStaticRendering } from 'mobx-react';
 import * as cookieParser from 'cookie-parser';
 import * as next from 'next';
 import * as express from 'express';
+import { routes } from './routes';
 
 useStaticRendering(true);
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev, quiet: false });
-const handle = app.getRequestHandler();
+const handler = routes.getRequestHandler(app);
 
 app
   .prepare()
@@ -18,9 +19,7 @@ app
 
     server.use(cookieParser());
 
-    server.get('*', (req, res) => {
-      return handle(req, res);
-    });
+    server.use(handler);
 
     server.listen(3001, (err: any) => {
       if (err) throw err;
