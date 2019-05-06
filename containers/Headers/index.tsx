@@ -2,12 +2,12 @@ import React from 'react';
 import AuthModal from '../AuthModal';
 import { Box } from 'grommet';
 import { observer, inject } from 'mobx-react';
-import { InjectProps, IStore } from '@/stores';
+import { MstStoreProps, IStore } from '@/stores';
 import { Button } from 'antd';
 import Avatar from '@/components/Avatar';
 import Link from 'next/link';
 
-class Header extends React.Component<InjectProps> {
+class Header extends React.Component<MstStoreProps> {
   render() {
     const {
       account: { user },

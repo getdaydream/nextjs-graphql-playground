@@ -8,13 +8,14 @@
 
 export interface IMutationCreateArticle_createArticle {
   __typename: "Article";
-  id: string;
+  id: number;
   title: string;
   /**
    * 内容
    */
   content: string;
   updateTime: any;
+  createTime: any;
 }
 
 export interface IMutationCreateArticle {
@@ -35,13 +36,14 @@ export interface IMutationCreateArticleVariables {
 
 export interface IMutationUpdateArticle_updateArticle {
   __typename: "Article";
-  id: string;
+  id: number;
   title: string;
   /**
    * 内容
    */
   content: string;
   updateTime: any;
+  createTime: any;
 }
 
 export interface IMutationUpdateArticle {
@@ -62,7 +64,7 @@ export interface IMutationUpdateArticleVariables {
 
 export interface IQueryArticle_article {
   __typename: "Article";
-  id: string;
+  id: number;
   /**
    * 摘要
    */

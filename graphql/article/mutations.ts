@@ -7,6 +7,7 @@ export const MutationCreateArticle = gql`
       title
       content
       updateTime
+      createTime
     }
   }
 `;
@@ -18,6 +19,7 @@ export const MutationUpdateArticle = gql`
       title
       content
       updateTime
+      createTime
     }
   }
 `;

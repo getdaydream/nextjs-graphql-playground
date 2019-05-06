@@ -42,7 +42,12 @@ Post.getInitialProps = async ({
   });
   try {
     const response = await gqClient.query<IQueryMe>({ query: QueryMe });
-    return { mstStore: { account: { user: response.data.me } }, status };
+    return {
+      mstStore: {
+        account: { user: response.data.me },
+      },
+      status,
+    };
   } catch (e) {
     return { mstStore: {}, status };
   }

@@ -29,6 +29,6 @@ export const initStore = (snapshot?: IStoreSnapshotIn) => {
   return rootStore;
 };
 
-export interface InjectProps {
+export interface MstStoreProps {
   store: IStore;
 }
