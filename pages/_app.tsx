@@ -51,7 +51,7 @@ class MyApp extends App<IAppProps> {
 
   constructor(props: any) {
     super(props);
-    this.store = initStore(props.pageProps);
+    this.store = initStore(props.pageProps.mstStore);
     if (isBrowser) {
       autorun(() => {
         console.log(getSnapshot(this.store));

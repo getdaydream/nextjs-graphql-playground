@@ -4,4 +4,5 @@ import Routes from 'next-routes';
 // @ts-ignore Types are broken
 export const routes: Routes = createRoutes();
 
-routes.add('/post/edit/:id?', 'post');
+routes.add('/post/create', 'post');
+routes.add('/post/edit/:id', 'post');

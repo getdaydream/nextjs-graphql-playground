@@ -3,8 +3,9 @@ import AuthModal from '../AuthModal';
 import { Box } from 'grommet';
 import { observer, inject } from 'mobx-react';
 import { InjectProps, IStore } from '@/stores';
-import { Button, Intent } from '@blueprintjs/core';
+import { Button } from 'antd';
 import Avatar from '@/components/Avatar';
+import Link from 'next/link';
 
 class Header extends React.Component<InjectProps> {
   render() {
@@ -21,16 +22,14 @@ class Header extends React.Component<InjectProps> {
           <Box direction="row" justify="between" fill>
             <div />
             <Box direction="row" justify="end" align="center">
-              <Button text="Post" minimal/>
+              <Link href="/post/create">
+                <Button>Post</Button>
+              </Link>
               <Avatar />
             </Box>
           </Box>
         ) : (
-          <Button
-            text="登陆"
-            intent={Intent.PRIMARY}
-            onClick={() => setShowAuthModal(true)}
-          />
+          <Button onClick={() => setShowAuthModal(true)}>登录</Button>
         )}
       </Box>
     );

@@ -8,6 +8,7 @@ const RootStore = t
     account: t.optional(AccountStore, {}),
     // UI store
     globalHeader: t.optional(GlobalHeader, {}),
+    // temp UI store
     articleEdit: t.maybeNull(ArticleEdit),
   })
   .views(self => ({
@@ -15,6 +16,13 @@ const RootStore = t
       return getParent(self);
     },
   }))
-  .actions(() => ({}));
+  .actions(self => ({
+    initArticleEdit() {
+      self.articleEdit = ArticleEdit.create();
+    },
+    destoryArticleEdit() {
+      self.articleEdit = null;
+    },
+  }));
 
 export default RootStore;
