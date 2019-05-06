@@ -7,7 +7,7 @@ import {
   IQueryLoginResultVariables,
 } from '@/graphql/__generated-types__';
 import { inject } from 'mobx-react';
-import { IStore, InjectProps } from '@/stores';
+import { IStore, MstStoreProps } from '@/stores';
 import { observable, action } from 'mobx';
 import { Box } from 'grommet';
 import LoginForm from './LoginForm';
@@ -22,7 +22,7 @@ enum TabEnum {
   Signup = '注册',
 }
 
-type PropsInternal = WithApolloClient<InjectProps>;
+type PropsInternal = WithApolloClient<MstStoreProps>;
 
 class AuthModal extends React.Component<PropsInternal> {
   @observable

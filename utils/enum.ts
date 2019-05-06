@@ -6,4 +6,5 @@ export enum ArticleCategoryEnum {
 
 export enum ArticleFormatEnum {
   Markdown = 'Markdown',
+  RichText = 'RichText',
 }

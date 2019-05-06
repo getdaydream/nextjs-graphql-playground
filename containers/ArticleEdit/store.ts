@@ -4,10 +4,10 @@ import { IArticle } from '@/stores/ModelStore/Article';
 
 export const ArticleEdit = t
   .model('ArticleCreate', {
-    article: t.optional(Article, {}),
+    draft: t.optional(Article, {}),
   })
   .actions(self => ({
-    updateArticle(article: IArticle) {
-      self.article = article;
+    updateArticle(draft: IArticle) {
+      self.draft = draft;
     },
   }));

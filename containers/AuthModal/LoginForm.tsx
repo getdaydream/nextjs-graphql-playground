@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import cookie from 'cookie';
 import { compose, withApollo, WithApolloClient } from 'react-apollo';
 import { inject } from 'mobx-react';
-import { IStore, InjectProps } from '@/stores';
+import { IStore, MstStoreProps } from '@/stores';
 import { gqClient } from '@/utils/init-apollo-client';
 import {
   IQueryLoginResult,
@@ -13,7 +13,7 @@ import { Button, Input, Icon } from 'antd';
 
 const InputGroup = Input.Group;
 
-type PropsInternal = WithApolloClient<InjectProps>;
+type PropsInternal = WithApolloClient<MstStoreProps>;
 
 class LoginForm extends React.Component<PropsInternal> {
   password = '';
