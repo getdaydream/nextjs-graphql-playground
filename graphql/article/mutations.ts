@@ -1,14 +1,23 @@
 import gql from 'graphql-tag';
 
 export const MutationCreateArticle = gql`
-  mutation IMutationCreateArticle($createArticleInput: CreateArticleInput) {
-    createArticle(createArticleInput: $createArticleInput!) {
+  mutation IMutationCreateArticle($createArticleInput: CreateArticleInput!) {
+    createArticle(createArticleInput: $createArticleInput) {
       id
-      userId
       title
-      abstract
-      cover
-      createTime
+      content
+      updateTime
+    }
+  }
+`;
+
+export const MutationUpdateArticle = gql`
+  mutation IMutationUpdateArticle($updateArticleInput: UpdateArticleInput!) {
+    updateArticle(updateArticleInput: $updateArticleInput) {
+      id
+      title
+      content
+      updateTime
     }
   }
 `;

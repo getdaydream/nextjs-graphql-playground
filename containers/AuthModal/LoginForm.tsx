@@ -1,13 +1,5 @@
 import React, { Fragment } from 'react';
 import cookie from 'cookie';
-import {
-  InputGroup,
-  ControlGroup,
-  FormGroup,
-  Button,
-  Intent,
-  Icon,
-} from '@blueprintjs/core';
 import { compose, withApollo, WithApolloClient } from 'react-apollo';
 import { inject } from 'mobx-react';
 import { IStore, InjectProps } from '@/stores';
@@ -17,6 +9,9 @@ import {
   IQueryLoginResultVariables,
 } from '@/graphql/__generated-types__';
 import { QueryLoginResult } from '@/graphql/user';
+import { Button, Input, Icon } from 'antd';
+
+const InputGroup = Input.Group;
 
 type PropsInternal = WithApolloClient<InjectProps>;
 
@@ -56,30 +51,22 @@ class LoginForm extends React.Component<PropsInternal> {
   render() {
     return (
       <Fragment>
-        <FormGroup>
-          <ControlGroup vertical>
-            <InputGroup
-              large
-              placeholder="邮箱"
-              onChange={this.handleChangeEmail}
-              type="email"
-              leftIcon={<Icon icon="envelope" />}
-            />
-            <InputGroup
-              large
-              placeholder="密码"
-              onChange={this.handleChangePassword}
-              type="password"
-              leftIcon={<Icon icon="lock" />}
-            />
-          </ControlGroup>
-        </FormGroup>
-        <Button
-          text="登录"
-          fill
-          intent={Intent.PRIMARY}
-          onClick={this.handleClickLogin}
-        />
+        <InputGroup size="large">
+          <Input
+            placeholder="邮箱"
+            onChange={this.handleChangeEmail}
+            type="email"
+            prefix={<Icon type="user" />}
+          />
+          <Input.Password
+            placeholder="密码"
+            onChange={this.handleChangePassword}
+            prefix={<Icon type="lock" />}
+          />
+        </InputGroup>
+        <Button block onClick={this.handleClickLogin}>
+          登录
+        </Button>
       </Fragment>
     );
   }

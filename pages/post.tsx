@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { NextFC } from 'next';
+import { NextFC, NextContext } from 'next';
 import { IStoreSnapshotIn } from '@/stores';
 import { initApolloClient } from '@/utils';
 import { parseCookies } from '@/utils/parse-cookies';
@@ -12,25 +12,39 @@ const ArticleEdit = dynamic(() => import('@/containers/ArticleEdit'), {
   ssr: false,
 });
 
-const Post: NextFC = () => {
+interface InitialProps {
+  mstStore: IStoreSnapshotIn;
+  status: 'view' | 'create' | 'edit';
+}
+
+const Post: NextFC<InitialProps> = ({ status }) => {
   return (
     <div style={{ background: 'white' }}>
       <Header />
-      <ArticleEdit />
+      {status !== 'view' && <ArticleEdit />}
     </div>
   );
 };
 
-Post.getInitialProps = async (ctx: any): Promise<IStoreSnapshotIn> => {
+Post.getInitialProps = async ({
+  asPath,
+  req,
+}: NextContext): Promise<InitialProps> => {
+  const status = asPath.includes('create')
+    ? 'create'
+    : asPath.includes('edit')
+    ? 'edit'
+    : 'view';
+
   const gqClient = initApolloClient({
     initialState: {},
-    getToken: () => parseCookies(ctx.req).token,
+    getToken: () => parseCookies(req).token,
   });
   try {
     const response = await gqClient.query<IQueryMe>({ query: QueryMe });
-    return { account: { user: response.data.me } };
+    return { mstStore: { account: { user: response.data.me } }, status };
   } catch (e) {
-    return {};
+    return { mstStore: {}, status };
   }
 };
 

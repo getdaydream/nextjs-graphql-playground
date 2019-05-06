@@ -3,6 +3,60 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: IMutationCreateArticle
+// ====================================================
+
+export interface IMutationCreateArticle_createArticle {
+  __typename: "Article";
+  id: string;
+  title: string;
+  /**
+   * 内容
+   */
+  content: string;
+  updateTime: any;
+}
+
+export interface IMutationCreateArticle {
+  createArticle: IMutationCreateArticle_createArticle;
+}
+
+export interface IMutationCreateArticleVariables {
+  createArticleInput: CreateArticleInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: IMutationUpdateArticle
+// ====================================================
+
+export interface IMutationUpdateArticle_updateArticle {
+  __typename: "Article";
+  id: string;
+  title: string;
+  /**
+   * 内容
+   */
+  content: string;
+  updateTime: any;
+}
+
+export interface IMutationUpdateArticle {
+  updateArticle: IMutationUpdateArticle_updateArticle;
+}
+
+export interface IMutationUpdateArticleVariables {
+  updateArticleInput: UpdateArticleInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: IQueryArticle
 // ====================================================
 
@@ -126,10 +180,23 @@ export interface IQueryLoginResultVariables {
 // START Enums and Input Objects
 //==============================================================
 
+export interface CreateArticleInput {
+  title?: string | null;
+  content?: string | null;
+  format: string;
+}
+
 export interface CreateUserInput {
   email: string;
   nickname: string;
   password: string;
+}
+
+export interface UpdateArticleInput {
+  id: number;
+  status?: string | null;
+  title?: string | null;
+  content?: string | null;
 }
 
 //==============================================================

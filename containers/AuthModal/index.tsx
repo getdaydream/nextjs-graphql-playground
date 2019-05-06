@@ -8,13 +8,14 @@ import {
 } from '@/graphql/__generated-types__';
 import { inject } from 'mobx-react';
 import { IStore, InjectProps } from '@/stores';
-import { Overlay, Tabs, Tab, Classes } from '@blueprintjs/core';
 import { observable, action } from 'mobx';
 import { Box } from 'grommet';
-import { AuthCard, CloseIcon } from './styles';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import { gqClient } from '@/utils/init-apollo-client';
+import { Modal, Tabs } from 'antd';
+
+const { TabPane } = Tabs;
 
 enum TabEnum {
   Login = '登录',
@@ -64,38 +65,25 @@ class AuthModal extends React.Component<PropsInternal> {
     } = this.props;
 
     return (
-      <Overlay
-        onClose={() => setShowAuthModal(false)}
-        isOpen={true}
-        canOutsideClickClose
+      <Modal
+        onCancel={() => setShowAuthModal(false)}
+        visible={true}
+        centered
+        footer={null}
       >
         <Box fill={true} align="center" justify="center">
-          <AuthCard>
-            <Box width="100%" align="end">
-              <CloseIcon icon="cross" onClick={() => setShowAuthModal(false)} />
-            </Box>
-            <Box align="center">
-              <Tabs
-                id="auth-tab"
-                large
-                className={Classes.FILL}
-                renderActiveTabPanelOnly
-              >
-                <Tab
-                  id={TabEnum.Login}
-                  title={TabEnum.Login}
-                  panel={<LoginForm />}
-                />
-                <Tab
-                  id={TabEnum.Signup}
-                  title={TabEnum.Signup}
-                  panel={<SignupForm />}
-                />
-              </Tabs>
-            </Box>
-          </AuthCard>
+          <Box align="center">
+            <Tabs>
+              <TabPane key={TabEnum.Login} tab={TabEnum.Login}>
+                <LoginForm />
+              </TabPane>
+              <TabPane key={TabEnum.Signup} tab={TabEnum.Signup}>
+                <SignupForm />
+              </TabPane>
+            </Tabs>
+          </Box>
         </Box>
-      </Overlay>
+      </Modal>
     );
   }
 }

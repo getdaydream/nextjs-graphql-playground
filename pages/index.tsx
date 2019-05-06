@@ -22,16 +22,20 @@ const Home: NextFC = () => {
   );
 };
 
-Home.getInitialProps = async (ctx: any): Promise<IStoreSnapshotIn> => {
+Home.getInitialProps = async (
+  ctx: any,
+): Promise<{ mstStore: IStoreSnapshotIn }> => {
   const gqClient = initApolloClient({
     initialState: {},
     getToken: () => parseCookies(ctx.req).token,
   });
   try {
     const response = await gqClient.query<IQueryMe>({ query: QueryMe });
-    return { account: { user: response.data.me } };
+    return { mstStore: { account: { user: response.data.me } } };
   } catch (e) {
-    return {};
+    return {
+      mstStore: {},
+    };
   }
 };
 
