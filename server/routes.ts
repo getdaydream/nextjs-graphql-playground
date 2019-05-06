@@ -5,4 +5,4 @@ import Routes from 'next-routes';
 export const routes: Routes = createRoutes();
 
 routes.add('/post/create', 'post');
-routes.add('/post/edit/:id', 'post');
+routes.add('/post/:id/edit', 'post');

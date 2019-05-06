@@ -57,7 +57,7 @@ class ArticleEdit extends React.Component<MstStoreProps & RouterProps> {
       },
     });
     updateArticle(createArticle);
-    const href = `/post/edit/${createArticle.id}`;
+    const href = `/post/${createArticle.id}/edit`;
     Router.push(href, href, { shallow: true });
   };
 
