@@ -19,11 +19,16 @@ import { ApolloProvider } from 'react-apollo';
 import { Grommet } from 'grommet';
 import { autorun } from 'mobx';
 import MobxReactDevTools from '@/components/MobxReactDevTools';
+import withRedux from 'next-redux-wrapper';
+import { configureStore, AppState } from '@/store';
+import { Provider as ReduxProvider } from 'react-redux';
+import { Store } from 'redux';
 
 interface IAppProps extends AppProps {
   pageProps: any;
   apolloClient: ApolloClient<NormalizedCache>;
   apolloState: NormalizedCacheObject;
+  store: Store<AppState>;
 }
 
 class MyApp extends App<IAppProps> {
@@ -60,7 +65,7 @@ class MyApp extends App<IAppProps> {
   }
 
   render() {
-    const { Component, pageProps, apolloClient } = this.props;
+    const { Component, pageProps, apolloClient, store } = this.props;
 
     return (
       <Container>
@@ -68,16 +73,18 @@ class MyApp extends App<IAppProps> {
 
         {!isProduction && <MobxReactDevTools />}
         <Provider store={this.store}>
-          <ApolloProvider client={apolloClient}>
-            {/* TODO: theme */}
-            <Grommet theme={grommetTheme}>
-              <Component {...pageProps} />
-            </Grommet>
-          </ApolloProvider>
+          <ReduxProvider store={store}>
+            <ApolloProvider client={apolloClient}>
+              {/* TODO: theme */}
+              <Grommet theme={grommetTheme}>
+                <Component {...pageProps} />
+              </Grommet>
+            </ApolloProvider>
+          </ReduxProvider>
         </Provider>
       </Container>
     );
   }
 }
 
-export default withApolloClient(MyApp);
+export default withApolloClient(withRedux(configureStore)(MyApp));
