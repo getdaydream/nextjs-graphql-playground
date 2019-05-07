@@ -7,7 +7,7 @@ import {
   IQueryLoginResultVariables,
 } from '@/graphql/__generated-types__';
 import { inject } from 'mobx-react';
-import { IStore, MstStoreProps } from '@/stores';
+import { MstStoreProps } from '@/stores';
 import { observable, action } from 'mobx';
 import { Box } from 'grommet';
 import LoginForm from './LoginForm';
@@ -90,5 +90,5 @@ class AuthModal extends React.Component<PropsInternal> {
 
 export default compose(
   withApollo,
-  inject((store: IStore) => store),
+  inject(store => store),
 )(AuthModal);

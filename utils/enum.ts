@@ -8,3 +8,8 @@ export enum ArticleFormatEnum {
   Markdown = 'Markdown',
   RichText = 'RichText',
 }
+
+export enum ArticleStatusEnum {
+  Draft = 'Draft',
+  Published = 'Published',
+}

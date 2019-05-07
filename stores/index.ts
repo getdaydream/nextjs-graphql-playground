@@ -7,7 +7,7 @@ import {
 } from 'mobx-state-tree';
 import { isBrowser } from '@/utils/is';
 
-let rootStore: IStore;
+export let rootStore: IStore;
 
 export type IStore = Instance<typeof RootStore>;
 export type IStoreSnapshotIn = SnapshotIn<typeof RootStore>;

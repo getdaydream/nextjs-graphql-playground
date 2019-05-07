@@ -1,6 +1,6 @@
 import { types as t } from 'mobx-state-tree';
 
-export const GlobalHeader = t
+export const GlobalHeaderStore = t
   .model('GlobalHeader', {
     showAuthModal: t.optional(t.boolean, false),
   })
