@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import cookie from 'cookie';
 import { compose, withApollo, WithApolloClient } from 'react-apollo';
 import { inject } from 'mobx-react';
-import { IStore, MstStoreProps } from '@/stores';
+import { MstStoreProps } from '@/stores';
 import { gqClient } from '@/utils/init-apollo-client';
 import {
   IQueryLoginResult,
@@ -74,5 +74,5 @@ class LoginForm extends React.Component<PropsInternal> {
 
 export default compose(
   withApollo,
-  inject((store: IStore) => store),
+  inject(store => store),
 )(LoginForm);

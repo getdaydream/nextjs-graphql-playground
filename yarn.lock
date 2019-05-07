@@ -1244,6 +1244,13 @@
     "@types/prop-types" "*"
     "@types/react" "*"
 
+"@types/react-portal@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.npm.taobao.org/@types/react-portal/download/@types/react-portal-4.0.2.tgz#57a7f4c8ad48097c5a2d0cbbd09187831b91afdf"
+  integrity sha1-V6f0yK1ICXxaLQy70JGHgxuRr98=
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-slick@^0.23.3":
   version "0.23.4"
   resolved "https://registry.npm.taobao.org/@types/react-slick/download/@types/react-slick-0.23.4.tgz#c97e2a9e7e3d1933c68593b8e82752fab1e8ce53"
@@ -7061,6 +7068,13 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
+react-portal@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.npm.taobao.org/react-portal/download/react-portal-4.2.0.tgz#5400831cdb0ae64dccb8128121cf076089ab1afd"
+  integrity sha1-VACDHNsK5k3MuBKBIc8HYImrGv0=
+  dependencies:
+    prop-types "^15.5.8"
+
 react-slick@~0.24.0:
   version "0.24.0"
   resolved "https://registry.npm.taobao.org/react-slick/download/react-slick-0.24.0.tgz#1a4e078a82de4e9458255d9ce26aa6f3b17b168b"
@@ -7395,16 +7409,9 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
-rxjs@^6.3.3:
+rxjs@^6.3.3, rxjs@^6.5.1:
   version "6.5.1"
   resolved "https://registry.npm.taobao.org/rxjs/download/rxjs-6.5.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frxjs%2Fdownload%2Frxjs-6.5.1.tgz#f7a005a9386361921b8524f38f54cbf80e5d08f4"
-  integrity sha1-96AFqThjYZIbhSTzj1TL+A5dCPQ=
-  dependencies:
-    tslib "^1.9.0"
-
-rxjs@^6.5.1:
-  version "6.5.1"
-  resolved "https://registry.npm.taobao.org/rxjs/download/rxjs-6.5.1.tgz#f7a005a9386361921b8524f38f54cbf80e5d08f4"
   integrity sha1-96AFqThjYZIbhSTzj1TL+A5dCPQ=
   dependencies:
     tslib "^1.9.0"

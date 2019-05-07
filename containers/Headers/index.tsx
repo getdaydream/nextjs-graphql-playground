@@ -2,16 +2,25 @@ import React from 'react';
 import AuthModal from '../AuthModal';
 import { Box } from 'grommet';
 import { observer, inject } from 'mobx-react';
-import { MstStoreProps, IStore } from '@/stores';
-import { Button } from 'antd';
-import Avatar from '@/components/Avatar';
-import Link from 'next/link';
+import { MstStoreProps } from '@/stores';
+import { Button, Avatar } from 'antd';
+import dynamic from 'next/dynamic';
+
+const ArticleEdit = dynamic(() => import('@/containers/ArticleEdit'), {
+  ssr: false,
+});
 
 class Header extends React.Component<MstStoreProps> {
+  openPost = () => {
+    const { initArticleEdit } = this.props.store;
+    initArticleEdit();
+  };
+
   render() {
     const {
       account: { user },
       globalHeader: { showAuthModal, setShowAuthModal },
+      articleEdit,
     } = this.props.store;
 
     return (
@@ -22,18 +31,18 @@ class Header extends React.Component<MstStoreProps> {
           <Box direction="row" justify="between" fill>
             <div />
             <Box direction="row" justify="end" align="center">
-              <Link href="/post/create">
-                <Button>Post</Button>
-              </Link>
+              <Button onClick={this.openPost}>Post</Button>
               <Avatar />
             </Box>
           </Box>
         ) : (
           <Button onClick={() => setShowAuthModal(true)}>登录</Button>
         )}
+
+        {articleEdit && <ArticleEdit />}
       </Box>
     );
   }
 }
 
-export default inject((store: IStore) => store)(observer(Header));
+export default inject(store => store)(observer(Header));
