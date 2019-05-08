@@ -1,15 +1,19 @@
 import { applyMiddleware, createStore, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
-import { AppState } from './app-state';
-import { rootReducer } from './root-reducer';
-import { rootEpic } from './root-epic';
+import rootReducer from './root-reducer';
+import rootEpic from './root-epic';
+import { RootState, RootAction } from 'typesafe-actions';
 
 export default function configureStore(
-  initialState: AppState,
-): Store<AppState> {
+  initialState: RootState,
+): Store<RootState> {
   // create middlewares
-  const epicMiddleware = createEpicMiddleware();
+  const epicMiddleware = createEpicMiddleware<
+    RootAction,
+    RootAction,
+    RootState
+  >();
 
   // create store
   const store = createStore(

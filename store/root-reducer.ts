@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import * as Account from './module/account';
+import * as Account from './feature/account';
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   account: Account.reducer,
 });
+
+export default rootReducer;

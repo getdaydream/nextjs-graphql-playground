@@ -44,7 +44,8 @@
     "redux-observable": "^1.1.0",
     "reselect": "^4.0.0",
     "rxjs": "^6.5.1",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "typesafe-actions": "^4.2.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.4",
