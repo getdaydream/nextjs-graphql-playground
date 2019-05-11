@@ -1,5 +1,5 @@
-import { accountActions } from './feature/account';
+import { AccountActions } from './shared/account';
 
 export default {
-  account: accountActions,
+  account: AccountActions,
 };

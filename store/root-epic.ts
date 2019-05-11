@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable';
-import { epics } from './feature/account';
+import { AccountEpics } from './shared/account';
 
-const rootEpic = combineEpics(epics);
+const rootEpic = combineEpics(...Object.values(AccountEpics));
 
 export default rootEpic;
