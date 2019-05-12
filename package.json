@@ -36,6 +36,7 @@
     "react-apollo": "^2.5.5",
     "react-dom": "^16.8.4",
     "react-portal": "^4.2.0",
+    "redux": "^4.0.1",
     "rxjs": "^6.5.1",
     "styled-components": "^4.2.0"
   },
