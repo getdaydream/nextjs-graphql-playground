@@ -7,23 +7,22 @@
 
 import React from 'react';
 import App, { Container, NextAppContext, AppProps } from 'next/app';
-import { initStore, IStore } from '@/stores';
-import { getSnapshot } from 'mobx-state-tree';
-import { Provider } from 'mobx-react';
 import GlobalStyle from '@/containers/GlobalStyle';
 import { ApolloClient } from 'apollo-client';
 import { NormalizedCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { isBrowser, isProduction } from '@/utils/is';
 import { withApolloClient, grommetTheme } from '@/utils';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider, compose } from 'react-apollo';
 import { Grommet } from 'grommet';
-import { autorun } from 'mobx';
-import MobxReactDevTools from '@/components/MobxReactDevTools';
+import withRedux from 'next-redux-wrapper';
+import { configureStore } from '@/store';
+import { Store } from 'redux';
+import { Provider as ReduxProvider } from 'react-redux';
 
 interface IAppProps extends AppProps {
   pageProps: any;
   apolloClient: ApolloClient<NormalizedCache>;
   apolloState: NormalizedCacheObject;
+  store: Store;
 }
 
 class MyApp extends App<IAppProps> {
@@ -47,37 +46,31 @@ class MyApp extends App<IAppProps> {
     return { pageProps };
   }
 
-  private store: IStore;
-
   constructor(props: any) {
     super(props);
-    this.store = initStore(props.pageProps.mstStore);
-    if (isBrowser) {
-      autorun(() => {
-        console.log(getSnapshot(this.store));
-      });
-    }
   }
 
   render() {
-    const { Component, pageProps, apolloClient } = this.props;
+    const { Component, pageProps, apolloClient, store } = this.props;
 
     return (
       <Container>
         <GlobalStyle />
 
-        {!isProduction && <MobxReactDevTools />}
-        <Provider store={this.store}>
+        <ReduxProvider store={store}>
           <ApolloProvider client={apolloClient}>
             {/* TODO: theme */}
             <Grommet theme={grommetTheme}>
               <Component {...pageProps} />
             </Grommet>
           </ApolloProvider>
-        </Provider>
+        </ReduxProvider>
       </Container>
     );
   }
 }
 
-export default withApolloClient(MyApp);
+export default compose(
+  withApolloClient,
+  withRedux(configureStore),
+)(MyApp);
