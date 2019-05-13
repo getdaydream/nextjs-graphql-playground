@@ -1,5 +1,5 @@
 import React from 'react';
-// import AuthModal from '../AuthModal';
+import AuthModal from '../AuthModal';
 import { Box } from 'grommet';
 // import { observer, inject } from 'mobx-react';
 // import { MstStoreProps } from '@/stores';
@@ -15,7 +15,6 @@ import { setGlobalOverlay as setGlobalOverlayAction } from '@/store/UI/global/ac
 
 const mapStateToProps = (state: RootState) => ({
   showAuthModal: state.global.globalOverlay === 'auth',
-  state,
 });
 
 const dispatchProps = {
@@ -24,19 +23,10 @@ const dispatchProps = {
 
 type HeaderProps = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
-const Header: React.FC<HeaderProps> = ({
-  showAuthModal,
-  setGlobalOverlay,
-  state,
-}) => {
-  console.log(state);
-  const handleClick = () => {
-    setGlobalOverlay('auth');
-  };
-
+const Header: React.FC<HeaderProps> = ({ showAuthModal, setGlobalOverlay }) => {
   return (
     <Box direction="row" pad="small" style={{ background: 'white' }}>
-      {showAuthModal && <div>just for test</div>}
+      {showAuthModal && <AuthModal />}
 
       {/* {user ? (
         <Box direction="row" justify="between" fill>
@@ -50,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({
         <Button onClick={() => setShowAuthModal(true)}>登录</Button>
       )} */}
 
-      <button onClick={handleClick}>登录</button>
+      <button onClick={() => setGlobalOverlay('auth')}>登录</button>
 
       {/* {articleEdit && <ArticleEdit />} */}
     </Box>
