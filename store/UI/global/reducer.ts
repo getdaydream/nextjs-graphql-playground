@@ -2,14 +2,14 @@ import { createReducer } from 'typesafe-actions';
 import { setGlobalOverlay } from './actions';
 
 interface InitialState {
-  globalOverlay: string;
+  overlay: string;
 }
 
 const initialState: InitialState = {
-  globalOverlay: '',
+  overlay: '',
 };
 
 export default createReducer(initialState).handleAction(
   setGlobalOverlay,
-  (state, action) => ({ ...state, globalOverlay: action.payload }),
+  (state, action) => ({ ...state, overlay: action.payload }),
 );

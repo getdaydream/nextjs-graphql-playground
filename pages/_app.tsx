@@ -11,7 +11,7 @@ import GlobalStyle from '@/containers/GlobalStyle';
 import { ApolloClient } from 'apollo-client';
 import { NormalizedCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { withApolloClient, grommetTheme } from '@/utils';
-import { ApolloProvider, compose } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo';
 import { Grommet } from 'grommet';
 import withRedux from 'next-redux-wrapper';
 import { configureStore } from '@/store';
@@ -57,20 +57,17 @@ class MyApp extends App<IAppProps> {
       <Container>
         <GlobalStyle />
 
-        <ReduxProvider store={store}>
-          <ApolloProvider client={apolloClient}>
+        <ApolloProvider client={apolloClient}>
+          <ReduxProvider store={store}>
             {/* TODO: theme */}
             <Grommet theme={grommetTheme}>
               <Component {...pageProps} />
             </Grommet>
-          </ApolloProvider>
-        </ReduxProvider>
+          </ReduxProvider>
+        </ApolloProvider>
       </Container>
     );
   }
 }
 
-export default compose(
-  withApolloClient,
-  withRedux(configureStore),
-)(MyApp);
+export default withApolloClient(withRedux(configureStore)(MyApp));

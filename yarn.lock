@@ -8160,9 +8160,9 @@ ts-invariant@^0.3.2:
     tslib "^1.9.3"
 
 ts-invariant@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.npm.taobao.org/ts-invariant/download/ts-invariant-0.4.1.tgz#2612cb76626cf7c6debf59e6d284d0abd9caae07"
-  integrity sha1-JhLLdmJs98bev1nm0oTQq9nKrgc=
+  version "0.4.2"
+  resolved "https://registry.npm.taobao.org/ts-invariant/download/ts-invariant-0.4.2.tgz#8685131b8083e67c66d602540e78763408be9113"
+  integrity sha1-hoUTG4CD5nxm1gJUDnh2NAi+kRM=
   dependencies:
     tslib "^1.9.3"
 
