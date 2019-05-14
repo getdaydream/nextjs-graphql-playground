@@ -1,78 +1,80 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import cookie from 'cookie';
 import { compose, withApollo, WithApolloClient } from 'react-apollo';
-import { inject } from 'mobx-react';
-import { MstStoreProps } from '@/stores';
-import { gqClient } from '@/utils/init-apollo-client';
 import {
   IQueryLoginResult,
   IQueryLoginResultVariables,
 } from '@/graphql/__generated-types__';
-import { QueryLoginResult } from '@/graphql/user';
+import { QueryLoginResult, QueryMe } from '@/graphql/user';
 import { Button, Input, Icon } from 'antd';
+import { setGlobalOverlay } from '@/store/UI/global/actions';
+import { connect } from 'react-redux';
 
 const InputGroup = Input.Group;
 
-type PropsInternal = WithApolloClient<MstStoreProps>;
+const dispatachProps = {
+  setGlobalOverlay,
+};
 
-class LoginForm extends React.Component<PropsInternal> {
-  password = '';
-  email = '';
+type LoginFormProps = WithApolloClient<typeof dispatachProps>;
 
-  handleChangeEmail = (e: React.FormEvent<HTMLInputElement>) => {
-    this.email = e.currentTarget.value;
+const LoginForm: React.FC<LoginFormProps> = ({ setGlobalOverlay, client }) => {
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleChangeEmail = (e: React.FormEvent<HTMLInputElement>) => {
+    setEmail(e.currentTarget.value);
   };
 
-  handleChangePassword = (e: React.FormEvent<HTMLInputElement>) => {
-    this.password = e.currentTarget.value;
+  const handleChangePassword = (e: React.FormEvent<HTMLInputElement>) => {
+    setPassword(e.currentTarget.value);
   };
 
-  handleClickLogin = async () => {
-    const { password, email } = this;
+  const handleClickLogin = async () => {
     const {
       data: {
         login: { token, user },
       },
-    } = await gqClient.query<IQueryLoginResult, IQueryLoginResultVariables>({
+    } = await client.query<IQueryLoginResult, IQueryLoginResultVariables>({
       query: QueryLoginResult,
       variables: { password, email },
     });
-    const {
-      account: { setUser },
-      globalHeader: { setShowAuthModal },
-    } = this.props.store;
-    setUser(user);
+    client.writeQuery({
+      query: QueryMe,
+      data: { me: user },
+    });
     document.cookie = cookie.serialize('token', token, {
       maxAge: 7 * 24 * 60 * 60, // 7 days
     });
-    setShowAuthModal(false);
+    setGlobalOverlay('');
   };
 
-  render() {
-    return (
-      <Fragment>
-        <InputGroup size="large">
-          <Input
-            placeholder="邮箱"
-            onChange={this.handleChangeEmail}
-            type="email"
-            prefix={<Icon type="user" />}
-          />
-          <Input.Password
-            placeholder="密码"
-            onChange={this.handleChangePassword}
-            prefix={<Icon type="lock" />}
-          />
-        </InputGroup>
-        <Button block onClick={this.handleClickLogin}>
-          登录
-        </Button>
-      </Fragment>
-    );
-  }
-}
+  return (
+    <Fragment>
+      <InputGroup size="large">
+        <Input
+          placeholder="邮箱"
+          onChange={handleChangeEmail}
+          type="email"
+          prefix={<Icon type="user" />}
+        />
+        <Input.Password
+          placeholder="密码"
+          onChange={handleChangePassword}
+          prefix={<Icon type="lock" />}
+        />
+      </InputGroup>
+      <Button block onClick={handleClickLogin}>
+        登录
+      </Button>
+    </Fragment>
+  );
+};
 
 export default compose(
   withApollo,
-  inject(store => store),
+  connect(
+    null,
+    dispatachProps,
+  ),
 )(LoginForm);

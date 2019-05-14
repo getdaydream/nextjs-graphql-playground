@@ -1,18 +1,10 @@
-import React from 'react';
-// import cookie from 'cookie';
-// import { WithApolloClient } from 'react-apollo';
-// import { QueryLoginResult } from '@/graphql/user';
-// import {
-//   IQueryLoginResult,
-//   IQueryLoginResultVariables,
-// } from '@/graphql/__generated-types__';
-// import { MstStoreProps } from '@/stores';
-import { observable, action } from 'mobx';
+import React, { useState } from 'react';
 import { Box } from 'grommet';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
-// import { gqClient } from '@/utils/init-apollo-client';
 import { Modal, Tabs } from 'antd';
+import { setGlobalOverlay } from '@/store/UI/global/actions';
+import { connect } from 'react-redux';
 
 const { TabPane } = Tabs;
 
@@ -21,70 +13,43 @@ enum TabEnum {
   Signup = '注册',
 }
 
-// type PropsInternal = WithApolloClient<MstStoreProps>;
+const dispatchProps = {
+  setGlobalOverlay,
+};
 
-class AuthModal extends React.Component {
-  @observable
-  currnetTab: TabEnum = TabEnum.Login;
+type AuthModalProps = typeof dispatchProps;
 
-  @action
-  setCurrentTab = (currnetTab: TabEnum) => {
-    this.currnetTab = currnetTab;
+const AuthModal: React.FC<AuthModalProps> = ({ setGlobalOverlay }) => {
+  const [currnetTab, setCurrnetTab] = useState(TabEnum.Login);
+
+  const handleChangeTab = (value: string) => {
+    setCurrnetTab(value as TabEnum);
   };
 
-  handleClickLogin = async () => {
-    // const {
-    //   store: {
-    //     globalHeader: { setShowAuthModal },
-    //   },
-    // } = this.props;
-    // const {
-    //   data: {
-    //     login: { token, user },
-    //   },
-    // } = await gqClient.query<IQueryLoginResult, IQueryLoginResultVariables>({
-    //   query: QueryLoginResult,
-    //   variables: { email: '1@qq.com', password: '12345678' },
-    // });
-    // const {
-    //   account: { setUser },
-    // } = this.props.store;
-    // setUser(user);
-    // document.cookie = cookie.serialize('token', token, {
-    //   maxAge: 7 * 24 * 60 * 60, // 7 days
-    // });
-    // setShowAuthModal(false);
-  };
-
-  render() {
-    // const {
-    //   store: {
-    //     globalHeader: { setShowAuthModal },
-    //   },
-    // } = this.props;
-
-    return (
-      <Modal
-        // onCancel={() => setShowAuthModal(false)}
-        visible={true}
-        centered
-        footer={null}
-      >
-        <Box fill={true} align="center" justify="center">
-          <Box align="center">
-            <Tabs>
-              <TabPane key={TabEnum.Login} tab={TabEnum.Login}>
-                <LoginForm />
-              </TabPane>
-              <TabPane key={TabEnum.Signup} tab={TabEnum.Signup}>
-                <SignupForm />
-              </TabPane>
-            </Tabs>
-          </Box>
+  return (
+    <Modal
+      onCancel={() => setGlobalOverlay('')}
+      visible={true}
+      centered
+      footer={null}
+    >
+      <Box fill={true} align="center" justify="center">
+        <Box align="center">
+          <Tabs activeKey={currnetTab} onChange={handleChangeTab}>
+            <TabPane key={TabEnum.Login} tab={TabEnum.Login}>
+              <LoginForm />
+            </TabPane>
+            <TabPane key={TabEnum.Signup} tab={TabEnum.Signup}>
+              <SignupForm />
+            </TabPane>
+          </Tabs>
         </Box>
-      </Modal>
-    );
-  }
-}
+      </Box>
+    </Modal>
+  );
+};
 
-export default AuthModal;
+export default connect(
+  null,
+  dispatchProps,
+)(AuthModal);

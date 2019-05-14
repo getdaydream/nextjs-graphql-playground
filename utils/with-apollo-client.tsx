@@ -26,7 +26,6 @@ export default (App: any) => {
         initialState: {},
         getToken: () => parseCookies(req).token,
       });
-
       ctx.ctx.apolloClient = apollo;
 
       let appProps: object = {};
