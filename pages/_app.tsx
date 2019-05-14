@@ -57,14 +57,14 @@ class MyApp extends App<IAppProps> {
       <Container>
         <GlobalStyle />
 
-        <ReduxProvider store={store}>
-          <ApolloProvider client={apolloClient}>
+        <ApolloProvider client={apolloClient}>
+          <ReduxProvider store={store}>
             {/* TODO: theme */}
             <Grommet theme={grommetTheme}>
               <Component {...pageProps} />
             </Grommet>
-          </ApolloProvider>
-        </ReduxProvider>
+          </ReduxProvider>
+        </ApolloProvider>
       </Container>
     );
   }

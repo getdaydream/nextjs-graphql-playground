@@ -1,12 +1,7 @@
-// stops mobx from listening to ssr rendered components
-// ssr only mounts components once
-import { useStaticRendering } from 'mobx-react';
 import * as cookieParser from 'cookie-parser';
 import * as next from 'next';
 import * as express from 'express';
 import { routes } from './routes';
-
-useStaticRendering(true);
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev, quiet: false });
