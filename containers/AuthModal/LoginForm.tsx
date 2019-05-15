@@ -12,11 +12,11 @@ import { connect } from 'react-redux';
 
 const InputGroup = Input.Group;
 
-const dispatachProps = {
+const dispatchProps = {
   setGlobalOverlay,
 };
 
-type LoginFormProps = WithApolloClient<typeof dispatachProps>;
+type LoginFormProps = WithApolloClient<typeof dispatchProps>;
 
 const LoginForm: React.FC<LoginFormProps> = ({ setGlobalOverlay, client }) => {
   const [password, setPassword] = useState('');
@@ -31,6 +31,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setGlobalOverlay, client }) => {
   };
 
   const handleClickLogin = async () => {
+    // TODO: handle wrong email password error
     const {
       data: {
         login: { token, user },
@@ -75,6 +76,6 @@ export default compose(
   withApollo,
   connect(
     null,
-    dispatachProps,
+    dispatchProps,
   ),
 )(LoginForm);

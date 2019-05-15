@@ -116,7 +116,7 @@ export interface IQueryMe_me {
 }
 
 export interface IQueryMe {
-  me: IQueryMe_me;
+  me: IQueryMe_me | null;
 }
 
 /* tslint:disable */

@@ -6,8 +6,6 @@ const Home: NextFC = () => {
   return (
     <div>
       <Header />
-
-      <div>test apollo client</div>
     </div>
   );
 };
