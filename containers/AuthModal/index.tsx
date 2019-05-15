@@ -20,10 +20,10 @@ const dispatchProps = {
 type AuthModalProps = typeof dispatchProps;
 
 const AuthModal: React.FC<AuthModalProps> = ({ setGlobalOverlay }) => {
-  const [currnetTab, setCurrnetTab] = useState(TabEnum.Login);
+  const [currnetTab, setCurrentTab] = useState(TabEnum.Login);
 
   const handleChangeTab = (value: string) => {
-    setCurrnetTab(value as TabEnum);
+    setCurrentTab(value as TabEnum);
   };
 
   return (
