@@ -39,6 +39,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-observable": "^1.1.0",
     "rxjs": "^6.5.1",
+    "semantic-ui-react": "^0.87.1",
     "styled-components": "^4.2.0",
     "typesafe-actions": "^4.3.0"
   },

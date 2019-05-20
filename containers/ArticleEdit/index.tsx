@@ -1,8 +1,7 @@
 import React from 'react';
 import ArticleEditor from '@/components/ArticleEditor';
-import { Input, Icon } from 'antd';
 import { Box } from 'grommet';
-import { Button } from 'antd';
+import { Button, Input, Icon } from 'semantic-ui-react';
 import { Portal } from 'react-portal';
 import { setGlobalOverlay } from '@/store/UI/global/actions';
 import { connect } from 'react-redux';
@@ -29,8 +28,7 @@ const ArticleEdit: React.FC<ArticleEditProps> = ({ setGlobalOverlay }) => {
         {/* {draft.id && <Button onClick={pushlishArticle}>发布</Button>} */}
 
         <Button
-          //  onClick={this.saveArticle}
-          size="default"
+        //  onClick={this.saveArticle}
         >
           保存
         </Button>
