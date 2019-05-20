@@ -1,7 +1,7 @@
 import React from 'react';
 import ArticleEditor from '@/components/ArticleEditor';
 import { Box } from 'grommet';
-import { Button, Input, Icon } from 'semantic-ui-react';
+import { Button, InputGroup, Icon } from '@blueprintjs/core';
 import { Portal } from 'react-portal';
 import { setGlobalOverlay } from '@/store/UI/global/actions';
 import { connect } from 'react-redux';
@@ -20,7 +20,7 @@ const ArticleEdit: React.FC<ArticleEditProps> = ({ setGlobalOverlay }) => {
     <Portal>
       <Box pad="large" background="light-3">
         <Box direction="row" justify="end" pad="small">
-          <Icon type="cross" onClick={() => setGlobalOverlay('')} />
+          <Icon icon="cross" onClick={() => setGlobalOverlay('')} />
         </Box>
 
         {/* {draft.updateTime && <Box>上次保存时间: {draft.updateTime}</Box>} */}
@@ -33,8 +33,7 @@ const ArticleEdit: React.FC<ArticleEditProps> = ({ setGlobalOverlay }) => {
           保存
         </Button>
 
-        <Input
-          size="large"
+        <InputGroup
           // value={draft.title}
           // onChange={e =>
           //   updateArticle({ ...draft, title: e.currentTarget.value })

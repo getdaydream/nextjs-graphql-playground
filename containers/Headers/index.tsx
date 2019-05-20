@@ -8,7 +8,7 @@ import { Query } from 'react-apollo';
 import { QueryMe } from '@/graphql/user';
 import { IQueryMe } from '@/graphql/__generated-types__';
 import dynamic from 'next/dynamic';
-import { Button } from 'semantic-ui-react';
+import { Button, Intent } from '@blueprintjs/core';
 import Avatar from '@/components/Avatar';
 
 const ArticleEdit = dynamic(() => import('@/containers/ArticleEdit'), {
@@ -43,7 +43,13 @@ const Header: React.FC<HeaderProps> = ({
               <Box direction="row" justify="between" fill>
                 <div />
                 <Box direction="row" justify="end" align="center">
-                  <Button onClick={() => setGlobalOverlay('post')} color="google plus">Post</Button>
+                  <Button
+                    onClick={() => setGlobalOverlay('post')}
+                    large
+                    intent={Intent.PRIMARY}
+                  >
+                    Post
+                  </Button>
                   <Avatar />
                 </Box>
               </Box>

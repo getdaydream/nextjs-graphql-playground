@@ -1,0 +1,31 @@
+@import '../../node_modules/nord/src/sass/nord.scss';
+@import '../../node_modules/@blueprintjs/core/lib/scss/variables';
+
+$pt-intent-primary: $nord8;
+$pt-intent-danger: $nord11;
+
+// "intent": (default, hover, active colors)
+$button-intents: (
+  'primary': (
+    $pt-intent-primary,
+    $nord9,
+    $nord10,
+  ),
+  'success': (
+    $nord14,
+    $green2,
+    $green1,
+  ),
+  'warning': (
+    $pt-intent-warning,
+    $orange2,
+    $orange1,
+  ),
+  'danger': (
+    $pt-intent-danger,
+    #ff4e47,
+    #d40f15,
+  ),
+);
+
+@import '../../node_modules/@blueprintjs/core/src/blueprint.scss';

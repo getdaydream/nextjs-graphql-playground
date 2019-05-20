@@ -6,7 +6,7 @@ import {
   IQueryLoginResultVariables,
 } from '@/graphql/__generated-types__';
 import { QueryLoginResult, QueryMe } from '@/graphql/user';
-import { Button, Input, Icon } from 'semantic-ui-react';
+import { Button, InputGroup, Icon } from '@blueprintjs/core';
 import { setGlobalOverlay } from '@/store/UI/global/actions';
 import { connect } from 'react-redux';
 
@@ -50,19 +50,23 @@ const LoginForm: React.FC<LoginFormProps> = ({ setGlobalOverlay, client }) => {
 
   return (
     <Fragment>
-      <Input
+      <InputGroup
         placeholder="邮箱"
         onChange={handleChangeEmail}
         type="email"
-        prefix={<Icon type="user" />}
+        leftIcon={<Icon icon="user" />}
+        large
       />
-      <Input
+      <InputGroup
         placeholder="密码"
         onChange={handleChangePassword}
-        prefix={<Icon type="lock" />}
+        leftIcon={<Icon icon="lock" />}
         type="password"
+        large
       />
-      <Button onClick={handleClickLogin}>登录</Button>
+      <Button onClick={handleClickLogin} fill>
+        登录
+      </Button>
     </Fragment>
   );
 };
