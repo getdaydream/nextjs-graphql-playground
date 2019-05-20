@@ -7,8 +7,9 @@ import { setGlobalOverlay } from '@/store/UI/global/actions';
 import { Query } from 'react-apollo';
 import { QueryMe } from '@/graphql/user';
 import { IQueryMe } from '@/graphql/__generated-types__';
-import { Button, Avatar } from 'antd';
 import dynamic from 'next/dynamic';
+import { Button } from 'semantic-ui-react';
+import Avatar from '@/components/Avatar';
 
 const ArticleEdit = dynamic(() => import('@/containers/ArticleEdit'), {
   ssr: false,
@@ -42,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({
               <Box direction="row" justify="between" fill>
                 <div />
                 <Box direction="row" justify="end" align="center">
-                  <Button onClick={() => setGlobalOverlay('post')}>Post</Button>
+                  <Button onClick={() => setGlobalOverlay('post')} color="google plus">Post</Button>
                   <Avatar />
                 </Box>
               </Box>

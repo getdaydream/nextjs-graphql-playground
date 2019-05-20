@@ -6,11 +6,9 @@ import {
   IQueryLoginResultVariables,
 } from '@/graphql/__generated-types__';
 import { QueryLoginResult, QueryMe } from '@/graphql/user';
-import { Button, Input, Icon } from 'antd';
+import { Button, Input, Icon } from 'semantic-ui-react';
 import { setGlobalOverlay } from '@/store/UI/global/actions';
 import { connect } from 'react-redux';
-
-const InputGroup = Input.Group;
 
 const dispatchProps = {
   setGlobalOverlay,
@@ -52,22 +50,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ setGlobalOverlay, client }) => {
 
   return (
     <Fragment>
-      <InputGroup size="large">
-        <Input
-          placeholder="邮箱"
-          onChange={handleChangeEmail}
-          type="email"
-          prefix={<Icon type="user" />}
-        />
-        <Input.Password
-          placeholder="密码"
-          onChange={handleChangePassword}
-          prefix={<Icon type="lock" />}
-        />
-      </InputGroup>
-      <Button block onClick={handleClickLogin}>
-        登录
-      </Button>
+      <Input
+        placeholder="邮箱"
+        onChange={handleChangeEmail}
+        type="email"
+        prefix={<Icon type="user" />}
+      />
+      <Input
+        placeholder="密码"
+        onChange={handleChangePassword}
+        prefix={<Icon type="lock" />}
+        type="password"
+      />
+      <Button onClick={handleClickLogin}>登录</Button>
     </Fragment>
   );
 };
