@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Box } from 'grommet';
 import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
-import { Modal, Tabs } from 'antd';
+// import SignupForm from './SignupForm';
+import { Modal } from 'antd';
 import { setGlobalOverlay } from '@/store/UI/global/actions';
 import { connect } from 'react-redux';
-
-const { TabPane } = Tabs;
 
 enum TabEnum {
   Login = '登录',
@@ -35,14 +33,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ setGlobalOverlay }) => {
     >
       <Box fill={true} align="center" justify="center">
         <Box align="center">
-          <Tabs activeKey={currnetTab} onChange={handleChangeTab}>
-            <TabPane key={TabEnum.Login} tab={TabEnum.Login}>
-              <LoginForm />
-            </TabPane>
-            <TabPane key={TabEnum.Signup} tab={TabEnum.Signup}>
-              <SignupForm />
-            </TabPane>
-          </Tabs>
+          <LoginForm />
         </Box>
       </Box>
     </Modal>

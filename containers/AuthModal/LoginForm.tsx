@@ -6,9 +6,9 @@ import {
   IQueryLoginResultVariables,
 } from '@/graphql/__generated-types__';
 import { QueryLoginResult, QueryMe } from '@/graphql/user';
-import { Button, InputGroup, Icon } from '@blueprintjs/core';
 import { setGlobalOverlay } from '@/store/UI/global/actions';
 import { connect } from 'react-redux';
+import { Button, Input } from 'semantic-ui-react';
 
 const dispatchProps = {
   setGlobalOverlay,
@@ -50,23 +50,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ setGlobalOverlay, client }) => {
 
   return (
     <Fragment>
-      <InputGroup
-        placeholder="邮箱"
-        onChange={handleChangeEmail}
-        type="email"
-        leftIcon={<Icon icon="user" />}
-        large
-      />
-      <InputGroup
+      <Input placeholder="邮箱" onChange={handleChangeEmail} type="email" />
+      <Input
         placeholder="密码"
         onChange={handleChangePassword}
-        leftIcon={<Icon icon="lock" />}
         type="password"
-        large
       />
-      <Button onClick={handleClickLogin} fill>
-        登录
-      </Button>
+      <Button onClick={handleClickLogin} fluid>登录</Button>
     </Fragment>
   );
 };
