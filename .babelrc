@@ -10,13 +10,6 @@
         }
       }
     ],
-    [
-      "import",
-      {
-        "libraryName": "antd",
-        "style": "css"
-      }
-    ],
     ["styled-components", { "ssr": true }],
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     ["@babel/plugin-proposal-class-properties", { "loose": true }],
