@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import cookie from 'cookie';
 import { compose, withApollo, WithApolloClient } from 'react-apollo';
 import {
@@ -8,7 +8,7 @@ import {
 import { QueryLoginResult, QueryMe } from '@/graphql/user';
 import { setGlobalOverlay } from '@/store/UI/global/actions';
 import { connect } from 'react-redux';
-import { Button, Input } from 'semantic-ui-react';
+import { Button, Segment, Grid, Form, Divider } from 'semantic-ui-react';
 
 const dispatchProps = {
   setGlobalOverlay,
@@ -49,15 +49,38 @@ const LoginForm: React.FC<LoginFormProps> = ({ setGlobalOverlay, client }) => {
   };
 
   return (
-    <Fragment>
-      <Input placeholder="邮箱" onChange={handleChangeEmail} type="email" />
-      <Input
-        placeholder="密码"
-        onChange={handleChangePassword}
-        type="password"
-      />
-      <Button onClick={handleClickLogin} fluid>登录</Button>
-    </Fragment>
+    <Segment size="massive" placeholder>
+      <Grid columns={2} relaxed="very" stackable>
+        <Grid.Column>
+          <Form>
+            <Form.Input
+              icon="user"
+              iconPosition="left"
+              label="邮箱"
+              placeholder="邮箱"
+              type="email"
+              onChange={handleChangeEmail}
+            />
+            <Form.Input
+              icon="lock"
+              iconPosition="left"
+              label="密码"
+              type="password"
+              onChange={handleChangePassword}
+              placeholder="密码"
+            />
+
+            <Button content="登录" primary onClick={handleClickLogin} />
+          </Form>
+        </Grid.Column>
+
+        <Grid.Column verticalAlign="middle">
+          <Button content="注册" icon="signup" size="large" />
+        </Grid.Column>
+      </Grid>
+
+      <Divider vertical>Or</Divider>
+    </Segment>
   );
 };
 
@@ -68,3 +91,4 @@ export default compose(
     dispatchProps,
   ),
 )(LoginForm);
+ 

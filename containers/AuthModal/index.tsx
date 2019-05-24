@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Box } from 'grommet';
 import LoginForm from './LoginForm';
 import { setGlobalOverlay } from '@/store/UI/global/actions';
 import { connect } from 'react-redux';
-import { Modal, Menu } from 'semantic-ui-react';
+import { Modal } from 'semantic-ui-react';
 import SignupForm from './SignupForm';
 
 enum TabEnum {
@@ -27,26 +26,11 @@ const AuthModal: React.FC<AuthModalProps> = ({ setGlobalOverlay }) => {
       centered={true}
       closeIcon={true}
       closeOnDimmerClick={true}
+      size="small"
+      basic
     >
-      <Box fill={true} align="center" justify="center">
-        <Box align="center">
-          <Menu secondary>
-            <Menu.Item
-              name={TabEnum.Login}
-              active={currnetTab === TabEnum.Login}
-              onClick={() => setCurrentTab(TabEnum.Login)}
-            />
-            <Menu.Item
-              name={TabEnum.Signup}
-              active={currnetTab === TabEnum.Signup}
-              onClick={() => setCurrentTab(TabEnum.Signup)}
-            />
-          </Menu>
-
-          {currnetTab === TabEnum.Login && <LoginForm />}
-          {currnetTab === TabEnum.Signup && <SignupForm />}
-        </Box>
-      </Box>
+      {currnetTab === TabEnum.Login && <LoginForm />}
+      {currnetTab === TabEnum.Signup && <SignupForm />}
     </Modal>
   );
 };
